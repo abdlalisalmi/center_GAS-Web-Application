@@ -2,6 +2,10 @@
     font-family: "cairo";
     src: url("../fonts/Cairo-Regular.ttf");
 }
+* {
+    margin: 0;
+    padding: 0;
+}
 
 body {
     font-family: 'cairo', sans-serif;
