@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
+from .forms import handicappedForm
 
 
 @login_required(login_url='/')
@@ -12,4 +13,12 @@ def handicapped_list(request):
 @login_required(login_url='/')
 def add_handicapped(request):
     template_name = 'add_handicapped.html'
-    return render(request, template_name, {})
+    context = {}
+
+    if request.method == 'POST':
+        pass
+
+    form = handicappedForm()
+    
+    context['form']= form
+    return render(request, template_name, context)
