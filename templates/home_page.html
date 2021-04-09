@@ -1,13 +1,45 @@
-{% extends "base.html" %}
+{% extends "base.html" %}{% load static %}
 
 
 {% block content %}
-    <h1>مركز إرشاد ومساعدة المعوقين</h1>
-    <i class="bi bi-arrow-clockwise"></i>
+    <div class='container home'>
+        {% if request.user.is_authenticated %}
+            <div class='container mt-5'>
+                <div class='row justify-content-center'>
+                    <div class='col-lg-6 item'>
+                        <a href="#">
+                            <p>صندوق دعم التماسك الاجتماعي</p>
+                        </a>
+                    </div>
+                    <div class='col-lg-6 item'>
+                        <a href="{% url 'handicapped:handicapped_list' %}">
+                            <p>لائحة الأشخاص في وضعية إعاقة</p>
+                        </a>
+                    </div>
+                    <div class='col-lg-6 item'>
+                        <a href="#">
+                            <p>بطاقات شخص في وضعية إعاقة</p>
+                        </a>
+                    </div>
+                    <div class='col-lg-6 item'>
+                        <a href="#">
+                            <p>الطرد الغدائي</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            {% include "login.html" %}
+        {% endif %}
 
-    {% if request.user.is_authenticated %}
-        <h1>Hello, you are authentecate</h1>
-    {% else %}
-        {% include "login.html" %}
-    {% endif %}
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <img src="{% static 'images/footer.png' %}" class="img-fluid" style="min-height:100%;" />
+        </div>
+    </footer>
 {% endblock content %}
+
+<!-- صندوق دعم التماسك الاجتماعي -->
+<!-- الطرد الغدائي -->
+<!-- بطاقات شخص في وضعية إعاقة -->

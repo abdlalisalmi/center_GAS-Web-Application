@@ -1,12 +1,43 @@
 @font-face {
-    font-family: "cairo";
+    font-family: 'Cairo';
     src: url("../fonts/Cairo-Regular.ttf");
 }
+@font-face {
+    font-family: 'Cairo-sbold';
+    src: url("../fonts/Cairo-SemiBold.ttf");
+}
+
 * {
     margin: 0;
     padding: 0;
+    font-family: 'Cairo', sans-serif !important;
+    /* direction: rtl; */
+    text-align: right;
 }
+/* body {
+    font-family: 'Cairo', sans-serif !important;
+} */
 
-body {
-    font-family: 'cairo', sans-serif;
+.home {
+    height: 78vh;
+}
+.home .item a {
+    text-decoration: none;
+}
+.home .item p {
+    background-color: #291965;
+    color: #fff;
+    border: 1px solid #291965;
+    border-radius: 20px;
+    padding: 20px;
+    font-family: 'Cairo-sbold', sans-serif !important;
+    font-size: 1rem;
+    font-weight: 900;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.home .item p:hover {
+    color: #23292e;
+    background-color: #f1f2f6;
 }
