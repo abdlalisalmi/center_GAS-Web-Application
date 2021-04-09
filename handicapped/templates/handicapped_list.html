@@ -1,0 +1,58 @@
+{% extends "base.html" %}{% load static %}
+
+
+{% block content %}
+    <div class='container-fluid home'>
+        <div class='container-fluid mt-5'>
+            <div class='row handicapped-list  justify-content-center'>
+
+                <div class='col-lg-8 title text-center'>
+                    <p>لائحة الأشخاص في وضعية إعاقة</p>
+                    <a href="{% url 'handicapped:add_handicapped' %}" class="btn btn-success">إضافة شخص جديد <i class="bi bi-plus-circle-fill"></i></a>
+                    <div class="input-group mt-4">
+                        <span class="input-group-text"><i class="bi bi-search"></i></span>
+                        <input type="text" class="form-control" placeholder="إبحث عن شخص ما">
+                    </div>
+                </div>
+
+                {% comment %} <div class='col-lg-6 text-center'>
+                </div> {% endcomment %}
+
+                <div class='col-lg-12'>
+
+                   <table class="table">
+                        <thead>
+                            <tr>
+                            <th scope="col">ولي الأمر</th>
+                            <th scope="col">نوع الإعاقة</th>
+                            <th scope="col">مكان الإزدياد</th>
+                            <th scope="col">تاريخ الإزدياد</th>
+                            <th scope="col">رقم البطاقة الوطنية</th>
+                            <th scope="col">رقم الهاتف</th>
+                            <th scope="col">العنوان</th>
+                            <th scope="col">الإسم الكامل</th>
+                            <th scope="col">#</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for handicapped in handicapped_list %}
+                                <tr>
+                                    <td>{% if handicapped.handicap_Type %}{{handicapped.handicap_Type}}{% endif %}</td>
+                                    <td>{% if handicapped.guardian %}{{handicapped.guardian}}{% endif %}</td>
+                                    <td>{% if handicapped.birth_address %}{{handicapped.birth_address}}{% endif %}</td>
+                                    <td>{% if handicapped.birthday %}{{handicapped.birthday}}{% endif %}</td>
+                                    <td>{% if handicapped.cin %}{{handicapped.cin}}{% endif %}</td>
+                                    <td>{% if handicapped.phone_number %}{{handicapped.phone_number}}{% endif %}</td>
+                                    <td>{% if handicapped.address %}{{handicapped.address}}{% endif %}</td>
+                                    <td>{% if handicapped.full_name %}{{handicapped.full_name}}{% endif %}</td>
+                                    <th scope="row">{{forloop.counter}}</th>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

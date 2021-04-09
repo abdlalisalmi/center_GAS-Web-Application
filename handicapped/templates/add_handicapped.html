@@ -7,19 +7,75 @@
             <div class='row justify-content-center'>
                 <div class='col-lg-8'>
 
-                    <form method=POST action="{% url 'handicapped:add_handicapped' %}">
+                    <form class="handicapped-form" method=POST action="{% url 'handicapped:add_handicapped' %}">
                         {% csrf_token %}
-                        
-                        <div class="form-group pb-3">
-                            <input name='full_name' type="text" placeholder="إسم المستخدم" class="form-control">   
-                        </div>
+                        <div class='row justify-content-center'>
+                            <h1 class="">إضافة شخص من دوي الإحتياجات الخاصة</h1>
+                            </hr>
+                            {% if form.errors %}
+                                <ul class="messages">
+                                    <li class="text-danger" style='list-style-type: none;'>المرجو ملئ جميع المعلومات بشكل صحيح.<i class="bi bi-exclamation-triangle"></i></li>
+                                </ul>
+                            {% endif %}
+                            <div class='col-lg-6'>
+                                <div class="form-group pb-3">
+                                    <label>تاريخ الإزدياد</label>
+                                    <input name='birthday' type="date" class="form-control mt-2">
+                                </div>
 
-                        <div class="form-group pb-3">
-                            <input name='birthday' type="text" placeholder="كلمة المرور" class="form-control">
+                                <div class="form-group pb-3">
+                                    <label>مكان الإزدياد</label>
+                                    <input name='birth_address' type="text" class="form-control mt-2">
+                                </div>
+
+                                <div class="form-group pb-3">
+                                    <label>ولي الأمر</label>
+                                    <input name='guardian' type="text" class="form-control mt-2">
+                                </div>
+
+                                <div class="form-group pb-3">
+                                    <label for="taype">نوع الإعاقة</label>
+
+                                    <select name="handicap_Type" class="form-select">
+                                        <option selected value="حركية">حركية</option>
+                                        <option value="بصرية">بصرية</option>
+                                        <option value="سمعية">سمعية</option>
+                                        <option value="التوحد">التوحد</option>
+                                        <option value="التأخر الزمني">التأخر الزمني</option>
+                                        <option value="الثلاتي الصبغي 21">الثلاتي الصبغي 21</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class='col-lg-6'>
+
+                                <div class="form-group pb-3">
+                                    <label>الإسم الكامل</label>
+                                    <input name='full_name' type="text" class="form-control mt-2">   
+                                </div>
+
+                                <div class="form-group pb-3">
+                                    <label>العنوان</label>
+                                    <input name='address' type="text" class="form-control mt-2">
+                                </div>
+
+                                <div class="form-group pb-3">
+                                    <label>رقم الهاتف</label>
+                                    <input name='phone_number' type="number" class="form-control mt-2">
+                                </div>
+
+                                <div class="form-group pb-3">
+                                    <label>رقم البطاقة الوطنية</label>
+                                    <input name='cin' type="text" class="form-control mt-2">
+                                </div>
+                            </div>
+
                         </div>
 
                         <div class="pb-2">
-                            <button type="submit" class="btn btn-dark w-100 font-weight-bold mt-2">دخول</button>
+                            <a href="{% url 'handicapped:handicapped_list' %}" class="btn btn-danger">إلغاء</a>
+                            <button type="submit" class="btn btn-dark">حفظ</button>
                         </div>
                     </form>
 

@@ -17,6 +17,8 @@
 /* body {
     font-family: 'Cairo', sans-serif !important;
 } */
+select {text-align-last:right; }
+select option {text-align-last:right; }
 
 .home {
     height: 78vh;
@@ -40,4 +42,28 @@
 .home .item p:hover {
     color: #23292e;
     background-color: #f1f2f6;
+}
+
+.handicapped-list .title {
+    border: 1px solid #291965;
+    margin-bottom: 30px;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.handicapped-list .title p{
+    color: #291965;
+    font-family: 'Cairo-sbold', sans-serif !important;
+    font-size: 1.5rem;
+    font-weight: 900;
+    text-align: center;
+}
+
+
+
+.handicapped-form h1 {
+    font-size: 1.5rem;
+    padding: 15px;
+    border-bottom: #23292e 0.5px solid;
+    margin-bottom: 20px;
 }
