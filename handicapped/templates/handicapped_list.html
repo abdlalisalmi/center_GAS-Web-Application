@@ -8,26 +8,29 @@
 
                 <div class='col-lg-8 title text-center'>
                     <p>لائحة الأشخاص في وضعية إعاقة</p>
+                    {% if deleted %}
+                        <a href="{% url 'handicapped:handicapped_list' %}" class="btn btn-danger">القائمة الرئيسية <i class="bi bi-view-list"></i></a>
+                    {% else %}
+                        <a href="{% url 'handicapped:handicapped_list' %}?deleted=True" class="btn btn-danger">سلة المحذوفين <i class="bi bi-trash"></i></a>
+                    {% endif %}
                     <a href="{% url 'handicapped:add_handicapped' %}" class="btn btn-success">إضافة شخص جديد <i class="bi bi-plus-circle-fill"></i></a>
-                    <div class="input-group mt-4">
+                    {% comment %} <div class="input-group mt-4">
                         <span class="input-group-text"><i class="bi bi-search"></i></span>
                         <input type="text" class="form-control" placeholder="إبحث عن شخص ما">
-                    </div>
+                    </div> {% endcomment %}
                 </div>
-
-                {% comment %} <div class='col-lg-6 text-center'>
-                </div> {% endcomment %}
 
                 <div class='col-lg-12'>
 
                    <table class="table">
-                        <thead>
+                        <thead class=''>
                             <tr>
+                            <th scope="col"></th>
                             <th scope="col">ولي الأمر</th>
                             <th scope="col">نوع الإعاقة</th>
                             <th scope="col">مكان الإزدياد</th>
                             <th scope="col">تاريخ الإزدياد</th>
-                            <th scope="col">رقم البطاقة الوطنية</th>
+                            <th scope="col">C.I.N</th>
                             <th scope="col">رقم الهاتف</th>
                             <th scope="col">العنوان</th>
                             <th scope="col">الإسم الكامل</th>
@@ -36,17 +39,50 @@
                         </thead>
                         <tbody>
                             {% for handicapped in handicapped_list %}
-                                <tr>
-                                    <td>{% if handicapped.handicap_Type %}{{handicapped.handicap_Type}}{% endif %}</td>
-                                    <td>{% if handicapped.guardian %}{{handicapped.guardian}}{% endif %}</td>
-                                    <td>{% if handicapped.birth_address %}{{handicapped.birth_address}}{% endif %}</td>
-                                    <td>{% if handicapped.birthday %}{{handicapped.birthday}}{% endif %}</td>
-                                    <td>{% if handicapped.cin %}{{handicapped.cin}}{% endif %}</td>
-                                    <td>{% if handicapped.phone_number %}{{handicapped.phone_number}}{% endif %}</td>
-                                    <td>{% if handicapped.address %}{{handicapped.address}}{% endif %}</td>
-                                    <td>{% if handicapped.full_name %}{{handicapped.full_name}}{% endif %}</td>
-                                    <th scope="row">{{forloop.counter}}</th>
-                                </tr>
+                                    <tr>
+                                        <td>
+                                            {% if handicapped.is_deleted %}
+                                                <a href="{% url 'handicapped:delete_handicapped' handicapped.id %}"><i class="bi bi-bootstrap-reboot"></i></a>
+                                            {% else %}
+                                                <a data-bs-toggle="modal" data-bs-target="#delete-{{handicapped.id}}"><i class="bi bi-trash-fill"></i></a>
+                                            {% endif %}
+                                            <a href="{% url 'handicapped:update_handicapped' handicapped.id %}"><i class="bi bi-pencil-square"></i></a>
+                                        </td>
+                                        <td>{% if handicapped.guardian %}{{handicapped.guardian}}{% endif %}</td>
+                                        <td>{% if handicapped.handicap_Type %}{{handicapped.handicap_Type}}{% endif %}</td>
+                                        <td>{% if handicapped.birth_address %}{{handicapped.birth_address}}{% endif %}</td>
+                                        <td>{% if handicapped.birthday %}{{handicapped.birthday}}{% endif %}</td>
+                                        <td>{% if handicapped.cin %}{{handicapped.cin}}{% endif %}</td>
+                                        <td>{% if handicapped.phone_number %}{{handicapped.phone_number}}{% endif %}</td>
+                                        <td>{% if handicapped.address %}{{handicapped.address}}{% endif %}</td>
+                                        <td>{% if handicapped.full_name %}{{handicapped.full_name}}{% endif %}</td>
+                                        <th scope="row">{{forloop.counter}}</th>
+                                
+                                    </tr>
+                                    <!-- Modal For delete -->
+                                    <div class="modal fade" id="delete-{{handicapped.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header justify-content-center">
+                                                    <h5 class="">إرسال <span class="text-danger">'{{handicapped.full_name}}'</span> إلى سلة المحدفين</h5>
+                                                </div>
+                                                
+                                                <form method=POST action="{% url 'handicapped:delete_handicapped' handicapped.id %}">
+                                                    {% csrf_token %}
+                                                    <div class="modal-body">
+                                                            <div class="mb-3">
+                                                                <label for="deleteDescription" class="form-label">سبب الحذف</label>
+                                                                <textarea name="delete_description" class="form-control" id="deleteDescription" rows="3"></textarea>
+                                                            </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                                                        <button type="submit" class="btn btn-danger">حذف</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                             {% endfor %}
                         </tbody>
                     </table>

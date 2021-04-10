@@ -24,6 +24,9 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'handicapped.apps.HandicappedConfig',
+    'cards.apps.CardsConfig',
+    'social_box.apps.SocialBoxConfig',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

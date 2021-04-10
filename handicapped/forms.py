@@ -4,4 +4,4 @@ from .models import Handicapped
 class HandicappedForm(ModelForm):
     class Meta:
         model = Handicapped
-        exclude = ['has_card', 'request_card', ]
+        exclude = ['is_deleted', 'delete_description']

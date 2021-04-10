@@ -1,0 +1,34 @@
+{% extends "base.html" %}{% load static %}
+
+
+{% block content %}
+    <div class='container home'>
+        <div class='container mt-5'>
+            <div class='row justify-content-center'>
+                <div class='col-lg-8'>
+
+                    <form class="handicapped-form">
+                        <div class='row justify-content-center'>
+                            <h1 class="">إضافة شخص من دوي الإحتياجات الخاصة</h1>
+                            <div class="form-group pb-3">
+                                <label>صاحب الطلب<span class="text-danger">*</span></label>
+                                <input name='search-input' type="text" class="form-control mt-2" required>
+                            </div>
+                            <div class='col-lg-6'>
+
+                            </div>
+
+                        </div>
+
+                        <div class="pb-2">
+                            <a href="{% url 'cards:cards' %}" class="btn btn-danger">إلغاء</a>
+                            <a class="btn btn-success" id="search-btn">حفظ</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    </script>
+{% endblock content %}

@@ -1,7 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_user
+from handicapped.models import Handicapped
+from django.db.models import Q
+from django.core import serializers
 
 
 def home_page(request):
@@ -23,3 +26,15 @@ def home_page(request):
             messages.error(request, 'الرجاء إدخال اسم المستخدم وكلمة المرور')
     return render(request, template_name, {})
 
+
+def search(request):
+    search = request.GET.get('search', None)
+    if search:
+        lookups = Q(full_name__contains=search) | Q(
+                phone_number__contains=search) | Q(cin__contains=search)
+        handicapped_list = Handicapped.objects.filter(lookups)
+        handicapped_list = serializers.serialize("json", handicapped_list)
+        return HttpResponse(handicapped_list, content_type="application/json")
+
+
+    

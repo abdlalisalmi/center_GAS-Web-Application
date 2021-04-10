@@ -7,7 +7,7 @@
             <div class='row justify-content-center'>
                 <div class='col-lg-8'>
 
-                    <form class="handicapped-form" method=POST action="{% url 'handicapped:add_handicapped' %}">
+                    <form class="handicapped-form" method=POST action="{% url 'handicapped:update_handicapped' handicapped.id %}">
                         {% csrf_token %}
                         <div class='row justify-content-center'>
                             <h1 class="">إضافة شخص من دوي الإحتياجات الخاصة</h1>
@@ -18,29 +18,30 @@
                             {% endif %}
                             <div class="form-group pb-3">
                                 <label>الإسم الكامل <span class="text-danger">*</span></label>
-                                <input name='full_name' type="text" class="form-control mt-2" required>   
+                                <input name='full_name' type="text" class="form-control mt-2" value='{{handicapped.full_name}}' required>
                             </div>
                             <div class='col-lg-6'>
                                 <div class="form-group pb-3">
                                     <label>تاريخ الإزدياد</label>
-                                    <input name='birthday' type="date" class="form-control mt-2">
+                                    <input name='birthday' type="date" class="form-control mt-2" value="{{handicapped.birthday|date:'Y-m-d'}}">
                                 </div>
 
                                 <div class="form-group pb-3">
                                     <label>مكان الإزدياد</label>
-                                    <input name='birth_address' type="text" class="form-control mt-2">
+                                    <input name='birth_address' type="text" class="form-control mt-2" value='{% if handicapped.birth_address %}{{handicapped.birth_address}}{% endif %}'>
                                 </div>
 
                                 <div class="form-group pb-3">
                                     <label>ولي الأمر</label>
-                                    <input name='guardian' type="text" class="form-control mt-2">
+                                    <input name='guardian' type="text" class="form-control mt-2" value="{% if handicapped.guardian %}{{handicapped.guardian}}{% endif %}">
                                 </div>
 
                                 <div class="form-group pb-3">
                                     <label for="taype">نوع الإعاقة</label>
 
                                     <select name="handicap_Type" class="form-select mt-2">
-                                        <option selected value="حركية">حركية</option>
+                                        <option selected value="{{handicapped.handicap_Type}}">{{handicapped.handicap_Type}}</option>
+                                        <option value="حركية">حركية</option>
                                         <option value="بصرية">بصرية</option>
                                         <option value="سمعية">سمعية</option>
                                         <option value="التوحد">التوحد</option>
@@ -56,24 +57,25 @@
 
                                 <div class="form-group pb-3">
                                     <label>العنوان</label>
-                                    <input name='address' type="text" class="form-control mt-2">
+                                    <input name='address' type="text" class="form-control mt-2" value="{% if handicapped.address %}{{handicapped.address}}{% endif %}">
                                 </div>
 
                                 <div class="form-group pb-3">
                                     <label>رقم الهاتف</label>
-                                    <input name='phone_number' type="number" class="form-control mt-2">
+                                    <input name='phone_number' type="number" class="form-control mt-2" value="{% if handicapped.phone_number %}{{handicapped.phone_number}}{% endif %}">
                                 </div>
 
                                 <div class="form-group pb-3">
                                     <label>رقم البطاقة الوطنية</label>
-                                    <input name='cin' type="text" class="form-control mt-2">
+                                    <input name='cin' type="text" class="form-control mt-2" value="{% if handicapped.cin %}{{handicapped.cin}}{% endif %}">
                                 </div>
 
                                 <div class="form-group pb-3">
                                     <label for="taype">الجنس <span class="text-danger">*</span></label>
 
                                     <select name="genre" class="form-select mt-2" required>
-                                        <option selected value="ذكر">ذكر</option>
+                                        <option selected value="{{handicapped.genre}}">{{handicapped.genre}}</option>
+                                        <option value="ذكر">ذكر</option>
                                         <option value="أنثى">أنثى</option>
                                     </select>
                                 </div>
@@ -83,7 +85,7 @@
 
                         <div class="pb-2">
                             <a href="{% url 'handicapped:handicapped_list' %}" class="btn btn-danger">إلغاء</a>
-                            <button type="submit" class="btn btn-success" id="add-handicapped">حفظ</button>
+                            <button type="submit" class="btn btn-dark" id="add-handicapped">حفظ</button>
                         </div>
                     </form>
 
