@@ -41,3 +41,8 @@ def add_card(request):
             return JsonResponse({'success':False, 'message':'هنالك خطا ما، حاول ورة أخرى'})
 
     return render(request, template_name, context)
+
+
+@login_required(login_url='/')
+def delete_card(request, id):
+    pass

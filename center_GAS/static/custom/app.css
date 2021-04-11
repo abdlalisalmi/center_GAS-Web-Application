@@ -59,8 +59,9 @@ select option {text-align-last:right; }
     font-weight: 900;
     text-align: center;
 }
+/* ICON-------------------------------------------------------- */
 
-.handicapped-list table tbody a i{
+.icon i {
     font-size: 1.3rem;
     padding: 10px;
     padding-top: 2px;
@@ -69,27 +70,28 @@ select option {text-align-last:right; }
     cursor: pointer;
     transition: all .3s;
 }
-.handicapped-list table tbody a .bi-trash-fill{
-    color: #dc3545;
-}
-.handicapped-list table tbody a .bi-trash-fill:hover{
-    background-color: #dc3545;
-    color: #f1f2f6;
-}
-.handicapped-list table tbody a .bi-pencil-square{
+.icon .G-icon {
     color: #20c997;
 }
-.handicapped-list table tbody a .bi-pencil-square:hover{
+.icon .G-icon:hover {
     background-color: #20c997;
     color: #f1f2f6;
 }
-.handicapped-list table tbody a .bi-bootstrap-reboot{
+.icon .R-icon {
+    color: #dc3545;
+}
+.icon .R-icon:hover {
+    background-color: #dc3545;
+    color: #f1f2f6;
+}
+.icon .B-icon {
     color: #0d6efd;
 }
-.handicapped-list table tbody a .bi-bootstrap-reboot:hover{
+.icon .B-icon:hover {
     background-color: #0d6efd;
     color: #f1f2f6;
 }
+/* END ICON-------------------------------------------------------- */
 
 .handicapped-form h1 {
     font-size: 1.5rem;
