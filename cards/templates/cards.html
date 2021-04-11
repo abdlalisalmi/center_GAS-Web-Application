@@ -32,7 +32,7 @@
                     <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
 
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">طلبات منجزة</a>
+                            <a class="nav-link {% if request.session.approved %}active{% endif %}" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="{{request.session.approved}}">طلبات منجزة</a>
                         </li>
                         
                         <li class="nav-item">
@@ -40,14 +40,14 @@
                         </li>
 
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link active" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">طلبات طور الانجاز</a>
+                            <a class="nav-link {% if not request.session.approved %}active{% endif %}" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="{{request.session.approved}}">طلبات طور الانجاز</a>
                         </li>
 
                     </ul>
 
                     <div class="tab-content row justify-content-center" id="pills-tabContent">
 
-                        <div class="tab-pane fade col-7" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                        <div class="tab-pane fade {% if request.session.approved %}show active{% endif %} col-7" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                         
                             <table class="table">
                                 <thead class=''>
@@ -102,10 +102,19 @@
                                     {% endfor %}
                                 </tbody>
                             </table>
+                            {% if not finished_cards %}
+                                <div class="row justify-content-center">
+                                    <div class="col-12 text-center mt-2">
+                                        {% comment %} <img src="{% static 'images/empty.png' %}" width="350px"> {% endcomment %}
+                                        <i class="bi bi-info-circle text-muted" style="font-size:3rem"></i>
+                                        <p class="text-center fw-bold text-muted h6">لاتوجد طلبات منجزة</p>
+                                    </div>
+                                </div>
+                            {% endif %}
 
                         </div>
 
-                        <div class="tab-pane fade show active col-7" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <div class="tab-pane fade {% if not request.session.approved %}show active{% endif %} col-7" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
 
                             <table class="table">
                                 <thead class=''>
@@ -117,16 +126,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                
                                     {% for card in waiting_cards %}
                                             <tr>
                                                 <td class="">
 
-                                                    <form class="text-center" method='POST' action="{% url 'cards:approve_card' card.id %}" id="approveForm">
+                                                    <form class="text-center" method='POST' action="{% url 'cards:approve_card' card.id %}" id="approveForm-{{card.id}}">
                                                         {% csrf_token %}
                                                         <a class="icon" data-bs-toggle="modal" data-bs-target="#delete-{{card.id}}" data-bs-toggle="tooltip" data-bs-placement="top" title="حذف الطلب">
                                                             <i class="bi bi-trash-fill R-icon"></i>
                                                         </a>
-                                                        <a class="icon" href="javascript:{}" onclick="document.getElementById('approveForm').submit();" data-bs-toggle="tooltip" data-bs-placement="top" title="الموافقة على الطلب">
+                                                        <a class="icon" href="javascript:{}" onclick="document.getElementById('approveForm-{{card.id}}').submit();" data-bs-toggle="tooltip" data-bs-placement="top" title="الموافقة على الطلب">
                                                             <i class="bi bi-folder-check G-icon"></i>
                                                         </a>
                                                     </form>
@@ -160,6 +170,15 @@
                                     {% endfor %}
                                 </tbody>
                             </table>
+                            {% if not waiting_cards %}
+                                <div class="row justify-content-center">
+                                    <div class="col-12 text-center mt-2">
+                                        {% comment %} <img src="{% static 'images/empty.png' %}" width="350px"> {% endcomment %}
+                                        <i class="bi bi-info-circle text-muted" style="font-size:3rem"></i>
+                                        <p class="text-center fw-bold text-muted h6">لاتوجد طلبات طور الانجاز</p>
+                                    </div>
+                                </div>
+                            {% endif %}
 
                         </div>
 

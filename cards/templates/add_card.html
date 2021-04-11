@@ -11,11 +11,12 @@
                         <div class='row justify-content-center'>
                             <h1 class="">طلب الحصول على بطاقة شخص في وضعية إعاقة</h1>
                             <div class="info">
-                                <p>ملاحضة: قبل إضافة الطلب يجب أن يكون الشخص مسجل في لائحة الأشخاص في وضعية إعاقة</p>
+                                <p>ملاحضة: قبل إضافة الطلب يجب أن يكون الشخص مسجل في لائحة الأشخاص في وضعية إعاقة <a href="{% url 'handicapped:add_handicapped' %}">شخص جديد</a></p>
                             </div>
                             <div class="form-group pb-3">
-                                <label>صاحب الطلب<span class="text-danger">*</span></label>
-                                <input id="search-input" name='search-input' placeholder="أدخل إسم، رقم الهاتف أو رقم البطاقة الوطنية الخاص بصاحب الطلب" type="text" class="form-control mt-2" required>
+                                <label>صاحب الطلب<span class="text-danger">*</span></label><br>
+                                <small class="text-muted">أدخل إسم، رقم الهاتف أو رقم البطاقة الوطنية</small>
+                                <input id="search-input" name='search-input' type="text" class="form-control mt-2" required>
                             </div>
 
                         </div>

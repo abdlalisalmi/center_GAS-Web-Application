@@ -49,12 +49,14 @@ def delete_card(request, id):
     if request.method == 'POST':
         try:
             card = get_object_or_404(Card, id=id)
+            approved = card.is_finish
             card.delete()
             messages.success(request, 'لقد تم حدف الطلب')
+            request.session['approved'] = approved
             return redirect('cards:cards')
+            # return render(request, 'cards.html', {'approved':approved})
         except:
             messages.success(request, 'حدت خطأ ما أتناء حدف الطلب')
-            return redirect('cards:cards')
     return redirect('cards:cards')
 
 
