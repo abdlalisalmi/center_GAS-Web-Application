@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.contrib import messages
 
 from handicapped.models import Handicapped
 from .models import Card
@@ -45,4 +46,30 @@ def add_card(request):
 
 @login_required(login_url='/')
 def delete_card(request, id):
-    pass
+    if request.method == 'POST':
+        try:
+            card = get_object_or_404(Card, id=id)
+            card.delete()
+            messages.success(request, 'لقد تم حدف الطلب')
+            return redirect('cards:cards')
+        except:
+            messages.success(request, 'حدت خطأ ما أتناء حدف الطلب')
+            return redirect('cards:cards')
+    return redirect('cards:cards')
+
+
+@login_required(login_url='/')
+def approve_card(request, id):
+    if request.method == 'POST':
+        print("1")
+        try:
+            card = get_object_or_404(Card, id=id)
+            print("2")
+            card.is_finish = True
+            card.save()
+            messages.success(request, 'لقد تمت الموافقة على الطلب بنجاح')
+            return redirect('cards:cards')
+        except:
+            messages.success(request, 'حدت خطأ ما أتناء الموافقة عل الطلب')
+            return redirect('cards:cards')
+    return redirect('cards:cards')

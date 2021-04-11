@@ -7,18 +7,25 @@
             <div class='row handicapped-list  justify-content-center'>
 
                 <div class='col-lg-8 title text-center'>
-                    <p>بطاقات شخص في وضعية إعاقة</p>
-                    {% if deleted %}
+                    <p>إدارة بطاقات الأشخاص في وضعية إعاقة</p>
+                    {% comment %} {% if deleted %}
                         <a href="" class="btn btn-danger">القائمة الرئيسية <i class="bi bi-view-list h5"></i></a>
                     {% else %}
                         <a href="" class="btn btn-danger">الطلبات المحذوفة <i class="bi bi-trash h5"></i></a>
-                    {% endif %}
+                    {% endif %} {% endcomment %}
                     <a href="{% url 'cards:add_card' %}" class="btn btn-success m-2">إضافة طلب جديد <i class="bi bi-plus-circle-fill h5"></i></a>
-                    {% comment %} <div class="input-group mt-4">
-                        <span class="input-group-text"><i class="bi bi-search"></i></span>
-                        <input type="text" class="form-control" placeholder="إبحث عن شخص ما">
-                    </div> {% endcomment %}
                 </div>
+                <div class="col-6">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-success" role="alert">
+                                {% comment %} <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> {% endcomment %}
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
 
                 <div class='col-lg-12 cards-list'>
 
@@ -40,37 +47,34 @@
 
                     <div class="tab-content row justify-content-center" id="pills-tabContent">
 
-                        <div class="tab-pane fade" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                        sss
-                        </div>
-
-                        <div class="tab-pane fade show active col-7" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-
+                        <div class="tab-pane fade col-7" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                        
                             <table class="table">
                                 <thead class=''>
                                     <tr>
                                     <th scope="col"></th>
-                                    <th scope="col">تاريخ وضع الطلب</th>
-                                    <th scope="col">صاحب الطلب</th>
+                                    <th scope="col" class="text-right">تاريخ قبول الطلب</th>
+                                    <th scope="col" class="text-right">صاحب الطلب</th>
                                     <th scope="col">#</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for card in waiting_cards %}
+                                    {% for card in finished_cards %}
                                             <tr>
-                                                <td>
+                                                <td class="">
 
                                                     <a class="icon" data-bs-toggle="modal" data-bs-target="#delete-{{card.id}}" data-bs-toggle="tooltip" data-bs-placement="top" title="حذف الطلب">
                                                         <i class="bi bi-trash-fill R-icon"></i>
                                                     </a>
-
-                                                    <a class="icon" href="" data-bs-toggle="tooltip" data-bs-placement="top" title="الموافقة على الطلب">
-                                                        <i class="bi bi-folder-check G-icon"></i>
-                                                    </a>
-
+                                                    {% comment %} <form class="text-center" method='POST' action="{% url 'cards:approve_card' card.id %}" id="approveForm">
+                                                        {% csrf_token %}
+                                                        <a class="icon" href="javascript:{}" onclick="document.getElementById('approveForm').submit();" data-bs-toggle="tooltip" data-bs-placement="top" title="الموافقة على الطلب">
+                                                            <i class="bi bi-folder-check G-icon"></i>
+                                                        </a>
+                                                    </form> {% endcomment %}
                                                 </td>
-                                                <td>{{card.submiting_date}}</td>
-                                                <td>‏‏{{card.handicapped}}</td>
+                                                <td class="text-right">{{card.finishing_date|date:'M d, Y'}}</td>
+                                                <td class="text-right">‏‏{{card.handicapped}}</td>
                                                 <th scope="row">{{forloop.counter}}</th>
                                         
                                             </tr>
@@ -82,7 +86,65 @@
                                                             <h5 class="fw-normal">حذف الطلب</h5>
                                                         </div>
                                                         
-                                                        <form method=POST action="">
+                                                        <form method='POST' action="{% url 'cards:delete_card' card.id %}">
+                                                            {% csrf_token %}
+                                                            <div class="modal-body">
+                                                                سيتم حذف طلب <span class="text-danger fw-bold">{{card.handicapped}}</span> نهائيا
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                                                                <button type="submit" class="btn btn-danger">حذف</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                        <div class="tab-pane fade show active col-7" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+
+                            <table class="table">
+                                <thead class=''>
+                                    <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col" class="text-right">تاريخ وضع الطلب</th>
+                                    <th scope="col" class="text-right">صاحب الطلب</th>
+                                    <th scope="col">#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for card in waiting_cards %}
+                                            <tr>
+                                                <td class="">
+
+                                                    <form class="text-center" method='POST' action="{% url 'cards:approve_card' card.id %}" id="approveForm">
+                                                        {% csrf_token %}
+                                                        <a class="icon" data-bs-toggle="modal" data-bs-target="#delete-{{card.id}}" data-bs-toggle="tooltip" data-bs-placement="top" title="حذف الطلب">
+                                                            <i class="bi bi-trash-fill R-icon"></i>
+                                                        </a>
+                                                        <a class="icon" href="javascript:{}" onclick="document.getElementById('approveForm').submit();" data-bs-toggle="tooltip" data-bs-placement="top" title="الموافقة على الطلب">
+                                                            <i class="bi bi-folder-check G-icon"></i>
+                                                        </a>
+                                                    </form>
+                                                </td>
+                                                <td class="text-right">{{card.submiting_date|date:'M d, Y'}}</td>
+                                                <td class="text-right">‏‏{{card.handicapped}}</td>
+                                                <th scope="row">{{forloop.counter}}</th>
+                                        
+                                            </tr>
+                                            <!-- Modal For delete -->
+                                            <div class="modal fade" id="delete-{{card.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header justify-content-center">
+                                                            <h5 class="fw-normal">حذف الطلب</h5>
+                                                        </div>
+                                                        
+                                                        <form method='POST' action="{% url 'cards:delete_card' card.id %}">
                                                             {% csrf_token %}
                                                             <div class="modal-body">
                                                                 سيتم حذف طلب <span class="text-danger fw-bold">{{card.handicapped}}</span> نهائيا
@@ -106,4 +168,12 @@
             </div>
         </div>
     </div>
+
+<script>
+    window.setTimeout(function() {
+        if (document.querySelector(".alert")){
+            removeFadeOut(document.querySelector(".alert"), 2000);
+        }
+    }, 4000);
+</script>
 {% endblock content %}

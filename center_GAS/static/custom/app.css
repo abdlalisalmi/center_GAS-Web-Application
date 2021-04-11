@@ -6,6 +6,10 @@
     font-family: 'Cairo-sbold';
     src: url("../fonts/Cairo-SemiBold.ttf");
 }
+@font-face {
+    font-family: 'Cairo-light';
+    src: url("../fonts/Cairo-Light.ttf");
+}
 
 * {
     margin: 0;
@@ -59,6 +63,13 @@ select option {text-align-last:right; }
     font-weight: 900;
     text-align: center;
 }
+
+th {
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Cairo-light', sans-serif !important;
+}
+
 /* ICON-------------------------------------------------------- */
 
 .icon i {
@@ -131,7 +142,14 @@ select option {text-align-last:right; }
     position: absolute;
     top: 50%;
     width: 100%;
+}
 
-
-
+.info {
+    background-color: antiquewhite;
+    color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    padding-top: 20px;
+    font-size: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
 }
