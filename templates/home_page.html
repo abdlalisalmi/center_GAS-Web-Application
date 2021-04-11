@@ -28,10 +28,19 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-4"><canvas id="c" width="300" height="300"></canvas></div>
+                <div class="col-4"><canvas id="c" width="300" height="300"></canvas></div>
+                <div class="col-4"><canvas id="c" width="300" height="300"></canvas></div>
+            </div>
+            <script src="{% static 'chartjs/chart.min.js' %}"></script>
+            <script src="{% static 'chartjs/myChart.js' %}"></script>
+
+
         {% else %}
             {% include "login.html" %}
         {% endif %}
-
     </div>
     <footer class="footer">
         <div class="container">
