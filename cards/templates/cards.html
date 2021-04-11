@@ -32,7 +32,7 @@
                     <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
 
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link {% if request.session.approved %}active{% endif %}" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="{{request.session.approved}}">طلبات منجزة</a>
+                            <a class="nav-link {% if approved %}active{% endif %}" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="{{approved}}">طلبات منجزة</a>
                         </li>
                         
                         <li class="nav-item">
@@ -40,14 +40,14 @@
                         </li>
 
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link {% if not request.session.approved %}active{% endif %}" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="{{request.session.approved}}">طلبات طور الانجاز</a>
+                            <a class="nav-link {% if not approved %}active{% endif %}" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="{{approved}}">طلبات طور الانجاز</a>
                         </li>
 
                     </ul>
 
                     <div class="tab-content row justify-content-center" id="pills-tabContent">
 
-                        <div class="tab-pane fade {% if request.session.approved %}show active{% endif %} col-7" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                        <div class="tab-pane fade {% if approved %}show active{% endif %} col-7" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                         
                             <table class="table">
                                 <thead class=''>
@@ -114,7 +114,7 @@
 
                         </div>
 
-                        <div class="tab-pane fade {% if not request.session.approved %}show active{% endif %} col-7" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <div class="tab-pane fade {% if not approved %}show active{% endif %} col-7" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
 
                             <table class="table">
                                 <thead class=''>

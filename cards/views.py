@@ -17,7 +17,7 @@ def cards(request):
 
     context.update({
         'finished_cards': finished_card,
-        'waiting_cards': waiting_card
+        'waiting_cards': waiting_card,
     })
 
     return render(request, template_name, context)
@@ -52,9 +52,18 @@ def delete_card(request, id):
             approved = card.is_finish
             card.delete()
             messages.success(request, 'لقد تم حدف الطلب')
-            request.session['approved'] = approved
-            return redirect('cards:cards')
-            # return render(request, 'cards.html', {'approved':approved})
+            if not approved:
+                return redirect('cards:cards')
+            else:
+                context = {}
+                finished_card = Card.objects.filter(is_finish=True).order_by('-id')
+                waiting_card = Card.objects.filter(is_finish=False).order_by('-id')
+                context.update({
+                    'finished_cards': finished_card,
+                    'waiting_cards': waiting_card,
+                    'approved':approved
+                })
+                return render(request, 'cards.html', context)
         except:
             messages.success(request, 'حدت خطأ ما أتناء حدف الطلب')
     return redirect('cards:cards')
