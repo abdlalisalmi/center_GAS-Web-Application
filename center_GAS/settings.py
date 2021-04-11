@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'handicapped.apps.HandicappedConfig',
     'cards.apps.CardsConfig',
     'social_box.apps.SocialBoxConfig',
+    'food.apps.FoodConfig',
 
     'django.contrib.admin',
     'django.contrib.auth',

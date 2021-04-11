@@ -5,6 +5,7 @@ from django.contrib.auth import login as login_user
 from handicapped.models import Handicapped
 from django.db.models import Q
 from django.core import serializers
+from django.contrib.auth.decorators import login_required
 
 
 def home_page(request):
@@ -27,6 +28,7 @@ def home_page(request):
     return render(request, template_name, {})
 
 
+login_required(login_url='/')
 def search(request):
     search = request.GET.get('search', None)
     if search:

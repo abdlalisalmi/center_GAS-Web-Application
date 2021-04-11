@@ -1,0 +1,203 @@
+{% extends "base.html" %}{% load static %}
+
+
+{% block content %}
+    <div class='container-fluid home'>
+        <div class='container-fluid mt-5'>
+            <div class='row handicapped-list  justify-content-center'>
+
+                <div class='col-lg-8 title text-center'>
+                    <p>إدارة المستفيدين من الطرد الغدائي</p>
+                    {% comment %} {% if deleted %}
+                        <a href="" class="btn btn-danger">القائمة الرئيسية <i class="bi bi-view-list h5"></i></a>
+                    {% else %}
+                        <a href="" class="btn btn-danger">الطلبات المحذوفة <i class="bi bi-trash h5"></i></a>
+                    {% endif %} {% endcomment %}
+                    <a href="{% url 'food:add_food' %}" class="btn btn-success m-2">إضافة مستفيد جديد <i class="bi bi-plus-circle-fill h5"></i></a>
+                </div>
+                <div class="col-6">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-success" role="alert">
+                                {% comment %} <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> {% endcomment %}
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+
+                <div class='col-lg-12 cards-list'>
+
+                    <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
+
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link {% if approved %}active{% endif %}" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="{{approved}}">قائمة المستفيدين</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <div class="hr"><div></div></div>
+                        </li>
+
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link {% if not approved %}active{% endif %}" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="{{approved}}">قائمة الإنتضار</a>
+                        </li>
+
+                    </ul>
+
+                    <div class="tab-content row justify-content-center" id="pills-tabContent">
+
+                        <div class="tab-pane fade {% if approved %}show active{% endif %} col-7" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                        
+                            <table class="table">
+                                <thead class=''>
+                                    <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col" class="text-right">تاريخ قبول الطلب</th>
+                                    <th scope="col" class="text-right">صاحب الطلب</th>
+                                    <th scope="col">#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for food in finished_food %}
+                                            <tr>
+                                                <td class="">
+
+                                                    <a class="icon" data-bs-toggle="modal" data-bs-target="#delete-{{food.id}}" data-bs-toggle="tooltip" data-bs-placement="top" title="حذف الطلب">
+                                                        <i class="bi bi-trash-fill R-icon"></i>
+                                                    </a>
+                                                    {% comment %} <form class="text-center" method='POST' action="{% url 'cards:approve_card' food.id %}" id="approveForm">
+                                                        {% csrf_token %}
+                                                        <a class="icon" href="javascript:{}" onclick="document.getElementById('approveForm').submit();" data-bs-toggle="tooltip" data-bs-placement="top" title="الموافقة على الطلب">
+                                                            <i class="bi bi-folder-check G-icon"></i>
+                                                        </a>
+                                                    </form> {% endcomment %}
+                                                </td>
+                                                <td class="text-right">{{food.finishing_date|date:'M d, Y'}}</td>
+                                                <td class="text-right">‏‏{{food.handicapped}}</td>
+                                                <th scope="row">{{forloop.counter}}</th>
+                                        
+                                            </tr>
+                                            <!-- Modal For delete -->
+                                            <div class="modal fade" id="delete-{{food.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header justify-content-center">
+                                                            <h5 class="fw-normal">حذف الطلب</h5>
+                                                        </div>
+                                                        
+                                                        <form method='POST' action="{% url 'food:delete_food' food.id %}">
+                                                            {% csrf_token %}
+                                                            <div class="modal-body">
+                                                                <div class="mb-3">
+                                                                    <label for="deleteDescription" class="form-label">سبب الحذف</label>
+                                                                    <textarea name="delete_description" class="form-control" id="deleteDescription" rows="3"></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                                                                <button type="submit" class="btn btn-danger">حذف</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            {% if not finished_food %}
+                                <div class="row justify-content-center">
+                                    <div class="col-12 text-center mt-2">
+                                        {% comment %} <img src="{% static 'images/empty.png' %}" width="350px"> {% endcomment %}
+                                        <i class="bi bi-info-circle text-muted" style="font-size:3rem"></i>
+                                        <p class="text-center fw-bold text-muted h6">قائمة فارغة</p>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                        </div>
+
+                        <div class="tab-pane fade {% if not approved %}show active{% endif %} col-7" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+
+                            <table class="table">
+                                <thead class=''>
+                                    <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col" class="text-right">تاريخ وضع الطلب</th>
+                                    <th scope="col" class="text-right">صاحب الطلب</th>
+                                    <th scope="col">#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                
+                                    {% for food in waiting_food %}
+                                            <tr>
+                                                <td class="">
+
+                                                    <form class="text-center" method='POST' action="{% url 'cards:approve_card' food.id %}" id="approveForm-{{food.id}}">
+                                                        {% csrf_token %}
+                                                        <a class="icon" data-bs-toggle="modal" data-bs-target="#delete-{{food.id}}" data-bs-toggle="tooltip" data-bs-placement="top" title="حذف الطلب">
+                                                            <i class="bi bi-trash-fill R-icon"></i>
+                                                        </a>
+                                                        <a class="icon" href="javascript:{}" onclick="document.getElementById('approveForm-{{food.id}}').submit();" data-bs-toggle="tooltip" data-bs-placement="top" title="الموافقة على الطلب">
+                                                            <i class="bi bi-folder-check G-icon"></i>
+                                                        </a>
+                                                    </form>
+                                                </td>
+                                                <td class="text-right">{{food.submiting_date|date:'M d, Y'}}</td>
+                                                <td class="text-right">‏‏{{food.handicapped}}</td>
+                                                <th scope="row">{{forloop.counter}}</th>
+                                        
+                                            </tr>
+                                            <!-- Modal For delete -->
+                                            <div class="modal fade" id="delete-{{food.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header justify-content-center">
+                                                            <h5 class="fw-normal">حذف المستفيد</h5>
+                                                        </div>
+                                                        
+                                                        <form method='POST' action="{% url 'food:delete_food' food.id %}">
+                                                            {% csrf_token %}
+                                                            <div class="modal-body">
+                                                                <div class="mb-3">
+                                                                    <small>سيتم حدف الطلب نهائياً</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                                                                <button type="submit" class="btn btn-danger">حذف</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            {% if not waiting_food %}
+                                <div class="row justify-content-center">
+                                    <div class="col-12 text-center mt-2">
+                                        {% comment %} <img src="{% static 'images/empty.png' %}" width="350px"> {% endcomment %}
+                                        <i class="bi bi-info-circle text-muted" style="font-size:3rem"></i>
+                                        <p class="text-center fw-bold text-muted h6">قائمة فارغة</p>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    window.setTimeout(function() {
+        if (document.querySelector(".alert")){
+            removeFadeOut(document.querySelector(".alert"), 2000);
+        }
+    }, 4000);
+</script>
+{% endblock content %}

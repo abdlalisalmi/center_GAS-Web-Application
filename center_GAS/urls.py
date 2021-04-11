@@ -9,5 +9,6 @@ urlpatterns = [
     path('search/', search, name="search"),
     path('handicapped/', include('handicapped.urls')),
     path('cards/', include('cards.urls')),
+    path('food/', include('food.urls')),
     path('admin/', admin.site.urls),
 ]
