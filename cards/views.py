@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
+from handicapped.models import Handicapped
 from .models import Card
 from .forms import  AddCardForm
 
@@ -9,16 +11,14 @@ def cards(request):
     template_name = 'cards.html'
     context = {}
 
-    # handicapped = get_object_or_404(Handicapped, id=id)
+    finished_card = Card.objects.filter(is_finish=True).order_by('-id')
+    waiting_card = Card.objects.filter(is_finish=False).order_by('-id')
 
-    # if request.method == 'POST':
-    #     form = HandicappedForm(instance=handicapped, data=request.POST)
-    #     if form.is_valid():
-    #         form.save()
-    #         return redirect('handicapped:handicapped_list')
-    #     else:
-    #         return render(request, template_name, {'form': form})
-    # context['handicapped']= handicapped
+    context.update({
+        'finished_cards': finished_card,
+        'waiting_cards': waiting_card
+    })
+
     return render(request, template_name, context)
 
 
@@ -28,6 +28,16 @@ def add_card(request):
     context = {}
 
     if request.method == 'POST':
-        pass
-    form = AddCardForm()
+        try:
+            id = request.POST.get('id', None)
+            handicapped = get_object_or_404(Handicapped, id=id)
+
+            if not Card.objects.filter(handicapped=handicapped).exists():
+                Card.objects.create(handicapped=handicapped)
+                return JsonResponse({'success':True})
+            else:
+                return JsonResponse({'success':False, 'message':'هذا الشخص لديه بطاقة أو سبق وتم إضافت طلب له.'})
+        except:
+            return JsonResponse({'success':False, 'message':'هنالك خطا ما، حاول ورة أخرى'})
+
     return render(request, template_name, context)

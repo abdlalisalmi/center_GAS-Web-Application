@@ -9,26 +9,102 @@
 
                     <form class="handicapped-form">
                         <div class='row justify-content-center'>
-                            <h1 class="">إضافة شخص من دوي الإحتياجات الخاصة</h1>
+                            <h1 class="">طلب الحصول على بطاقة شخص في وضعية إعاقة</h1>
                             <div class="form-group pb-3">
                                 <label>صاحب الطلب<span class="text-danger">*</span></label>
-                                <input name='search-input' type="text" class="form-control mt-2" required>
-                            </div>
-                            <div class='col-lg-6'>
-
+                                <input id="search-input" name='search-input' type="text" class="form-control mt-2" required>
                             </div>
 
                         </div>
 
+                        <div class='col-12' id="search-result">
+                        </div>
+
                         <div class="pb-2">
                             <a href="{% url 'cards:cards' %}" class="btn btn-danger">إلغاء</a>
-                            <a class="btn btn-success" id="search-btn">حفظ</a>
+                            <a class="btn btn-success" id="save-btn">حفظ</a>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <script>
-    </script>
+
+
+<script>
+function stringCheck(string) {
+    if (string == null) {
+        return '-----';
+    } else {
+        return string;
+    }
+}
+
+const searchBtn = document.getElementById('search-btn');
+const searchResult = document.getElementById('search-result');
+
+const saveBtn = document.getElementById('save-btn');
+saveBtn.addEventListener("click", () => {
+    radios = document.getElementsByClassName('form-check-input');
+    Array.prototype.forEach.call(radios, function(el) {
+        // Do stuff here
+        if (el.checked) {
+            const formData = new FormData();
+            formData.append('id', el.id);
+
+            fetch('/cards/add/', {
+            method: 'POST',
+            headers: {'X-CSRFToken': csrftoken},
+            body: formData
+
+            }).then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = '../';
+                } else {
+                    alert(data.message);
+                }
+            })
+            
+        }
+    });
+
+})
+
+const searchInput = document.getElementById('search-input');
+searchInput.addEventListener('input', (e) => {
+    e.preventDefault()
+    search = searchInput.value;
+    if (search != "") {
+        fetch('/search/?search='+search)
+        .then(response => response.json())
+        .then(data => {
+            searchResult.innerHTML = '';
+            data.forEach(item => {
+                searchResult.innerHTML += `
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>${stringCheck(item.fields.handicap_Type)}</td>
+                                    <td>${stringCheck(item.fields.birthday)}</td>
+                                    <td>${stringCheck(item.fields.phone_number)}</td>
+                                    <td>${stringCheck(item.fields.cin)}</td>
+                                    <td>${stringCheck(item.fields.full_name)}</td>
+                                    <th scope="row">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="${item.pk}">
+                                        <label class="form-check-label" for="flexRadioDefault"></label>
+                                    </div>
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    `
+            });
+        });
+    } else {
+        searchResult.innerHTML = '';
+    }
+})
+</script>
 {% endblock content %}
