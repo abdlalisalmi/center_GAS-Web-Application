@@ -2,7 +2,7 @@
 
 
 {% block content %}
-    <div class='container home'>
+    <div class='container home home-center'>
         {% if request.user.is_authenticated %}
             <div class='container'>
                 <div class='row justify-content-center'>
@@ -49,4 +49,5 @@
         {% else %}
             {% include "login.html" %}
         {% endif %}
+    </div>
 {% endblock content %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_user
@@ -28,8 +28,11 @@ def home_page(request):
     return render(request, template_name, {})
 
 
-login_required(login_url='/')
+@login_required(login_url='/')
 def search(request):
+    template_name = 'search.html'
+    context = {}
+
     search = request.GET.get('search', None)
     if search:
         lookups = Q(full_name__contains=search) | Q(
@@ -37,6 +40,19 @@ def search(request):
         handicapped_list = Handicapped.objects.filter(lookups)
         handicapped_list = serializers.serialize("json", handicapped_list)
         return HttpResponse(handicapped_list, content_type="application/json")
+    else:
+        return render(request, template_name, context)
+    
 
+@login_required(login_url='/')
+def search_folder(request, id):
+    template_name = 'search_folder.html'
+    context = {}
 
+    handicapped = get_object_or_404(Handicapped, id=id)
+    context.update({
+        'handicapped': handicapped
+    })
+
+    return render(request, template_name, context)
     

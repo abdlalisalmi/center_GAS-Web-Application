@@ -32,7 +32,7 @@
                             <table class="table">
                                 <thead class=''>
                                     <tr>
-                                    <th scope="col" class="text-center">إسنعادة</th>
+                                    <th scope="col" class="text-center">إسنعادة / حذف</th>
                                     <th scope="col" class="text-right">سبب الحذف</th>
                                     <th scope="col" class="text-right">صاحب الطلب</th>
                                     <th scope="col">#</th>
@@ -43,11 +43,17 @@
                                             <tr>
                                                 <td class="">
 
-                                                    <form class="text-center" method='POST' action="{% url 'food:delete_food' food.id %}" id="restoreForm-{{food.id}}">
+                                                    <form class="text-center" method='POST' action="{% url 'food:restore_delete_food' food.id %}" id="restoreForm-{{food.id}}">
                                                         {% csrf_token %}
+                                                        <a class="icon" href="javascript:{}" onclick="document.getElementById('lastDeleteForm-{{food.id}}').submit();" data-bs-toggle="tooltip" data-bs-placement="top" title="حذف الطلب">
+                                                            <i class="bi bi-trash-fill R-icon"></i>
+                                                        </a>
                                                         <a class="icon" href="javascript:{}" onclick="document.getElementById('restoreForm-{{food.id}}').submit();" data-bs-toggle="tooltip" data-bs-placement="top" title="إسنعادة المستفيد">
                                                             <i class="bi bi-bootstrap-reboot B-icon"></i>
                                                         </a>
+                                                    </form>
+                                                    <form method="POST"  action="{% url 'food:delete_food' food.id %}" id="lastDeleteForm-{{food.id}}">
+                                                        {% csrf_token %}
                                                     </form>
                                                 </td>
                                                 <td class="text-right">{{food.delete_description}}</td>
@@ -201,10 +207,10 @@
                                             <tr>
                                                 <td class="">
 
-                                                    <form class="text-center" method='POST' action="{% url 'cards:approve_card' food.id %}" id="approveForm-{{food.id}}">
+                                                    <form class="text-center" method='POST' action="{% url 'food:approve_food' food.id %}" id="approveForm-{{food.id}}">
                                                         {% csrf_token %}
                                                         <a class="icon" data-bs-toggle="modal" data-bs-target="#delete-{{food.id}}" data-bs-toggle="tooltip" data-bs-placement="top" title="حذف الطلب">
-                                                        <i class="bi bi-trash-fill R-icon"></i>
+                                                            <i class="bi bi-trash-fill R-icon"></i>
                                                         </a>
                                                         <a class="icon" href="javascript:{}" onclick="document.getElementById('approveForm-{{food.id}}').submit();" data-bs-toggle="tooltip" data-bs-placement="top" title="الموافقة على الطلب">
                                                             <i class="bi bi-folder-check G-icon"></i>

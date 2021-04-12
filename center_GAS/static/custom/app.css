@@ -25,9 +25,32 @@
 body {
     background-color: #f6f6f6 !important;
 }
+input[type=text], input[type=password] {
+    /* width: 80%; */
+    padding: 10px 22px;
+    margin: 10px 5px;
+    box-sizing: border-box;  
+    border-radius: 15px;
+}
+input[type=radio] {
+    width: 20px;
+    height: 20px;
+    margin: 10px 5px;
+    border: 1px solid #1ad08a;
+}
+input[type=radio]:checked{
+    background-color: #1ad08a;
+    border: 1px solid #1ad08a;
+}
+input[type=radio]:focus{
+    outline: none;
+    box-shadow: none;
+    border: 1px solid #1ad08a;
+}
+
 
 .header {
-    height: 25vh;
+    height: 15vh;
     background-position: bottom left;
     background-repeat: repeat-x;
     text-align: center;
@@ -62,13 +85,12 @@ body {
 select {text-align-last:right; }
 select option {text-align-last:right; }
 
-.home {
+.home-center {
     height: 75vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
 }
 .home .item a {
     text-decoration: none;
@@ -204,12 +226,14 @@ th {
     padding: 20px !important;
     padding-top: 6px !important;
     padding-bottom: 6px !important;
+    margin: 5px;
     color: #f6f6f6;
     text-decoration: none !important;
     border-radius: 15px !important;
     transition: all .3s !important;
     font-weight: bold !important;
-    font-size: 14px !important;
+    font-size: 16px !important;
+    cursor: pointer !important;
 }
 .bbtn{
     background-color: #0671c29e !important;
@@ -218,6 +242,16 @@ th {
     background-color: #0671c2ec !important;
     color: #f6f6f6;
 }
+
+.gbtn{
+    background-color: #0fc680 !important;
+    color: #f6f6f6 !important;
+}
+.gbtn:hover{
+    background-color: #11b677 !important;
+    color: #f6f6f6;
+}
+
 
 .rbtn{
     color: #f6f6f6 !important;
@@ -228,3 +262,14 @@ th {
     background-color: #bf2332 !important;
     color: #f6f6f6;
 }
+
+/* SEARCH FOLDER */
+.search-folder h2{
+    font-family: 'morocco', sans-serif !important;
+    font-size: 1.5rem;
+    color: #0fc680;
+    padding: 15px;
+    /* width: 30%; */
+    border-bottom: #d5d4d4 1px solid;
+}
+/* END SEARCH FOLDER */

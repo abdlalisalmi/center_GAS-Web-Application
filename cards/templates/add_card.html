@@ -7,7 +7,7 @@
             <div class='row justify-content-center'>
                 <div class='col-lg-8'>
 
-                    <form class="handicapped-form">
+                    <div class="handicapped-form">
                         <div class='row justify-content-center'>
                             <h1 class="">طلب الحصول على بطاقة شخص في وضعية إعاقة</h1>
                             <div class="info">
@@ -25,10 +25,10 @@
                         </div>
 
                         <div class="pb-2">
-                            <a href="{% url 'cards:cards' %}" class="btn btn-danger">إلغاء</a>
-                            <a class="btn btn-success" id="save-btn">حفظ</a>
+                            <a href="{% url 'cards:cards' %}" class="mybtn rbtn">إلغاء <i class="bi bi-x-circle"></i></a>
+                            <button class="mybtn gbtn" id="save-btn" style="border:none;height: 42px">حفظ <i class="bi bi-bookmark-check"></i></button>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

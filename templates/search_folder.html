@@ -1,0 +1,35 @@
+{% extends "base.html" %}{% load static %}
+
+
+{% block content %}
+    <div class='container home'>
+        <div class='container mt-5'>
+            <div class='row justify-content-center'>
+                <div class='col-lg-8'>
+
+                    <div class="handicapped-form">
+                        <div class='row justify-content-center'>
+                            <h1 class="">جميع المعلومات حول: <span class="fw-bold text-danger">{{handicapped.full_name}}</span></h1>
+                            <div class="info">
+                                <p>ملاحضة: قبل إضافة المستفيد يجب أن يكون الشخص مسجل في لائحة الأشخاص في وضعية إعاقة <a href="{% url 'handicapped:add_handicapped' %}">شخص جديد</a></p>
+                            </div>
+                        </div>
+
+                        <div class='col-12 search-folder text-right'>
+                            <h2>: المعلومات الشخصية</h2>
+                                {% include "search/info.html" %}
+                            <h2>: الطرد الغدائي</h2>
+                            <h2>: بطاقة شخص في وضعية إعاقة</h2>
+                            <h2>: صندوق دعم التماسك الاجتماعي</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<script>
+
+</script>
+{% endblock content %}

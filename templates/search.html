@@ -9,7 +9,7 @@
 
                     <div class="handicapped-form">
                         <div class='row justify-content-center'>
-                            <h1 class="">إضافة مستفيد من الطرد الغدائي</h1>
+                            <h1 class="">محرك البحت</h1>
                             <div class="info">
                                 <p>ملاحضة: قبل إضافة المستفيد يجب أن يكون الشخص مسجل في لائحة الأشخاص في وضعية إعاقة <a href="{% url 'handicapped:add_handicapped' %}">شخص جديد</a></p>
                             </div>
@@ -21,13 +21,27 @@
 
                         </div>
 
-                        <div class='col-12' id="search-result">
+                        <div class='col-12'>
+                            <table class="table">
+                                <thead class=''>
+                                    <tr>
+                                    <th scope="col" class="text-center">عرض المعلومات</th>
+                                    <th scope="col" class="text-right">نوع الإعاقة</th>
+                                    <th scope="col" class="text-right">تاريخ الإزدياد</th>
+                                    <th scope="col" class="text-right">رقم الهاتف</th>
+                                    <th scope="col" class="text-right">C.I.N</th>
+                                    <th scope="col" class="text-right">صاحب الطلب</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="search-result">
+                                </tbody>
+                            </table>
                         </div>
 
-                        <div class="pb-2">
+                        {% comment %} <div class="pb-2">
                             <a href="{% url 'food:food_list' %}" class="mybtn rbtn">إلغاء <i class="bi bi-x-circle"></i></a>
                             <button class="mybtn gbtn" id="save-btn" style="border:none;height: 42px">حفظ <i class="bi bi-bookmark-check"></i></button>
-                        </div>
+                        </div> {% endcomment %}
                     </div>
                 </div>
             </div>
@@ -43,10 +57,7 @@ function stringCheck(string) {
         return string;
     }
 }
-
-const searchBtn = document.getElementById('search-btn');
-const searchResult = document.getElementById('search-result');
-
+/*
 const saveBtn = document.getElementById('save-btn');
 saveBtn.addEventListener("click", () => {
     radios = document.getElementsByClassName('form-check-input');
@@ -74,7 +85,9 @@ saveBtn.addEventListener("click", () => {
     });
 
 })
+*/
 
+const searchResult = document.getElementById('search-result');
 const searchInput = document.getElementById('search-input');
 searchInput.addEventListener('input', (e) => {
     e.preventDefault()
@@ -83,27 +96,20 @@ searchInput.addEventListener('input', (e) => {
         fetch('/search/?search='+search)
         .then(response => response.json())
         .then(data => {
-            searchResult.innerHTML = '';
+            searchResult.innerHTML = ``;
             data.forEach(item => {
                 searchResult.innerHTML += `
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td>${stringCheck(item.fields.handicap_Type)}</td>
-                                    <td>${stringCheck(item.fields.birthday)}</td>
-                                    <td>${stringCheck(item.fields.phone_number)}</td>
-                                    <td>${stringCheck(item.fields.cin)}</td>
-                                    <td>${stringCheck(item.fields.full_name)}</td>
-                                    <th scope="row">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="${item.pk}">
-                                        <label class="form-check-label" for="flexRadioDefault"></label>
-                                    </div>
-                                    </th>
-                                </tr>
-                            </tbody>
-                        </table>
-                    `
+                    <tr>
+                        <td class="text-center"><a href="/search/${item.pk}" class="icon"><i class="bi bi-folder2-open G-icon"></i></a></td>
+                        <td class="text-right">${stringCheck(item.fields.handicap_Type)}</td>
+                        <td class="text-right">${stringCheck(item.fields.birthday)}</td>
+                        <td class="text-right">${stringCheck(item.fields.phone_number)}</td>
+                        <td class="text-right">${stringCheck(item.fields.cin)}</td>
+                        <td class="text-right">${stringCheck(item.fields.full_name)}</td>
+                        <th scope="row"></td>
+                        </th>
+                    </tr>
+                `
             });
         });
     } else {

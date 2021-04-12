@@ -7,7 +7,7 @@ from .models import Food
 from handicapped.models import Handicapped
 
 
-login_required(login_url='/')
+@login_required(login_url='/')
 def food_list(request):
     template_name='food_list.html'
     context = {}
@@ -25,7 +25,7 @@ def food_list(request):
     return render(request, template_name, context)
 
 
-login_required(login_url='/')
+@login_required(login_url='/')
 def add_food(request):
     template_name='add_food.html'
     context = {}
@@ -50,11 +50,8 @@ def delete_food(request, id):
         try:
             food = get_object_or_404(Food, id=id)
             approved = food.is_finish
-            if food.is_finish:
-                if food.is_deleted:
-                    messages.success(request, 'لقد تم إستعادة المستفيد')
-                else:
-                    messages.success(request, 'لقد تم حدف المستفيد')
+            if food.is_finish and not food.is_deleted:
+                messages.success(request, 'لقد تم حدف المستفيد')
                 food.is_deleted = not food.is_deleted
                 food.delete_description = request.POST.get('delete_description', '')
                 food.save()
@@ -76,4 +73,31 @@ def delete_food(request, id):
                 return render(request, 'food_list.html', context)
         except:
             messages.success(request, 'حدت خطأ ما أتناء حدف المستفيد')
+    return redirect('food:food_list')
+
+
+@login_required(login_url='/')
+def restore_delete_food(request, id):
+    if request.method == 'POST':
+        try:
+            food = get_object_or_404(Food, id=id)
+            messages.success(request, 'لقد تم إستعادة المستفيد')
+            food.is_deleted = False
+            food.delete_description = request.POST.get('delete_description', '')
+            food.save()
+        except:
+            messages.success(request, 'حدت خطأ ما أتناء إستعادة المستفيد')
+    return redirect('food:food_list')
+
+
+@login_required(login_url='/')
+def approve_food(request, id):
+    if request.method == 'POST':
+        try:
+            food = get_object_or_404(Food, id=id)
+            messages.success(request, 'لقد تم قبول المستفيد')
+            food.is_finish = True
+            food.save()
+        except:
+            messages.success(request, 'حدت خطأ ما أتناء قبول المستفيد')
     return redirect('food:food_list')
