@@ -1,16 +1,47 @@
 <div class="row">
-    <div class="col-6">
-        
-        
+    <div class="col-12">
+    <div class="mb-3">
+            <label class="form-label text-muted">الإسم الكامل</label>
+            <input type="text" class="form-control" value="{{handicapped.full_name}}" disabled>
+        </div>
     </div>
     <div class="col-6">
         <div class="mb-3">
-            <label class="form-label">الإسم الكامل</label>
-            <input type="text" class="form-control" placeholder="{{handicapped.full_name}}" disabled>
+            <label class="form-label text-muted">مكان الإزدياد</label>
+            <input type="text" class="form-control" value="{{handicapped.birth_address}}" disabled>
         </div>
         <div class="mb-3">
-            <label class="form-label">العنوان</label>
-            <input type="text" class="form-control" placeholder="{{handicapped.address}}" disabled>
+            <label class="form-label text-muted">تاريخ الإزدياد</label>
+            <input type="text" class="form-control" value="{{handicapped.birthday}}" disabled>
+        </div>
+        <div class="mb-3">
+            <label class="form-label text-muted">ولي الأمر</label>
+            <input type="text" class="form-control" value="{{handicapped.guardian}}" disabled>
+        </div>
+        <div class="mb-3">
+            <label class="form-label text-muted">نوع الإعاقة</label>
+            <input type="text" class="form-control" value="{{handicapped.handicap_Type}}" disabled>
+        </div>
+        
+    </div>
+
+    <div class="col-6">
+        <div class="mb-3">
+            <label class="form-label text-muted">العنوان</label>
+            <input type="text" class="form-control" value="{{handicapped.address}}" disabled>
+        </div>
+        <div class="mb-3">
+            <label class="form-label text-muted">رقم الهاتف	</label>
+            <input type="text" class="form-control" value="{{handicapped.phone_number}}" disabled>
+        </div>
+        <div class="mb-3">
+            <label class="form-label text-muted">رقم البطاقة الوطنية</label>
+            <input type="text" class="form-control" value="{{handicapped.cin|upper}}" disabled>
+        </div>
+        <div class="mb-3">
+            <label class="form-label text-muted">الجنس</label>
+            <input type="text" class="form-control" value="{{handicapped.genre}}" disabled>
         </div>
     </div>
+
 </div>

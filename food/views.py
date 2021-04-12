@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.contrib import messages
 
+from datetime import datetime
+
 from .models import Food
 from handicapped.models import Handicapped
 
@@ -97,6 +99,7 @@ def approve_food(request, id):
             food = get_object_or_404(Food, id=id)
             messages.success(request, 'لقد تم قبول المستفيد')
             food.is_finish = True
+            food.finishing_date = datetime.now()
             food.save()
         except:
             messages.success(request, 'حدت خطأ ما أتناء قبول المستفيد')

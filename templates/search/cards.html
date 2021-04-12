@@ -1,0 +1,22 @@
+<div class="row">
+    <div class="col-12">
+        {% if card %}
+            {% if card.is_finish %}
+                <div class="success">
+                    <p>هذا الشخص يحمل بطاقة شخص في وضعية إعاقة</p>
+                    <p><span class="fw-bold">{{card.finishing_date|date:'M d, Y'}}</span> : تاريخ قبول الطلب</p>
+                </div>
+            {% else %}
+                <div class="warrning">
+                    <p>هذا الشخص في لائحة الإنتضار للحصول على بطاقة شخص في وضعية إعاقة</p>
+                    <p><span class="fw-bold">{{card.submiting_date|date:'M d, Y'}}</span> : تاريخ وضع الطلب</p>
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="info">
+                <p>هذا الشخص لا يمتلك بطاقة شخص في وضعية إعاقة <a href="{% url 'cards:add_card' %}">أضف طلبه</a></p>
+            </div>
+        {% endif %}
+    </div>
+
+</div>

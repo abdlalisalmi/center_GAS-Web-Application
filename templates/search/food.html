@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col-12">
+        {% if food %}
+            {% if food.is_deleted %}
+                <div class="warrning">
+                    <p>لقد تم حدف هذا الشخص من برنامج الطرد الغدائي <a href="{% url 'food:food_list' %}?deleted=True">أعده إلى البرنامج</a></p>
+                    <p> سبب الحذف : <span class="fw-bold">{{food.delete_description}}</span></p>
+                </div>
+            {% else %}
+                {% if food.is_finish %}
+                    <div class="success">
+                        <p>هذا الشخص يستفيد من برنامج الطرد الغدائي</p>
+                        <p><span class="fw-bold">{{food.finishing_date|date:'M d, Y'}}</span> : تاريخ قبول الطلب</p>
+                    </div>
+                {% else %}
+                    <div class="warrning">
+                        <p>هذا الشخص في لائحة الإنتضار لبرنامج الطرد الغدائي</p>
+                        <p><span class="fw-bold">{{food.submiting_date|date:'M d, Y'}}</span> : تاريخ وضع الطلب</p>
+                    </div>
+                {% endif %}
+            {% endif %}
+        {% else %}
+            <div class="info">
+                <p>هذا الشخص لا يستفيد من برنامج الطرد الغدائي <a href="{% url 'food:add_food' %}">أضف طلبه</a></p>
+            </div>
+        {% endif %}
+    </div>
+
+</div>

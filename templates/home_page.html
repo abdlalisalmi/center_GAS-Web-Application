@@ -27,25 +27,17 @@
                         </a>
                     </div>
                     <div class='col-lg-3 item'>
-                        <a href="{% url 'food:food_list' %}">
+                        <a href="{% url 'analytics' %}">
                             <p>التحليلات</p>
                         </a>
                     </div>
                     <div class='col-lg-3 item'>
-                        <a href="{% url 'food:food_list' %}">
+                        <a href="{% url 'search' %}">
                             <p>البحث</p>
                         </a>
                     </div>
                 </div>
             </div>
-
-            {% comment %} <div class="row">
-                <div class="col-4"><canvas id="c" width="300" height="300"></canvas></div>
-            </div>
-            <script src="{% static 'chartjs/chart.min.js' %}"></script>
-            <script src="{% static 'chartjs/myChart.js' %}"></script> {% endcomment %}
-
-
         {% else %}
             {% include "login.html" %}
         {% endif %}

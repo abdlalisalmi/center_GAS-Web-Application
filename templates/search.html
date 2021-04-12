@@ -11,10 +11,10 @@
                         <div class='row justify-content-center'>
                             <h1 class="">محرك البحت</h1>
                             <div class="info">
-                                <p>ملاحضة: قبل إضافة المستفيد يجب أن يكون الشخص مسجل في لائحة الأشخاص في وضعية إعاقة <a href="{% url 'handicapped:add_handicapped' %}">شخص جديد</a></p>
+                                <p>هنا يمكنك البحت عن كل المعلومات الخاصة بكل الأشخاص في وضعية إعاقة المسجلين في المركز. <a href="{% url 'handicapped:add_handicapped' %}">شخص جديد</a></p>
                             </div>
                             <div class="form-group pb-3">
-                                <label>المستفيد <span class="text-danger">*</span></label><br>
+                                <label>البحت <span class="text-danger">*</span></label><br>
                                 <small class="text-muted">أدخل إسم، رقم الهاتف أو رقم البطاقة الوطنية</small>
                                 <input id="search-input" name='search-input' type="text" class="form-control mt-2" required>
                             </div>
@@ -37,11 +37,6 @@
                                 </tbody>
                             </table>
                         </div>
-
-                        {% comment %} <div class="pb-2">
-                            <a href="{% url 'food:food_list' %}" class="mybtn rbtn">إلغاء <i class="bi bi-x-circle"></i></a>
-                            <button class="mybtn gbtn" id="save-btn" style="border:none;height: 42px">حفظ <i class="bi bi-bookmark-check"></i></button>
-                        </div> {% endcomment %}
                     </div>
                 </div>
             </div>
@@ -57,35 +52,6 @@ function stringCheck(string) {
         return string;
     }
 }
-/*
-const saveBtn = document.getElementById('save-btn');
-saveBtn.addEventListener("click", () => {
-    radios = document.getElementsByClassName('form-check-input');
-    Array.prototype.forEach.call(radios, function(el) {
-        // Do stuff here
-        if (el.checked) {
-            const formData = new FormData();
-            formData.append('id', el.id);
-
-            fetch('/food/add/', {
-            method: 'POST',
-            headers: {'X-CSRFToken': csrftoken},
-            body: formData
-
-            }).then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    window.location.href = '../';
-                } else {
-                    alert(data.message);
-                }
-            })
-            
-        }
-    });
-
-})
-*/
 
 const searchResult = document.getElementById('search-result');
 const searchInput = document.getElementById('search-input');

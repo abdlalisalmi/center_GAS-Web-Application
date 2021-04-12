@@ -1,0 +1,39 @@
+{% extends "base.html" %}{% load static %}
+
+
+{% block content %}
+    <div class='container home'>
+        <div class='container mt-5'>
+            <div class='row justify-content-center'>
+                <div class='col-lg-8'>
+
+                    <div class="handicapped-form">
+                        <div class='row justify-content-center'>
+                            <h1 class="">التحليلات</h1>
+                            <div class="info">
+                                <p>هنا ستجد تحليل لكل المعلومات الخاصة بكل الأشخاص في وضعية إعاقة المسجلين في المركز.</p>
+                            </div>
+                        </div>
+
+                        <div class='col-12 search-folder text-right'>
+                            <div class="row">
+                                <div class="col-4">
+                                    <p>hh</p>
+                                    <canvas id="genre" width="300" height="300"></canvas>
+                                </div>
+                            </div>
+                            {% comment %} <script src="{% static 'chartjs/chart.min.js' %}"></script> {% endcomment %}
+                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                            <script src="{% static 'chartjs/myChart.js' %}"></script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+  <script>
+        displayGenre({{men}}, {{womans}});
+</script>
+{% endblock content %}

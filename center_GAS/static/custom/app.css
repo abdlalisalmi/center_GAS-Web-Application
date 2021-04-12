@@ -25,10 +25,18 @@
 body {
     background-color: #f6f6f6 !important;
 }
-input[type=text], input[type=password] {
+
+select {
+    border-radius: 15px !important;
+    padding: 10px 22px !important;
+    text-align-last:right !important;
+    direction: rtl;
+    font-family: 'Cairo' !important;
+}
+input[type=text], input[type=password], input[type=date], input[type=number]{
     /* width: 80%; */
     padding: 10px 22px;
-    margin: 10px 5px;
+    /* margin: 5px 5px; */
     box-sizing: border-box;  
     border-radius: 15px;
 }
@@ -172,8 +180,13 @@ th {
 .handicapped-form h1 {
     font-size: 1.5rem;
     padding: 15px;
+    font-family: 'morocco' !important;
     border-bottom: #23292e 0.5px solid;
     margin-bottom: 35px;
+}
+.handicapped-form h1 span{
+    padding: 15px;
+    font-family: 'morocco' !important;
 }
 
 
@@ -213,11 +226,29 @@ th {
 }
 
 .info {
-    background-color: antiquewhite;
+    background-color: #daeffc;
     color: rgba(0, 0, 0, 0.7);
     padding: 10px;
     padding-top: 20px;
-    font-size: 15px;
+    font-size: 16px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+.success {
+    background-color: rgb(211, 255, 211);
+    color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    padding-top: 20px;
+    font-size: 16px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+.warrning {
+    background-color: rgb(255, 255, 211);
+    color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    padding-top: 20px;
+    font-size: 16px;
     border-radius: 10px;
     margin-bottom: 20px;
 }
@@ -266,9 +297,11 @@ th {
 /* SEARCH FOLDER */
 .search-folder h2{
     font-family: 'morocco', sans-serif !important;
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     color: #0fc680;
     padding: 15px;
+    margin-top: 15px;
+    margin-bottom: 10px;
     /* width: 30%; */
     border-bottom: #d5d4d4 1px solid;
 }
