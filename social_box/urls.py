@@ -1,7 +1,7 @@
 from django.urls import path
+from .views import box
 
-
-app_name = 'social_box'
+app_name = 'box'
 urlpatterns = [
-    # path('', handicapped_list, name='handicapped_list'),
+    path('', box, name='box'),
 ]

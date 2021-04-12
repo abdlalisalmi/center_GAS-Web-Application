@@ -16,5 +16,7 @@ urlpatterns = [
     
     path('food/', include('food.urls')),
 
+    path('box/', include('social_box.urls')),
+
     path('admin/', admin.site.urls),
 ]

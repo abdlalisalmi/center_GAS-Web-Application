@@ -24,6 +24,7 @@
 }
 body {
     background-color: #f6f6f6 !important;
+    height: 100vh;
 }
 
 select {
@@ -58,7 +59,7 @@ input[type=radio]:focus{
 
 
 .header {
-    height: 15vh;
+    height: 20%;
     background-position: bottom left;
     background-repeat: repeat-x;
     text-align: center;
@@ -94,7 +95,7 @@ select {text-align-last:right; }
 select option {text-align-last:right; }
 
 .home-center {
-    height: 75vh;
+    height: 80%;
     display: flex;
     flex-direction: column;
     justify-content: center;

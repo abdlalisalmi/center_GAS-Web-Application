@@ -1,0 +1,35 @@
+{% extends "base.html" %}{% load static %}
+
+
+{% block content %}
+    <div class='container home home-center'>
+        {% if request.user.is_authenticated %}
+            <div class='container'>
+                <div class='row justify-content-center'>
+                    <div class='col-lg-5 item'>
+                        <a href="">
+                            <p>----------------------------</p>
+                        </a>
+                    </div>
+                    <div class='col-lg-5 item'>
+                        <a href="">
+                            <p>----------------------</p>
+                        </a>
+                    </div>
+                    <div class='col-lg-5 item'>
+                        <a href="">
+                            <p>----------------------</p>
+                        </a>
+                    </div>
+                    <div class='col-lg-5 item'>
+                        <a href="">
+                            <p>------------------------</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            {% include "login.html" %}
+        {% endif %}
+    </div>
+{% endblock content %}
