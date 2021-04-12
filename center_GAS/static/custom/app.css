@@ -306,3 +306,9 @@ th {
     border-bottom: #d5d4d4 1px solid;
 }
 /* END SEARCH FOLDER */
+
+.line {
+    height: 25px;
+    margin-bottom: 25px;
+    border-bottom: #d5d4d4 1px solid;
+}

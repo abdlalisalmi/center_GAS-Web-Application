@@ -15,18 +15,29 @@
                             </div>
                         </div>
 
-                        <div class='col-12 search-folder text-right'>
-                            <div class="row">
-                                <div class="col-4">
-                                    <p>hh</p>
-                                    <canvas id="genre" width="300" height="300"></canvas>
-                                </div>
-                            </div>
-                            {% comment %} <script src="{% static 'chartjs/chart.min.js' %}"></script> {% endcomment %}
-                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                            <script src="{% static 'chartjs/myChart.js' %}"></script>
+                    </div>
+                </div>
+                <div class='col-12 search-folder text-right'>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-3 col-8">
+                            <canvas id="genre" width="300" height="300"></canvas>
+                        </div>
+                        <div class="col-lg-6 col-8">
+                            <canvas id="age" width="155" height="70"></canvas>
                         </div>
                     </div>
+                    <div class="line"></div>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-4 col-8">
+                            <canvas id="cards" width="300" height="300"></canvas>
+                        </div>
+                        <div class="col-lg-4 col-8">
+                            <canvas id="food" width="300" height="300"></canvas>
+                        </div>
+                    </div>
+                    {% comment %} <script src="{% static 'chartjs/chart.min.js' %}"></script> {% endcomment %}
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    <script src="{% static 'chartjs/myChart.js' %}"></script>
                 </div>
             </div>
         </div>
@@ -35,5 +46,8 @@
 
   <script>
         displayGenre({{men}}, {{womans}});
+        displayAges({{child}}, {{young}}, {{old}});
+        displayCards({{has_card}}, {{waiting_card}});
+        displayFood({{has_food}}, {{waiting_food}});
 </script>
 {% endblock content %}

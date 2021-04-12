@@ -5,6 +5,7 @@ from django.contrib.auth import login as login_user
 from django.db.models import Q
 from django.core import serializers
 from django.contrib.auth.decorators import login_required
+import datetime
 
 
 from handicapped.models import Handicapped
@@ -76,9 +77,37 @@ def analytics(request):
     men = Handicapped.objects.filter(genre='ذكر').count()
     womans = Handicapped.objects.filter(genre='أنثى').count()
 
+    handicappeds = Handicapped.objects.all()
+    child, young, old = 0, 0, 0
+    today = datetime.date.today()
+    for handicapped in handicappeds:
+        age = today - handicapped.birthday
+        if age < datetime.timedelta(days=20*365):
+            child += 1
+        elif age >= datetime.timedelta(days=20*365) and age < datetime.timedelta(days=40*365):
+            young += 1
+        else:
+            old += 1
+
+    has_card = Card.objects.filter(is_finish=True).count()
+    waiting_card = Card.objects.filter(is_finish=False).count()
+
+    has_food = Food.objects.filter(is_finish=True, is_deleted=False).count()
+    waiting_food = Food.objects.filter(is_finish=False).count()
+
     context.update({
         'men': men,
         'womans': womans,
+
+        'child': child,
+        'young': young,
+        'old': old,
+
+        'has_card': has_card,
+        'waiting_card': waiting_card,
+
+        'has_food': has_food,
+        'waiting_food': waiting_food,
     })
     return render(request, template_name, context)
     
