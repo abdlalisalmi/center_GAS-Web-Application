@@ -3,17 +3,17 @@
 
 {% block content %}
     <div class='container-fluid home'>
-        <div class='container-fluid mt-5'>
+        <div class='container-fluid'>
             <div class='row handicapped-list  justify-content-center'>
 
                 <div class='col-lg-8 title text-center'>
                     <p>إدارة المستفيدين من الطرد الغدائي</p>
-                    {% comment %} {% if deleted %}
-                        <a href="" class="btn btn-danger">القائمة الرئيسية <i class="bi bi-view-list h5"></i></a>
+                    {% if deleted %}
+                        <a href="{% url 'food:food_list' %}" class="btn mybtn rbtn">القائمة الرئيسية <i class="bi bi-view-list h5"></i></a>
                     {% else %}
-                        <a href="" class="btn btn-danger">الطلبات المحذوفة <i class="bi bi-trash h5"></i></a>
-                    {% endif %} {% endcomment %}
-                    <a href="{% url 'food:add_food' %}" class="btn btn-success m-2">إضافة مستفيد جديد <i class="bi bi-plus-circle-fill h5"></i></a>
+                        <a href="{% url 'food:food_list' %}?deleted=True" class="btn mybtn rbtn">قائمة المحذوفين <i class="bi bi-trash"></i></a>
+                    {% endif %}
+                    <a href="{% url 'food:add_food' %}" class="mybtn bbtn">إضافة مستفيد جديد <i class="bi bi-plus-circle-fill"></i></a>
                 </div>
                 <div class="col-6">
                     {% if messages %}
@@ -26,7 +26,74 @@
                     {% endif %}
                 </div>
 
+                {% if deleted %}
+                    <div class="row justify-content-center">
+                        <div class="col-7">
+                            <table class="table">
+                                <thead class=''>
+                                    <tr>
+                                    <th scope="col" class="text-center">إسنعادة</th>
+                                    <th scope="col" class="text-right">سبب الحذف</th>
+                                    <th scope="col" class="text-right">صاحب الطلب</th>
+                                    <th scope="col">#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for food in deleted_food %}
+                                            <tr>
+                                                <td class="">
 
+                                                    <form class="text-center" method='POST' action="{% url 'food:delete_food' food.id %}" id="restoreForm-{{food.id}}">
+                                                        {% csrf_token %}
+                                                        <a class="icon" href="javascript:{}" onclick="document.getElementById('restoreForm-{{food.id}}').submit();" data-bs-toggle="tooltip" data-bs-placement="top" title="إسنعادة المستفيد">
+                                                            <i class="bi bi-bootstrap-reboot B-icon"></i>
+                                                        </a>
+                                                    </form>
+                                                </td>
+                                                <td class="text-right">{{food.delete_description}}</td>
+                                                <td class="text-right">‏‏{{food.handicapped}}</td>
+                                                <th scope="row">{{forloop.counter}}</th>
+                                        
+                                            </tr>
+                                            <!-- Modal For delete -->
+                                            <div class="modal fade" id="delete-{{food.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header justify-content-center">
+                                                            <h5 class="fw-normal">حذف الطلب</h5>
+                                                        </div>
+                                                        
+                                                        <form method='POST' action="{% url 'food:delete_food' food.id %}">
+                                                            {% csrf_token %}
+                                                            <div class="modal-body">
+                                                                <div class="mb-3">
+                                                                    <label for="deleteDescription" class="form-label">سبب الحذف</label>
+                                                                    <textarea name="delete_description" class="form-control" id="deleteDescription" rows="3"></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                                                                <button type="submit" class="btn btn-danger">حذف</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    {% if not deleted_food %}
+                        <div class="row justify-content-center">
+                            <div class="col-12 text-center mt-2">
+                                {% comment %} <img src="{% static 'images/empty.png' %}" width="350px"> {% endcomment %}
+                                <i class="bi bi-info-circle text-muted" style="font-size:3rem"></i>
+                                <p class="text-center fw-bold text-muted h6">قائمة فارغة</p>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% else %}
                 <div class='col-lg-12 cards-list'>
 
                     <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
@@ -52,7 +119,7 @@
                             <table class="table">
                                 <thead class=''>
                                     <tr>
-                                    <th scope="col"></th>
+                                    <th scope="col" class="text-center">حذف</th>
                                     <th scope="col" class="text-right">تاريخ قبول الطلب</th>
                                     <th scope="col" class="text-right">صاحب الطلب</th>
                                     <th scope="col">#</th>
@@ -61,7 +128,7 @@
                                 <tbody>
                                     {% for food in finished_food %}
                                             <tr>
-                                                <td class="">
+                                                <td class="text-center">
 
                                                     <a class="icon" data-bs-toggle="modal" data-bs-target="#delete-{{food.id}}" data-bs-toggle="tooltip" data-bs-placement="top" title="حذف الطلب">
                                                         <i class="bi bi-trash-fill R-icon"></i>
@@ -122,7 +189,7 @@
                             <table class="table">
                                 <thead class=''>
                                     <tr>
-                                    <th scope="col"></th>
+                                    <th scope="col" class="text-center">قبول / حذف</th>
                                     <th scope="col" class="text-right">تاريخ وضع الطلب</th>
                                     <th scope="col" class="text-right">صاحب الطلب</th>
                                     <th scope="col">#</th>
@@ -137,7 +204,7 @@
                                                     <form class="text-center" method='POST' action="{% url 'cards:approve_card' food.id %}" id="approveForm-{{food.id}}">
                                                         {% csrf_token %}
                                                         <a class="icon" data-bs-toggle="modal" data-bs-target="#delete-{{food.id}}" data-bs-toggle="tooltip" data-bs-placement="top" title="حذف الطلب">
-                                                            <i class="bi bi-trash-fill R-icon"></i>
+                                                        <i class="bi bi-trash-fill R-icon"></i>
                                                         </a>
                                                         <a class="icon" href="javascript:{}" onclick="document.getElementById('approveForm-{{food.id}}').submit();" data-bs-toggle="tooltip" data-bs-placement="top" title="الموافقة على الطلب">
                                                             <i class="bi bi-folder-check G-icon"></i>
@@ -189,6 +256,7 @@
 
                     </div>
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>

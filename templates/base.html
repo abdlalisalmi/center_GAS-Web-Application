@@ -18,14 +18,21 @@
     <body>
         {% block body %}
 
-            <nav class="navbar navbar-light bg-light">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="#">
-                        <i class="bi bi-arrow-clockwise"></i>
-                        Center GAS
+                <div class="container-fluid header" style="background-image: url({% static 'images/background.png' %});">
+                    <div class="morocco-logo">
+                        <img src="{% static 'images/morocco_logo.png' %}" width="65px"/>
+                        <p>المملكة المغربية</p>
+                    </div>
+                    <a class="" href="/">
+                        مركز توجيه ومساعدة الأشخاص في وضعية إعاقة
+                        <br>
+                        إبن جرير
                     </a>
+                    <div class="morocco-logo">
+                        <img src="{% static 'images/morocco_logo.png' %}" width="65px"/>
+                        <p>المملكة المغربية</p>
+                    </div>
                 </div>
-            </nav>
 
             {% block content %}{% endblock content %}
 

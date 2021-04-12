@@ -3,17 +3,17 @@
 
 {% block content %}
     <div class='container-fluid home'>
-        <div class='container-fluid mt-5'>
+        <div class='container-fluid mt-2 pb-5'>
             <div class='row handicapped-list  justify-content-center'>
 
                 <div class='col-lg-8 title text-center'>
                     <p>لائحة الأشخاص في وضعية إعاقة</p>
                     {% if deleted %}
-                        <a href="{% url 'handicapped:handicapped_list' %}" class="btn btn-danger">القائمة الرئيسية <i class="bi bi-view-list"></i></a>
+                        <a href="{% url 'handicapped:handicapped_list' %}" class="btn mybtn rbtn">القائمة الرئيسية <i class="bi bi-view-list"></i></a>
                     {% else %}
-                        <a href="{% url 'handicapped:handicapped_list' %}?deleted=True" class="btn btn-danger">سلة المحذوفين <i class="bi bi-trash"></i></a>
+                        <a href="{% url 'handicapped:handicapped_list' %}?deleted=True" class="btn mybtn rbtn">سلة المحذوفين <i class="bi bi-trash"></i></a>
                     {% endif %}
-                    <a href="{% url 'handicapped:add_handicapped' %}" class="btn btn-success">إضافة شخص جديد <i class="bi bi-plus-circle-fill"></i></a>
+                    <a href="{% url 'handicapped:add_handicapped' %}" class="mybtn bbtn">إضافة شخص جديد <i class="bi bi-plus-circle-fill"></i></a>
                     {% comment %} <div class="input-group mt-4">
                         <span class="input-group-text"><i class="bi bi-search"></i></span>
                         <input type="text" class="form-control" placeholder="إبحث عن شخص ما">

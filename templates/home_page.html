@@ -4,45 +4,49 @@
 {% block content %}
     <div class='container home'>
         {% if request.user.is_authenticated %}
-            <div class='container mt-5'>
+            <div class='container'>
                 <div class='row justify-content-center'>
-                    <div class='col-lg-6 item'>
+                    <div class='col-lg-5 item'>
                         <a href="#">
                             <p>صندوق دعم التماسك الاجتماعي</p>
                         </a>
                     </div>
-                    <div class='col-lg-6 item'>
+                    <div class='col-lg-5 item'>
                         <a href="{% url 'handicapped:handicapped_list' %}">
                             <p>لائحة الأشخاص في وضعية إعاقة</p>
                         </a>
                     </div>
-                    <div class='col-lg-6 item'>
+                    <div class='col-lg-5 item'>
                         <a href="{% url 'cards:cards' %}">
                             <p>إدارة بطاقات الأشخاص في وضعية إعاقة</p>
                         </a>
                     </div>
-                    <div class='col-lg-6 item'>
+                    <div class='col-lg-5 item'>
                         <a href="{% url 'food:food_list' %}">
                             <p>الطرد الغدائي</p>
+                        </a>
+                    </div>
+                    <div class='col-lg-3 item'>
+                        <a href="{% url 'food:food_list' %}">
+                            <p>التحليلات</p>
+                        </a>
+                    </div>
+                    <div class='col-lg-3 item'>
+                        <a href="{% url 'food:food_list' %}">
+                            <p>البحث</p>
                         </a>
                     </div>
                 </div>
             </div>
 
-            <div class="row">
+            {% comment %} <div class="row">
                 <div class="col-4"><canvas id="c" width="300" height="300"></canvas></div>
             </div>
             <script src="{% static 'chartjs/chart.min.js' %}"></script>
-            <script src="{% static 'chartjs/myChart.js' %}"></script>
+            <script src="{% static 'chartjs/myChart.js' %}"></script> {% endcomment %}
 
 
         {% else %}
             {% include "login.html" %}
         {% endif %}
-    </div>
-    <footer class="footer">
-        <div class="container">
-            <img src="{% static 'images/footer.png' %}" class="img-fluid" style="min-height:100%;" />
-        </div>
-    </footer>
 {% endblock content %}

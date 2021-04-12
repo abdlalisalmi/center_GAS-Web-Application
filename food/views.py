@@ -11,7 +11,9 @@ login_required(login_url='/')
 def food_list(request):
     template_name='food_list.html'
     context = {}
-
+    if request.GET.get('deleted', None):
+        deleted_food = Food.objects.filter(is_finish=True, is_deleted=True).order_by('-id')
+        return render(request, template_name, {'deleted_food':deleted_food, 'deleted':True})
     finished_food = Food.objects.filter(is_finish=True, is_deleted=False).order_by('-id')
     waiting_food = Food.objects.filter(is_finish=False).order_by('-id')
 
@@ -49,12 +51,16 @@ def delete_food(request, id):
             food = get_object_or_404(Food, id=id)
             approved = food.is_finish
             if food.is_finish:
+                if food.is_deleted:
+                    messages.success(request, 'لقد تم إستعادة المستفيد')
+                else:
+                    messages.success(request, 'لقد تم حدف المستفيد')
                 food.is_deleted = not food.is_deleted
                 food.delete_description = request.POST.get('delete_description', '')
                 food.save()
             else:
                 food.delete()
-            messages.success(request, 'لقد تم حدف المستفيد')
+                messages.success(request, 'لقد تم حدف المستفيد')
             if not approved:
                 return redirect('food:food_list')
             else:
