@@ -1,5 +1,17 @@
 from django.urls import path
-from .views import box, projects, add_project, delete_project, approve_project, devices, delete_device, approve_device
+from .views import (
+        box, 
+
+        projects, 
+        add_project, 
+        delete_project, 
+        approve_project,
+
+        devices, 
+        add_device,
+        delete_device, 
+        approve_device,
+    )
 
 app_name = 'box'
 urlpatterns = [
@@ -11,6 +23,7 @@ urlpatterns = [
     path('projects/approve/<int:id>/', approve_project, name='approve_project'),
 
     path('devices/', devices, name='devices'),
+    path('devices/add/', add_device, name='add_device'),
     path('devices/delete/<int:id>/', delete_device, name='delete_device'),
     path('devices/approve/<int:id>/', approve_device, name='approve_device'),
 ]

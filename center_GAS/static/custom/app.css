@@ -332,11 +332,14 @@ th {
 /* end Projects style */
 
 .device-request-title {
-    background-color: #f1f2f6;
+    /* background-color: #f1f2f6; */
+    color: rgba(0, 0, 0, 0.7);
+    background-color: transparent;
     padding: 10px;
     border: 1px solid #00b56f;
     border-radius: 10px;
     margin-bottom: 10px;
+    font-weight: 600;
 }
 .device {
     margin-top: 10px;

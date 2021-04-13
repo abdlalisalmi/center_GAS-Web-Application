@@ -119,6 +119,30 @@ def devices(request):
     return render(request, template_name, context)
 
 
+@login_required(login_url='/')
+def add_device(request):
+    template_name = 'devices/add_device.html'
+    context = {}
+
+    if request.method == 'POST':
+        try:
+            id = request.POST.get('id', None)
+            handicapped = get_object_or_404(Handicapped, id=id)
+
+            if not Device.objects.filter(handicapped=handicapped).exists():
+                Device.objects.create(
+                    handicapped=handicapped,
+                    device_name=request.POST.get('deviceName'),
+                    device_type=request.POST.get('deviceType')
+                    )
+                return JsonResponse({'success':True})
+            else:
+                return JsonResponse({'success':False, 'message':'هذا الشخص مستفيد أو تمت اضافته إلى قائمة الإنتضار'})
+        except:
+            return JsonResponse({'success':False, 'message':'هنالك خطا ما، حاول ورة أخرى'})
+
+    return render(request, template_name, context)
+
 
 @login_required(login_url='/')
 def delete_device(request, id):
