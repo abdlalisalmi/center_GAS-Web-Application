@@ -11,10 +11,11 @@ function displayGenre(men, womans) {
 		datasets: [{
 		  data: [men, womans],
 		  backgroundColor: [
-			'#57606f',
-			'#ff6b81',
+			'rgba(75, 192, 192, 0.3)',
+			'rgba(255, 99, 132, 0.2)',
 		  ],
-		  hoverOffset: 4
+		  hoverOffset: 4,
+		  borderWidth: 1
 		}]
 	  };
 	  const config = {
@@ -73,6 +74,51 @@ function displayAges(child, young, old) {
 	  },
 	});
 }
+
+function displayTypes(move, ear, eye, autism, late, trisomy) {
+	var types = document.getElementById("types").getContext("2d");
+	
+	var mybarChart = new Chart(types, {
+	  type: 'bar',
+	  data: {
+		labels: ['الثلاتي الصبغي 21' ,'التأخر الزمني','التوحد' ,'بصرية', 'سمعية', 'حركية'],
+		datasets: [{
+		//   label: 'My First Dataset',
+		  data: [trisomy, late, autism, ear, eye, move],
+		  backgroundColor: [
+			'rgba(255, 99, 132, 0.2)',
+			'rgba(255, 159, 64, 0.2)',
+			'rgba(255, 205, 86, 0.2)',
+			'rgba(75, 192, 192, 0.2)',
+			'rgba(54, 162, 235, 0.2)',
+			'rgba(153, 102, 255, 0.2)',
+		  ],
+		  borderColor: [
+			'rgb(255, 99, 132)',
+			'rgb(255, 159, 64)',
+			'rgb(255, 205, 86)',
+			'rgb(75, 192, 192)',
+			'rgb(54, 162, 235)',
+			'rgb(153, 102, 255)',
+		  ],
+		  borderWidth: 1
+		}]
+	  },
+	
+	  options: {
+		// responsive: true,
+		plugins: {
+		  legend: {
+			position: 'top',
+		  },
+		  title: {
+			display: true,
+			text: 'تصنيف المسجلين في المركز حسب نوع الإعاقة'
+		  }
+		}
+	  },
+	});
+}
 	
 
 function displayCards(hasCard, waitingCard) {
@@ -85,10 +131,11 @@ function displayCards(hasCard, waitingCard) {
 		datasets: [{
 		  data: [hasCard, waitingCard],
 		  backgroundColor: [
-			'#26de81',
-			'#a5b1c2',
+			'rgba(0, 255, 128, 0.6)',
+			'rgba(153, 204, 255, 0.7)',
 		  ],
-		  hoverOffset: 4
+		  hoverOffset: 4,
+		  borderWidth: 1
 		}]
 	  };
 	  const config = {
@@ -121,10 +168,11 @@ function displayFood(hasFood, waitingFood) {
 		datasets: [{
 		  data: [hasFood, waitingFood],
 		  backgroundColor: [
-			'#26de81',
-			'#a5b1c2',
+			'rgba(0, 255, 128, 0.6)',
+			'rgba(153, 204, 255, 0.7)',
 		  ],
-		  hoverOffset: 4
+		  hoverOffset: 4,
+		  borderWidth: 1
 		}]
 	  };
 	  const config = {

@@ -80,6 +80,14 @@ def analytics(request):
     handicappeds = Handicapped.objects.all()
     child, young, old = 0, 0, 0
     today = datetime.date.today()
+    handicap_Types = {
+        'move': 0,
+        'ear': 0,
+        'eye': 0,
+        'autism': 0,
+        'late': 0,
+        'trisomy': 0
+    }
     for handicapped in handicappeds:
         age = today - handicapped.birthday
         if age < datetime.timedelta(days=20*365):
@@ -88,6 +96,20 @@ def analytics(request):
             young += 1
         else:
             old += 1
+        type = handicapped.handicap_Type
+        if type == 'حركية':
+            handicap_Types['move'] += 1
+        elif type == 'بصرية':
+            handicap_Types['ear'] += 1
+        elif type == 'سمعية':
+            handicap_Types['eye'] += 1
+        elif type == 'التوحد':
+            handicap_Types['autism'] += 1
+        elif type == 'التأخر الزمني':
+            handicap_Types['late'] += 1
+        else:
+            handicap_Types['trisomy'] += 1
+
 
     has_card = Card.objects.filter(is_finish=True).count()
     waiting_card = Card.objects.filter(is_finish=False).count()
@@ -102,6 +124,8 @@ def analytics(request):
         'child': child,
         'young': young,
         'old': old,
+
+        'handicap_Types': handicap_Types,
 
         'has_card': has_card,
         'waiting_card': waiting_card,
