@@ -1,0 +1,111 @@
+{% if projects %}
+    <table class="table">
+        <thead class=''>
+            <tr>
+            {% if finish %}
+                <th scope="col" class="text-center">حذف</th>
+            {% else %}
+                <th scope="col" class="text-center">قبول / حذف</th>
+            {% endif %}
+            <th scope="col" class="text-center">معلومات أكتر</th>
+            {% if finish %}
+                <th scope="col" class="text-right">تاريخ قبول المشروع</th>
+            {% else %}
+                <th scope="col" class="text-right">تاريخ تقديم المشروع</th>
+            {% endif %}
+            <th scope="col" class="text-right">صاحب المشروع</th>
+            <th scope="col">#</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for project in projects %}
+                <tr>
+                    <td class="text-center">
+
+                        <form class="text-center" method='POST' action="{% url 'box:approve_project' project.id %}" id="approveForm{{project.id}}">
+                            {% csrf_token %}
+                            <a class="icon" data-bs-toggle="modal" data-bs-target="#delete-{{project.id}}" data-bs-toggle="tooltip" data-bs-placement="top" title="حذف الطلب">
+                                <i class="bi bi-trash-fill R-icon"></i>
+                            </a>
+                            {% if not finish %}
+                                <a class="icon" href="javascript:{}" onclick="document.getElementById('approveForm{{project.id}}').submit();" data-bs-toggle="tooltip" data-bs-placement="top" title="الموافقة على الطلب">
+                                    <i class="bi bi-check-square-fill G-icon"></i>
+                                </a>
+                            {% endif %}
+                        </form>
+                    </td>
+                    <td class="text-center icon" data-bs-toggle="modal" data-bs-target="#info-{{project.id}}"><i class="bi bi-eye-fill B-icon"></i></td>
+                    {% if finish %}
+                        <td class="text-right">{{project.approving_date|date:'M d, Y'}}</td>
+                    {% else %}
+                        <td class="text-right">{{project.submiting_date|date:'M d, Y'}}</td>
+                    {% endif %}
+                    <td class="text-right">‏‏{{project.handicapped}}</td>
+                    <th scope="row">{{forloop.counter}}</th>
+
+                    <!-- More info about the project -->
+                    <div class="modal fade" id="info-{{project.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header justify-content-center">
+                                    <h5 class="fw-normal">معلومات أكتر حول المشروع</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label class="form-label">صاحب المشروع</label>
+                                        <input type="text" class="form-control"  placeholder="{{project.handicapped}}" disabled>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">فكرة المشروع</label>
+                                        <textarea class="form-control" placeholder="{{project.description}}" rows="5" disabled></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">ميزانية المشروع</label>
+                                        <input type="text" class="form-control"  placeholder="{{project.budget}}" disabled>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">ملاحضات حول المشروع</label>
+                                        <textarea class="form-control" placeholder="{{project.notes}}" rows="5" disabled></textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إخفاء</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </tr>
+                <!-- Modal For delete -->
+                <div class="modal fade" id="delete-{{project.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header justify-content-center">
+                                <h5 class="fw-normal">حذف الطلب</h5>
+                            </div>
+                            
+                            <form method='POST' action="{% url 'box:delete_project' project.id %}">
+                                {% csrf_token %}
+                                <div class="modal-body">
+                                    سيتم حذف طلب <span class="text-danger fw-bold">{{project.handicapped}}</span> نهائيا
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                                    <button type="submit" class="btn btn-danger">حذف</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+<div class="row justify-content-center">
+    <div class="col-12 text-center mt-2">
+        {% comment %} <img src="{% static 'images/empty.png' %}" width="350px"> {% endcomment %}
+        {% comment %} <i class="bi bi-info-circle text-muted" style="font-size:3rem"></i> {% endcomment %}
+        <small class="text-center fw-bold text-muted ">لاتوجد مشاريع</small>
+    </div>
+</div>
+{% endif %}

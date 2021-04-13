@@ -89,23 +89,27 @@ def analytics(request):
         'trisomy': 0
     }
     for handicapped in handicappeds:
-        age = today - handicapped.birthday
-        if age < datetime.timedelta(days=20*365):
-            child += 1
-        elif age >= datetime.timedelta(days=20*365) and age < datetime.timedelta(days=40*365):
-            young += 1
-        else:
-            old += 1
-        type = handicapped.handicap_Type
-        if type == 'حركية':
+        #get number of each handicap age
+        if handicapped.birthday:
+            age = today - handicapped.birthday
+            if age < datetime.timedelta(days=20*365):
+                child += 1
+            elif age >= datetime.timedelta(days=20*365) and age < datetime.timedelta(days=40*365):
+                young += 1
+            else:
+                old += 1
+
+        # get number of each handicap taype
+        h_type = handicapped.handicap_Type
+        if h_type == 'حركية':
             handicap_Types['move'] += 1
-        elif type == 'بصرية':
+        elif h_type == 'بصرية':
             handicap_Types['ear'] += 1
-        elif type == 'سمعية':
+        elif h_type == 'سمعية':
             handicap_Types['eye'] += 1
-        elif type == 'التوحد':
+        elif h_type == 'التوحد':
             handicap_Types['autism'] += 1
-        elif type == 'التأخر الزمني':
+        elif h_type == 'التأخر الزمني':
             handicap_Types['late'] += 1
         else:
             handicap_Types['trisomy'] += 1

@@ -1,0 +1,131 @@
+{% extends "base.html" %}{% load static %}
+
+
+{% block content %}
+    <div class='container home'>
+        <div class='container mt-5'>
+            <div class='row justify-content-center'>
+                <div class='col-lg-8'>
+
+                    <div class="handicapped-form">
+                        <div class='row justify-content-center'>
+                            <h1 class="">إضافة مشروع جديد</h1>
+                            <div class="info">
+                                <p>ملاحضة: قبل إضافة المشروع يجب أن يكون صاحب المشروع مسجل في لائحة الأشخاص في وضعية إعاقة <a href="{% url 'handicapped:add_handicapped' %}">شخص جديد</a></p>
+                            </div>
+                            <div class="form-group pb-3">
+                                <label>صاحب المشروع <span class="text-danger">*</span></label><br>
+                                <small class="text-muted">أدخل إسم، رقم الهاتف أو رقم البطاقة الوطنية</small>
+                                <input id="search-input" name='search-input' type="text" class="form-control mt-2" required>
+
+                                <div class='col-12' id="search-result">
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">فكرة المشروع</label>
+                                <textarea id="projectDescription" class="form-control" rows="3"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">ميزانية المشروع</label>
+                                <input id="projectBudget" type="number" class="form-control mt-2" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">ملاحضات حول المشروع</label>
+                                <textarea id="projectNotes" class="form-control" rows="3"></textarea>
+                            </div>
+
+                        </div>
+
+                        <div class="pb-2">
+                            <a href="{% url 'box:projects' %}" class="mybtn rbtn">إلغاء <i class="bi bi-x-circle"></i></a>
+                            <button class="mybtn gbtn" id="save-btn" style="border:none;height: 42px">حفظ <i class="bi bi-bookmark-check"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<script>
+function stringCheck(string) {
+    if (string == null) {
+        return '-----';
+    } else {
+        return string;
+    }
+}
+
+const searchBtn = document.getElementById('search-btn');
+const searchResult = document.getElementById('search-result');
+
+const saveBtn = document.getElementById('save-btn');
+saveBtn.addEventListener("click", () => {
+    radios = document.getElementsByClassName('form-check-input');
+    Array.prototype.forEach.call(radios, function(el) {
+        // Do stuff here
+        if (el.checked) {
+            const formData = new FormData();
+            formData.append('id', el.id);
+            formData.append('description', document.getElementById('projectDescription').value);
+            formData.append('budget', document.getElementById('projectBudget').value);
+            console.log(document.getElementById('projectBudget').value);
+            formData.append('notes', document.getElementById('projectNotes').value);
+
+            fetch('/box/projects/add/', {
+            method: 'POST',
+            headers: {'X-CSRFToken': csrftoken},
+            body: formData
+
+            }).then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = '../';
+                } else {
+                    alert(data.message);
+                }
+            })
+            
+        }
+    });
+
+})
+
+const searchInput = document.getElementById('search-input');
+searchInput.addEventListener('input', (e) => {
+    e.preventDefault()
+    search = searchInput.value;
+    if (search != "") {
+        fetch('/search/?search='+search)
+        .then(response => response.json())
+        .then(data => {
+            searchResult.innerHTML = '';
+            data.forEach(item => {
+                searchResult.innerHTML += `
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>${stringCheck(item.fields.handicap_Type)}</td>
+                                    <td>${stringCheck(item.fields.birthday)}</td>
+                                    <td>${stringCheck(item.fields.phone_number)}</td>
+                                    <td>${stringCheck(item.fields.cin)}</td>
+                                    <td>${stringCheck(item.fields.full_name)}</td>
+                                    <th scope="row">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="${item.pk}">
+                                        <label class="form-check-label" for="flexRadioDefault"></label>
+                                    </div>
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    `
+            });
+        });
+    } else {
+        searchResult.innerHTML = '';
+    }
+})
+</script>
+{% endblock content %}

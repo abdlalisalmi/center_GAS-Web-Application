@@ -2,34 +2,34 @@
 
 
 {% block content %}
-    <div class='container home home-center'>
-        {% if request.user.is_authenticated %}
-            <div class='container'>
-                <div class='row justify-content-center'>
-                    <div class='col-lg-5 item'>
-                        <a href="">
-                            <p>----------------------------</p>
-                        </a>
-                    </div>
-                    <div class='col-lg-5 item'>
-                        <a href="">
-                            <p>----------------------</p>
-                        </a>
-                    </div>
-                    <div class='col-lg-5 item'>
-                        <a href="">
-                            <p>----------------------</p>
-                        </a>
-                    </div>
-                    <div class='col-lg-5 item'>
-                        <a href="">
-                            <p>------------------------</p>
-                        </a>
-                    </div>
+    <div class='container home box'>
+        <div class='container'>
+            <div class='row handicapped-list  justify-content-center mb-4'>
+                <div class='col-lg-8 title text-center'>
+                    <p>صندوق دعم التماسك الاجتماعي</p>
                 </div>
             </div>
-        {% else %}
-            {% include "login.html" %}
-        {% endif %}
+            <div class='row justify-content-center'>
+
+                <div class='col-lg-8 item'>
+                    <a href="">
+                        <p>برنامج تحسين ضروف تمدرس الأطفال في وضعية إعاقة</p>
+                    </a>
+                </div>
+
+                <div class='col-lg-8 item'>
+                    <a href="{% url 'box:projects' %}">
+                        <p>تشجيع الأنشطة المدرة للدخل</p>
+                    </a>
+                </div>
+
+                <div class='col-lg-8 item'>
+                    <a href="">
+                        <p>المعينات التقنية والأجهزة التعويضية</p>
+                    </a>
+                </div>
+
+            </div>
+        </div>
     </div>
 {% endblock content %}

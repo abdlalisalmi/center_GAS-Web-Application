@@ -1,0 +1,81 @@
+{% extends "base.html" %}{% load static %}
+
+
+{% block content %}
+    <div class='container '>
+        <div class='row handicapped-list  justify-content-center mb-4'>
+            <div class='col-lg-8 title text-center'>
+                <p>مشاريع الأنشطة المدرة للدخل</p>
+                <a href="{% url 'box:add_project' %}" class="mybtn bbtn">إضافة مشروع جديد <i class="bi bi-plus-circle-fill"></i></a>
+            </div>
+            <div class="col-6">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-success" role="alert">
+                            {% comment %} <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> {% endcomment %}
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        <div class='row justify-content-center'>
+
+            <div class='col-lg-8 projects'>
+
+                <a class="" data-bs-toggle="collapse" href="#Collapse1" aria-expanded="false" aria-controls="Collapse1">
+                    مشاريع ممولة
+                </a>
+                <div class="col">
+                    <div class="collapse multi-collapse show" id="Collapse1">
+                        <div class="card card-body">
+                            {% include 'projects/project_details.html' with  projects=finish_projects finish=True%}
+                        </div>
+                    </div>
+                </div>
+
+                <a class="" data-bs-toggle="collapse" href="#Collapse2" aria-expanded="false" aria-controls="Collapse2">
+                    مشاريع قيد الدراسة المركزية
+                </a>
+                <div class="col">
+                    <div class="collapse multi-collapse show" id="Collapse2">
+                        <div class="card card-body">
+                            {% include 'projects/project_details.html' with  projects=central_projects%}
+                        </div>
+                    </div>
+                </div>
+
+                <a class="" data-bs-toggle="collapse" href="#Collapse3" aria-expanded="false" aria-controls="Collapse3">
+                    مشاريع قيد الدراسة الجهوية
+                </a>
+                <div class="col">
+                    <div class="collapse multi-collapse show" id="Collapse3">
+                        <div class="card card-body">
+                            {% include 'projects/project_details.html' with  projects=regional_projects%}
+                        </div>
+                    </div>
+                </div>
+
+                <a class="" data-bs-toggle="collapse" href="#Collapse4" aria-expanded="false" aria-controls="Collapse4">
+                    مشاريع قيد الدراسة الإقليمية
+                </a>
+                <div class="col">
+                    <div class="collapse multi-collapse show" id="Collapse4">
+                        <div class="card card-body">
+                            {% include 'projects/project_details.html' with  projects=local_projects%}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+<script>
+    window.setTimeout(function() {
+        if (document.querySelector(".alert")){
+            removeFadeOut(document.querySelector(".alert"), 2000);
+        }
+    }, 4000);
+</script>
+{% endblock content %}

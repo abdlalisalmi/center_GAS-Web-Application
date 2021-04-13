@@ -111,7 +111,7 @@ select option {text-align-last:right; }
     border-radius: 20px;
     padding: 15px;
     font-family: 'morocco', sans-serif !important;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 500;
     text-align: center;
     cursor: pointer;
@@ -313,3 +313,20 @@ th {
     margin-bottom: 25px;
     border-bottom: #d5d4d4 1px solid;
 }
+
+/* Projects style */
+.projects a {
+    font-family: 'morocco' !important;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: #00b56f;
+    transition: all .3s;
+}
+.projects a:hover{
+    color: #048856;
+}
+.projects .col{
+    margin-bottom: 30px !important;
+    margin-top: 5px !important;
+}
+/* end Projects style */
