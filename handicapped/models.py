@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.urls import reverse
 
 
 class Handicapped(models.Model):
@@ -21,3 +21,7 @@ class Handicapped(models.Model):
 
     def __str__(self) -> str:
         return self.full_name if self.full_name else f"handicapped {self.id}"
+    
+    def get_absolute_url(self):
+        return f'/search/{self.pk}'
+    

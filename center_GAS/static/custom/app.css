@@ -330,3 +330,35 @@ th {
     margin-top: 5px !important;
 }
 /* end Projects style */
+
+.device-request-title {
+    background-color: #f1f2f6;
+    padding: 10px;
+    border: 1px solid #00b56f;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.device {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all .5s;
+}
+.device h5 {
+    font-size: 1rem;
+}
+.wiat {
+    background-color: #fff1a2;
+}
+.wiat:hover {
+    background-color: #e3d16e;
+}
+.finish {
+    background-color: #c4f798;
+}
+.finish:hover {
+    background-color: #9ed86a;
+}

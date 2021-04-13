@@ -14,27 +14,20 @@
                         <a href="{% url 'handicapped:handicapped_list' %}?deleted=True" class="btn mybtn rbtn">سلة المحذوفين <i class="bi bi-trash"></i></a>
                     {% endif %}
                     <a href="{% url 'handicapped:add_handicapped' %}" class="mybtn bbtn">إضافة شخص جديد <i class="bi bi-plus-circle-fill"></i></a>
-                    {% comment %} <div class="input-group mt-4">
-                        <span class="input-group-text"><i class="bi bi-search"></i></span>
-                        <input type="text" class="form-control" placeholder="إبحث عن شخص ما">
-                    </div> {% endcomment %}
                 </div>
 
-                <div class='col-lg-12'>
+                <div class='col-lg-8'>
 
                    <table class="table">
                         <thead class=''>
                             <tr>
-                            <th scope="col"></th>
-                            <th scope="col">ولي الأمر</th>
-                            <th scope="col">نوع الإعاقة</th>
-                            <th scope="col">مكان الإزدياد</th>
-                            <th scope="col">تاريخ الإزدياد</th>
-                            <th scope="col">C.I.N</th>
-                            <th scope="col">رقم الهاتف</th>
-                            <th scope="col">العنوان</th>
-                            <th scope="col">الإسم الكامل</th>
-                            <th scope="col">#</th>
+                            <th scope="col" class="text-center"></th>
+                            <th scope="col" class="text-center">عرض كل المعلومات</th>
+                            <th scope="col" class="text-center">C.I.N</th>
+                            <th scope="col" class="text-center">رقم الهاتف</th>
+                            <th scope="col" class="text-center">العنوان</th>
+                            <th scope="col" class="text-center">الإسم الكامل</th>
+                            <th scope="col" class="text-center">#</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -48,12 +41,9 @@
                                             {% endif %}
                                             <a class="icon" href="{% url 'handicapped:update_handicapped' handicapped.id %}"><i class="bi bi-pencil-square G-icon"></i></a>
                                         </td>
-                                        <td>{% if handicapped.guardian %}{{handicapped.guardian}}{% endif %}</td>
-                                        <td>{% if handicapped.handicap_Type %}{{handicapped.handicap_Type}}{% endif %}</td>
-                                        <td>{% if handicapped.birth_address %}{{handicapped.birth_address}}{% endif %}</td>
-                                        <td>{% if handicapped.birthday %}{{handicapped.birthday}}{% endif %}</td>
-                                        <td>{% if handicapped.cin %}{{handicapped.cin}}{% endif %}</td>
-                                        <td>{% if handicapped.phone_number %}{{handicapped.phone_number}}{% endif %}</td>
+                                        <td class="text-center"><a href="{{handicapped.get_absolute_url}}" class="icon"><i class="bi bi-folder2-open G-icon"></i></a></td>
+                                        <td class="text-center">{% if handicapped.cin %}{{handicapped.cin}}{% endif %}</td>
+                                        <td class="text-center">{% if handicapped.phone_number %}{{handicapped.phone_number}}{% endif %}</td>
                                         <td>{% if handicapped.address %}{{handicapped.address}}{% endif %}</td>
                                         <td>{% if handicapped.full_name %}{{handicapped.full_name}}{% endif %}</td>
                                         <th scope="row">{{forloop.counter}}</th>

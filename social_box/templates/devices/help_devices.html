@@ -1,0 +1,173 @@
+
+
+<button class="device-request-title" data-bs-toggle="collapse" href="#helpCollapse1" aria-expanded="false" aria-controls="Collapse1">
+    طلبات طور الانجاز
+</button>
+<div class="col">
+    <div class="collapse multi-collapse show" id="helpCollapse1">
+        <div class="card card-body">
+            {% if waiting_help_devices %}
+                {% for device in waiting_help_devices %}
+                    <div class="row justify-content-center">
+                        <div class="col-10 device wiat" data-bs-toggle="modal" data-bs-target="#info-{{device.id}}">
+                            <h5>{{device.handicapped}}</h5>
+                        </div>
+                    </div>
+
+                        <!-- More info about the project -->
+                        <div class="modal fade" id="info-{{device.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header justify-content-center">
+                                        <h5 class="fw-normal">معلومات أكتر حول الطلب</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label class="form-label">صاحب الطلب</label>
+                                            <input type="text" class="form-control"  placeholder="{{device.handicapped}}" disabled>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">الجهاز المطلوب</label>
+                                            <input type="text" class="form-control"  placeholder="{{device.device_name}}" disabled>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">تاريخ وضع الطلب</label>
+                                            <input type="text" class="form-control"  placeholder="{{device.submiting_date}}" disabled>
+                                        </div>
+ 
+                                        <form class="text-center" method='POST' action="{% url 'box:approve_device' device.id %}" id="approveForm{{device.id}}">
+                                            {% csrf_token %}
+                                            <a class="icon" data-bs-toggle="modal" data-bs-target="#delete-{{device.id}}" data-bs-toggle="tooltip" data-bs-placement="top" title="حذف الطلب">
+                                                <span class="mybtn rbtn">حذف الطلب</span>
+                                            </a>
+                                            <a class="icon" href="javascript:{}" onclick="document.getElementById('approveForm{{device.id}}').submit();" data-bs-toggle="tooltip" data-bs-placement="top" title="الموافقة على الطلب">
+                                                <span class="mybtn gbtn">الموافقة على الطلب</span>
+                                            </a>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إخفاء</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </tr>
+                    <!-- Modal For delete -->
+                    <div class="modal fade" id="delete-{{device.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header justify-content-center">
+                                    <h5 class="fw-normal">حذف الطلب</h5>
+                                </div>
+                                
+                                <form method='POST' action="{% url 'box:delete_device' device.id%}">
+                                    {% csrf_token %}
+                                    <div class="modal-body">
+                                        سيتم حذف طلب <span class="text-danger fw-bold">{{device.handicapped}}</span> نهائيا
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                                        <button type="submit" class="btn btn-danger">حذف</button>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+            <div class="row justify-content-center">
+                <div class="col-12 text-center mt-2">
+                    <small class="text-center fw-bold text-muted ">لاتوجد طلبات</small>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+
+<button class="device-request-title" data-bs-toggle="collapse" href="#helpCollapse2" aria-expanded="false" aria-controls="Collapse1">
+    طلبات منجزة
+</button>
+<div class="col">
+    <div class="collapse multi-collapse show" id="helpCollapse2">
+        <div class="card card-body">
+            {% if has_help_devices %}
+                {% for device in has_help_devices %}
+                    <div class="row justify-content-center">
+                        <div class="col-10 device finish" data-bs-toggle="modal" data-bs-target="#info-{{device.id}}">
+                            <h5>{{device.handicapped}}</h5>
+                        </div>
+                    </div>
+
+                        <!-- More info about the project -->
+                        <div class="modal fade" id="info-{{device.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header justify-content-center">
+                                        <h5 class="fw-normal">معلومات أكتر حول الطلب</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label class="form-label">صاحب الطلب</label>
+                                            <input type="text" class="form-control"  placeholder="{{device.handicapped}}" disabled>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">الجهاز المطلوب</label>
+                                            <input type="text" class="form-control"  placeholder="{{device.device_name}}" disabled>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">تاريخ وضع الطلب</label>
+                                            <input type="text" class="form-control"  placeholder="{{device.submiting_date}}" disabled>
+                                        </div>
+ 
+                                        <div class="text-center" method='POST'>
+                                            <a class="icon" data-bs-toggle="modal" data-bs-target="#delete-{{device.id}}" data-bs-toggle="tooltip" data-bs-placement="top" title="حذف الطلب">
+                                                <span class="mybtn rbtn">حذف الطلب</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إخفاء</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </tr>
+                    <!-- Modal For delete -->
+                    <div class="modal fade" id="delete-{{device.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header justify-content-center">
+                                    <h5 class="fw-normal">حذف الطلب</h5>
+                                </div>
+                                
+                                <form method='POST' action="{% url 'box:delete_device' device.id%}">
+                                    {% csrf_token %}
+                                    <div class="modal-body">
+                                        سيتم حذف طلب <span class="text-danger fw-bold">{{device.handicapped}}</span> نهائيا
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                                        <button type="submit" class="btn btn-danger">حذف</button>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+            <div class="row justify-content-center">
+                <div class="col-12 text-center mt-2">
+                    <small class="text-center fw-bold text-muted ">لاتوجد طلبات</small>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

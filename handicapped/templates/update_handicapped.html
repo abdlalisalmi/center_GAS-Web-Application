@@ -10,7 +10,7 @@
                     <form class="handicapped-form" method=POST action="{% url 'handicapped:update_handicapped' handicapped.id %}">
                         {% csrf_token %}
                         <div class='row justify-content-center'>
-                            <h1 class="">إضافة شخص من دوي الإحتياجات الخاصة</h1>
+                            <h1 class="">تعديل معلومات : <span class="fw-bold text-danger">{{handicapped.full_name}}</span></h1>
                             {% if form.errors %}
                                 <ul class="messages">
                                     <li class="text-danger" style='list-style-type: none;'>المرجو ملئ جميع المعلومات بشكل صحيح.<i class="bi bi-exclamation-triangle"></i></li>

@@ -15,3 +15,15 @@ class Project(models.Model):
 
     def __str__(self) -> str:
         return self.handicapped.full_name
+
+
+class Device(models.Model):
+    handicapped     = models.OneToOneField(Handicapped, on_delete=models.CASCADE)
+    device_type     = models.CharField(max_length=100, null=True, blank=True)
+    device_name     = models.TextField(null=True, blank=True)
+    submiting_date  = models.DateField(auto_now=False, auto_now_add=True)
+    approving_date  = models.DateField(auto_now=False, auto_now_add=False, null=True, blank=True)
+    is_finish       = models.BooleanField(default=False)
+
+    def __str__(self) -> str:
+        return self.handicapped.full_name
