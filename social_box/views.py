@@ -3,8 +3,9 @@ from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 import datetime
-from social_box.models import Project, Device
+from social_box.models import Project, Device, Association
 from handicapped.models import Handicapped
+from .forms import AssociationCreateForm
 
 @login_required(login_url='/')
 def box(request):
@@ -13,6 +14,39 @@ def box(request):
 
     return render(request, template_name, context)
 
+#################################################################################
+################################### education ###################################
+#################################################################################
+@login_required(login_url='/')
+def education(request):
+    template_name = "education.html"
+    context = {}
+    return render(request, template_name, context)
+
+
+@login_required(login_url='/')
+def association(request, id):
+    template_name = ""
+    context = {}
+    return render(request, template_name, context)
+
+@login_required(login_url='/')
+def add_association(request, id):
+    template_name = ""
+    context = {}
+    return render(request, template_name, context)
+
+@login_required(login_url='/')
+def update_association(request, id):
+    template_name = ""
+    context = {}
+    return render(request, template_name, context)
+
+@login_required(login_url='/')
+def delete_association(request, id):
+    template_name = ""
+    context = {}
+    return render(request, template_name, context)
 
 #################################################################################
 ############################### help the projects ###############################

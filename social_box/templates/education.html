@@ -1,0 +1,75 @@
+{% extends "base.html" %}{% load static %}
+
+
+{% block content %}
+    <div class='container '>
+        <div class='row handicapped-list  justify-content-center mb-4'>
+            <div class='col-lg-8 title text-center'>
+                <p>برنامج تحسين ضروف تمدرس الأطفال في وضعية إعاقة</p>
+                <a data-bs-toggle="modal" data-bs-target="#add-association"   class="mybtn bbtn">إضافة جمعية جديدة <i class="bi bi-plus-circle-fill"></i></a>
+                <!-- Add new association -->
+                <div class="modal fade" id="add-association" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header justify-content-center">
+                                <h5 class="fw-normal">إضافة جمعية جديدة</h5>
+                            </div>
+                            <form method='POST' action="">
+                                {% csrf_token %}
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label class="form-label">إسم الجمعية</label>
+                                        <input type="text" class="form-control" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">عنوان الجمعية</label>
+                                        <input type="text" class="form-control" >
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">تاريخ تأسيس الجمعية</label>
+                                        <input type="date" class="form-control">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">معلومات حول الجمعية</label>
+                                        <textarea class="form-control" rows="2"></textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button  class="mybtn rbtn" data-bs-dismiss="modal">إلغاء</button>
+                                    <button type="submit" class="mybtn gbtn" >حفض</button>
+                                </div>
+                            <form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-success" role="alert">
+                            {% comment %} <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> {% endcomment %}
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        <div class='row justify-content-center'>
+
+            <div class='col-lg-8 projects'>
+
+            </div>
+
+        </div>
+    </div>
+<script>
+    window.setTimeout(function() {
+        if (document.querySelector(".alert")){
+            removeFadeOut(document.querySelector(".alert"), 2000);
+        }
+    }, 4000);
+</script>
+{% endblock content %}

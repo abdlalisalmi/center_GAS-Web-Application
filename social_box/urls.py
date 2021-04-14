@@ -1,6 +1,8 @@
 from django.urls import path
 from .views import (
-        box, 
+        box,
+
+        education,
 
         projects, 
         add_project, 
@@ -16,6 +18,8 @@ from .views import (
 app_name = 'box'
 urlpatterns = [
     path('', box, name='box'),
+
+    path('education/', education, name='education'),
 
     path('projects/', projects, name='projects'),
     path('projects/add/', add_project, name='add_project'),
