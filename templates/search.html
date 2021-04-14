@@ -45,6 +45,11 @@
 
 
 <script>
+
+function openLink(id) {
+    window.location.href = `/search/${id}/`;
+}
+
 function stringCheck(string) {
     if (string == null) {
         return '-----';
@@ -65,7 +70,7 @@ searchInput.addEventListener('input', (e) => {
             searchResult.innerHTML = ``;
             data.forEach(item => {
                 searchResult.innerHTML += `
-                    <tr>
+                    <tr class="search-item" onclick="openLink(${item.pk})">
                         <td class="text-center"><a href="/search/${item.pk}" class="icon"><i class="bi bi-folder2-open G-icon"></i></a></td>
                         <td class="text-right">${stringCheck(item.fields.handicap_Type)}</td>
                         <td class="text-right">${stringCheck(item.fields.birthday)}</td>
