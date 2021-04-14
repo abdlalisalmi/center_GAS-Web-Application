@@ -1,0 +1,96 @@
+<div class="row">
+    <div class="col-12">
+        {% if project %}
+            {% if project.state == 3 %}
+                <div class="success">
+                    <p>هذا الشخص يستفيد من برنامج دعم المشاريع و الأنشطة المدرة للدخل</p>
+                    <p><span class="fw-bold">{{project.approving_date|date:'M d, Y'}}</span> : تاريخ قبول المشروع</p>
+                    <p>
+                        فكرة المشروع
+                        : <span class="fw-bold">{{project.description}}</span>
+                    </p>
+                    <p><span class="fw-bold">{{project.budget}}</span> : مزانية المشروع</p>
+                    <p>
+                        ملاحضات حول المشروع
+                        : <span class="fw-bold">{{project.notes}}</span>
+                    </p>
+                </div>
+            {% else%}
+                <div class="warrning">
+                    <p>هذا الشخص في لائحة الإنتضار للإستفدة من برنامج دعم المشاريع و الأنشطة المدرة للدخل</p>
+                    <p><span class="fw-bold">{{project.submiting_date|date:'M d, Y'}}</span> : تاريخ وضع الطلب</p>
+                    <p>
+                        حالة الطلب
+                        {% if project.state == 0 %}
+                            : <span class="fw-bold">المشروع قيد الدراسة الإقليمية</span>
+                        {% elif project.state == 1 %}
+                            : <span class="fw-bold">المشروع قيد الدراسة الجهوية</span>
+                        {% elif project.state == 2 %}
+                            : <span class="fw-bold">المشروع قيد الدراسة المركزية</span>
+                        {% endif %}
+                    </p>
+                    <p>
+                        فكرة المشروع
+                        : <span class="fw-bold">{{project.description}}</span>
+                    </p>
+                    <p><span class="fw-bold">{{project.budget}}</span> : مزانية المشروع</p>
+                    <p>
+                        ملاحضات حول المشروع
+                        : <span class="fw-bold">{{project.notes}}</span>
+                    </p>
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="info">
+                <p>هذا الشخص لا يستفيد من برنامج دعم المشاريع و الأنشطة المدرة للدخل <a href="{% url 'box:add_project' %}">أضف طلبه</a></p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-12">
+        {% if device %}
+            {% if device.is_finish%}
+                <div class="success">
+                    <p><span class="fw-bold">{{device.approving_date|date:'M d, Y'}}</span> : تاريخ قبول الطلب</p>
+                    <p>
+                        نوع الجهاز
+                        {% if device.device_type == 'help' %}
+                            : <span class="fw-bold">معين تقني</span>
+                        {% else%}
+                            : <span class="fw-bold">جهاز تعويضي</span>
+                        {% endif %}
+                    </p>
+                    <p>
+                        إسم الجهاز
+                        : <span class="fw-bold">{{device.device_name}}</span>
+                    </p>
+                </div>
+            {% else%}
+                <div class="warrning">
+                    <p>هذا الشخص في لائحة الإنتضار للإستفدة من أحد المعينات التقنية والأجهزة التعويضية</p>
+                    <p><span class="fw-bold">{{device.submiting_date|date:'M d, Y'}}</span> : تاريخ وضع الطلب</p>
+                    <p>
+                        نوع الجهاز
+                        {% if device.device_type == 'help' %}
+                            : <span class="fw-bold">معين تقني</span>
+                        {% else%}
+                            : <span class="fw-bold">جهاز تعويضي</span>
+                        {% endif %}
+                    </p>
+                    <p>
+                        إسم الجهاز
+                        : <span class="fw-bold">{{device.device_name}}</span>
+                    </p>
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="info">
+                <p>هذا الشخص لا يستفيد من معينات تقنية أو أجهزة تعويضية <a href="{% url 'box:add_device' %}">أضف طلبه</a></p>
+            </div>
+        {% endif %}
+    </div>
+</div>

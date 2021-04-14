@@ -306,12 +306,32 @@ th {
     /* width: 30%; */
     border-bottom: #d5d4d4 1px solid;
 }
+.search-folder h3{
+    font-size: 1.1rem;
+    fo
+    color: #291965;
+    padding: 15px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    border-bottom: #d5d4d4 1px solid;
+}
 /* END SEARCH FOLDER */
 
 .line {
-    height: 25px;
+    padding: 15px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    font-family: 'morocco', sans-serif !important;
+    color: #20c997;
     margin-bottom: 25px;
-    border-bottom: #d5d4d4 1px solid;
+    margin-top: 30px;
+    border: 10px solid;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-image-slice: 1;
+    border-bottom-width: 1.5px;
+    border-image-source: linear-gradient(to left, #f6f6f6, #cecece, #f6f6f6);
 }
 
 /* Projects style */

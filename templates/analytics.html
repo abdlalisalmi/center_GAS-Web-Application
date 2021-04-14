@@ -17,6 +17,8 @@
 
                     </div>
                 </div>
+
+                <div class="line text-center">لائحة الأشخاص في وضعية إعاقة</div>
                 <div class='col-12 search-folder text-right'>
                     <div class="row justify-content-center">
                         <div class="col-lg-3 col-8">
@@ -29,7 +31,8 @@
                             <canvas id="types" width="155" height="70"></canvas>
                         </div>
                     </div>
-                    <div class="line"></div>
+
+                    <div class="line text-center">الطرد الغدائي و بطاقات الأشخاص في وضعية إعاقة</div>
                     <div class="row justify-content-center">
                         <div class="col-lg-4 col-8">
                             <canvas id="cards" width="300" height="300"></canvas>
@@ -38,6 +41,24 @@
                             <canvas id="food" width="300" height="300"></canvas>
                         </div>
                     </div>
+
+                    <div class="line text-center">المعينات التقنية والأجهزة التعويضية</div>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-4 col-8">
+                            <canvas id="help-device" width="300" height="300"></canvas>
+                        </div>
+                        <div class="col-lg-4 col-8">
+                            <canvas id="replace-device" width="300" height="300"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="line text-center">برنامج دعم المشاريع و الأنشطة المدرة للدخل</div>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8 col-8">
+                            <canvas id="projects" width="155" height="70"></canvas>
+                        </div>
+                    </div>
+
                     {% comment %} <script src="{% static 'chartjs/chart.min.js' %}"></script> {% endcomment %}
                     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                     <script src="{% static 'chartjs/myChart.js' %}"></script>
@@ -60,5 +81,8 @@
         );
         displayCards({{has_card}}, {{waiting_card}});
         displayFood({{has_food}}, {{waiting_food}});
+        displayDevice("help-device", {{has_help_devices}}, {{waiting_help_devices}}, 'المشتركين في برنامج المعينات التقنية');
+        displayDevice("replace-device", {{has_replace_devices}}, {{waiting_replace_devices}}, 'المشتركين في برنامج الأجهزة التعويضية');
+        displayProjects({{local_projects}}, {{regional_projects}}, {{central_projects}}, {{finish_projects}})
 </script>
 {% endblock content %}

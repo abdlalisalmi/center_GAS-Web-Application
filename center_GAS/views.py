@@ -11,6 +11,7 @@ import datetime
 from handicapped.models import Handicapped
 from food.models import Food
 from cards.models import Card
+from social_box.models import Device, Project
 
 
 def home_page(request):
@@ -55,15 +56,20 @@ def search_folder(request, id):
     context = {}
 
     handicapped = get_object_or_404(Handicapped, id=id)
-    food = Food.objects.filter(handicapped=handicapped)
-    food = food[0] if food else None
-    card = Card.objects.filter(handicapped=handicapped)
-    card = card[0] if card else None
+
+    food = Food.objects.filter(handicapped=handicapped).first()
+    card = Card.objects.filter(handicapped=handicapped).first()
+
+    project = Project.objects.filter(handicapped=handicapped).first()
+    device = Device.objects.filter(handicapped=handicapped).first()
+
 
     context.update({
         'handicapped': handicapped,
         'food': food,
         'card': card,
+        'project': project,
+        'device': device,
     })
 
     return render(request, template_name, context)
@@ -121,6 +127,19 @@ def analytics(request):
     has_food = Food.objects.filter(is_finish=True, is_deleted=False).count()
     waiting_food = Food.objects.filter(is_finish=False).count()
 
+    # Analytics of peaple in the devices programm
+    has_help_devices = Device.objects.filter(device_type='help', is_finish=True).order_by('-id').count()
+    waiting_help_devices = Device.objects.filter(device_type='help', is_finish=False).order_by('-id').count()
+
+    has_replace_devices = Device.objects.filter(device_type='replace', is_finish=True).order_by('-id').count()
+    waiting_replace_devices = Device.objects.filter(device_type='replace', is_finish=False).order_by('-id').count()
+
+    # Analytics of help projects programm
+    local_projects = Project.objects.filter(state=0).count()
+    regional_projects = Project.objects.filter(state=1).count()
+    central_projects = Project.objects.filter(state=2).count()
+    finish_projects = Project.objects.filter(state=3).count()
+
     context.update({
         'men': men,
         'womans': womans,
@@ -136,6 +155,16 @@ def analytics(request):
 
         'has_food': has_food,
         'waiting_food': waiting_food,
+
+        'has_help_devices': has_help_devices,
+        'waiting_help_devices': waiting_help_devices,
+        'has_replace_devices': has_replace_devices,
+        'waiting_replace_devices': waiting_replace_devices,
+
+        'local_projects': local_projects,
+        'regional_projects': regional_projects,
+        'central_projects': central_projects,
+        'finish_projects': finish_projects,
     })
     return render(request, template_name, context)
     

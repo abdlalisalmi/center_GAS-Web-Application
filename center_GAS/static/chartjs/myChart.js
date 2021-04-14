@@ -40,40 +40,44 @@ function displayGenre(men, womans) {
 
 function displayAges(child, young, old) {
 	var age = document.getElementById("age").getContext("2d");
-	
+
 	var mybarChart = new Chart(age, {
-	  type: 'bar',
-	  data: {
+		type: 'bar',
+		data: {
 		labels: ['أقل من 20 سنة', 'ما بين 20 و 40 سنة', 'أكبر من 40 سنة'],
 		datasets: [{
-		  label: 'أقل من 20 سنة',
-		  backgroundColor: "#26de81",
-		  data: [child, 0, 0]
-		}, {
-		  label: 'ما بين 20 و 40 سنة',
-		  backgroundColor: "#0fb9b1",
-		  data: [0, young, 0]
-		}, {
-		  label: 'أكبر من 40 سنة',
-		  backgroundColor: "#a5b1c2",
-		  data: [0, 0, old]
-		}]
-	  },
-	
-	  options: {
-		// responsive: true,
-		plugins: {
-		  legend: {
-			position: 'top',
-		  },
-		  title: {
-			display: true,
-			text: 'تصنيف المسجلين في المركز حسب الأعمار'
+		  //   label: 'My First Dataset',
+			data: [child, young, old],
+			backgroundColor: [
+			  'rgba(255, 99, 132, 0.2)',
+			  'rgba(255, 159, 64, 0.2)',
+			  'rgba(255, 205, 86, 0.2)',
+			],
+			borderColor: [
+			  'rgb(255, 99, 132)',
+			  'rgb(255, 159, 64)',
+			  'rgb(255, 205, 86)',
+			],
+			borderWidth: 1
+		  }]
+		},
+	  
+		options: {
+		  // responsive: true,
+		  plugins: {
+			legend: {
+			  position: 'top',
+			},
+			title: {
+			  display: true,
+			  text: 'تصنيف المسجلين في المركز حسب الأعمار'
+			}
 		  }
-		}
-	  },
-	});
+		},
+	  });
+
 }
+
 
 function displayTypes(move, ear, eye, autism, late, trisomy) {
 	var types = document.getElementById("types").getContext("2d");
@@ -192,4 +196,83 @@ function displayFood(hasFood, waitingFood) {
 		  },
 	  };
 	var genrePie = new Chart(food,config);
+}
+
+
+function displayDevice(ele, hasHelpDevice, waitingHelpDevice, message) {
+	var ele = document.getElementById(ele).getContext("2d");
+	const data = {
+		labels: [
+		  'مستفيدون',
+		  'لائحة الإنتضار',
+		],
+		datasets: [{
+		  data: [hasHelpDevice, waitingHelpDevice],
+		  backgroundColor: [
+			'rgba(0, 255, 128, 0.6)',
+			'rgba(255, 99, 132, 0.2)',
+		  ],
+		  hoverOffset: 4,
+		  borderWidth: 1
+		}]
+	  };
+	  const config = {
+		type: 'pie',
+		data: data,
+		options: {
+			responsive: true,
+			plugins: {
+			  legend: {
+				position: 'bottom',
+			  },
+			  title: {
+				display: true,
+				text: message
+			  }
+			}
+		  },
+	  };
+	var genrePie = new Chart(ele,config);
+}
+
+
+function displayProjects(local, regional, central, finish) {
+	var projects = document.getElementById("projects").getContext("2d");
+	
+	var mybarChart = new Chart(projects, {
+	  type: 'bar',
+	  data: {
+		labels: ['قيد الدراسة الإقليمية' , 'قيد الدراسة الجهوية', 'قيد الدراسة المركزية', 'مشاريع ممولة'],
+		datasets: [{
+		//   label: 'My First Dataset',
+		  data: [local, regional, central, finish],
+		  backgroundColor: [
+			'rgba(255, 99, 132, 0.2)',
+			'rgba(255, 159, 64, 0.2)',
+			'rgba(255, 205, 86, 0.2)',
+			'rgba(75, 192, 192, 0.2)',
+		  ],
+		  borderColor: [
+			'rgb(255, 99, 132)',
+			'rgb(255, 159, 64)',
+			'rgb(255, 205, 86)',
+			'rgb(75, 192, 192)',
+		  ],
+		  borderWidth: 1
+		}]
+	  },
+	
+	  options: {
+		// responsive: true,
+		plugins: {
+		  legend: {
+			position: 'top',
+		  },
+		  title: {
+			display: true,
+			text: 'عرض المشاريع حسب حالة الطلب'
+		  }
+		}
+	  },
+	});
 }
