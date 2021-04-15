@@ -3,6 +3,9 @@ from .views import (
         box,
 
         education,
+        association,
+        add_association,
+        delete_association,
 
         projects, 
         add_project, 
@@ -20,6 +23,9 @@ urlpatterns = [
     path('', box, name='box'),
 
     path('education/', education, name='education'),
+    path('education/association/add', add_association, name='add_association'),
+    path('education/association/<int:id>/', association, name='association'),
+    path('education/association/delete/<int:id>/', delete_association, name='delete_association'),
 
     path('projects/', projects, name='projects'),
     path('projects/add/', add_project, name='add_project'),

@@ -21,7 +21,7 @@ def box(request):
 def education(request):
     template_name = "education.html"
     context = {}
-    associations = Association.objects.all()
+    associations = Association.objects.all().order_by('-id')
     context.update({
         'associations': associations,
     })
@@ -30,15 +30,24 @@ def education(request):
 
 @login_required(login_url='/')
 def association(request, id):
-    template_name = ""
+    template_name = "association.html"
     context = {}
+
+    ass = get_object_or_404(Association, id=id)
+    context.update({'ass': ass})
     return render(request, template_name, context)
 
 @login_required(login_url='/')
-def add_association(request, id):
-    template_name = ""
-    context = {}
-    return render(request, template_name, context)
+def add_association(request):
+    if request.method == 'POST':
+        form = AssociationCreateForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'لقد تم إضافة الجمعية')
+        else:
+            messages.success(request, 'لقد تم إضافة الجمعية')
+        
+    return redirect('box:education')
 
 @login_required(login_url='/')
 def update_association(request, id):
@@ -48,9 +57,11 @@ def update_association(request, id):
 
 @login_required(login_url='/')
 def delete_association(request, id):
-    template_name = ""
-    context = {}
-    return render(request, template_name, context)
+    if request.method == 'POST':
+        ass = get_object_or_404(Association, id=id)
+        ass.delete()
+        messages.success(request, 'لقد تم حذف الجمعية')
+    return redirect('box:education')
 
 #################################################################################
 ############################### help the projects ###############################

@@ -1,0 +1,46 @@
+{% extends "base.html" %}{% load static %}
+
+
+{% block content %}
+    <div class='container '>
+        <div class='row handicapped-list  justify-content-center mb-4'>
+            <div class='col-lg-8 title text-center'>
+                <p>{{ass.name}}</p>
+                <a data-bs-toggle="modal" data-bs-target="#add-association"   class="mybtn rbtn">حدف الجمعية <i class="bi bi-trash-fill"></i></a>
+                <!-- Add new association -->
+                <div class="modal fade" id="add-association" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header justify-content-center">
+                                <h5 class="fw-normal">حدف الجمعية</h5>
+                            </div>
+                            <form method='POST' action="{% url 'box:delete_association' ass.id %}">
+                                {% csrf_token %}
+                                <div class="modal-body">
+                                    سيتم حدف الجمعية وكل ما يتعلق بها نهائيا
+                                </div>
+                                <div class="modal-footer">
+                                    <button  class="mybtn gbtn" data-bs-dismiss="modal">إلغاء</button>
+                                    <button type="submit" class="mybtn rbtn" >حدف</button>
+                                </div>
+                            <form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-success" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class='row justify-content-center'>
+
+        </div>
+    </div>
+{% endblock content %}

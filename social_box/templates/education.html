@@ -14,27 +14,27 @@
                             <div class="modal-header justify-content-center">
                                 <h5 class="fw-normal">إضافة جمعية جديدة</h5>
                             </div>
-                            <form method='POST' action="">
+                            <form method='POST' action="{% url 'box:add_association' %}">
                                 {% csrf_token %}
                                 <div class="modal-body">
                                     <div class="mb-3">
                                         <label class="form-label">إسم الجمعية</label>
-                                        <input type="text" class="form-control" required>
+                                        <input name="name" type="text" class="form-control" required>
                                     </div>
 
                                     <div class="mb-3">
                                         <label class="form-label">عنوان الجمعية</label>
-                                        <input type="text" class="form-control" >
+                                        <input name="address" type="text" class="form-control" >
                                     </div>
 
                                     <div class="mb-3">
                                         <label class="form-label">تاريخ تأسيس الجمعية</label>
-                                        <input type="date" class="form-control">
+                                        <input name="creation_date" type="date" class="form-control">
                                     </div>
 
                                     <div class="mb-3">
                                         <label class="form-label">معلومات حول الجمعية</label>
-                                        <textarea class="form-control" rows="2"></textarea>
+                                        <textarea name="about" class="form-control" rows="2"></textarea>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -61,7 +61,7 @@
             {% if associations %}
                 {% for ass in associations %}
                     <div class='col-lg-8'>
-                        <a href="#" style="text-decoration:none">
+                        <a href="{% url 'box:association' ass.id %}" style="text-decoration:none">
                             <p class="ass-name">{{ass.name}}</p>
                         </a>
                     </div>
