@@ -6,6 +6,7 @@ class Handicapped(models.Model):
     full_name           = models.CharField(max_length=50)
     genre               = models.CharField(max_length=50)
     address             = models.CharField(max_length=100, null=True, blank=True)
+    zone                = models.CharField(max_length=100, null=True, blank=True)
     phone_number        = models.CharField(max_length=12, null=True, blank=True)
     cin                 = models.CharField(max_length=20, null=True, blank=True)
     birthday            = models.DateField(null=True, blank=True)

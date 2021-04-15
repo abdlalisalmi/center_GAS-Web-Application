@@ -5,8 +5,8 @@ function displayGenre(men, womans) {
 	var genre = document.getElementById("genre").getContext("2d");
 	const data = {
 		labels: [
-		  'الرجال',
-		  'النساء',
+		  'ذكور',
+		  'إناث',
 		],
 		datasets: [{
 		  data: [men, womans],
@@ -29,7 +29,7 @@ function displayGenre(men, womans) {
 			  },
 			  title: {
 				display: true,
-				text: 'عدد الرجال و النساء المسجلين في المركز'
+				text: 'عدد الذكور و الإناث المسجلين في المركز'
 			  }
 			}
 		  },
@@ -153,7 +153,7 @@ function displayCards(hasCard, waitingCard) {
 			  },
 			  title: {
 				display: true,
-				text: 'طلبات بطاقات الأشخاص في وضعية إعاقة'
+				text: 'طلبات الإستفادة من بطاقة شخص في وضعية إعاقة'
 			  }
 			}
 		  },
@@ -190,7 +190,7 @@ function displayFood(hasFood, waitingFood) {
 			  },
 			  title: {
 				display: true,
-				text: 'المشتركين في برنامج الطرد الغدائي'
+				text: ' طلبات الإستفادة من الطرد الغدائي'
 			  }
 			}
 		  },

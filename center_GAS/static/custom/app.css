@@ -306,10 +306,31 @@ th {
     /* width: 30%; */
     border-bottom: #d5d4d4 1px solid;
 }
+.search-title {
+    border-bottom: #23292e 0.5px solid;
+    margin-bottom: 35px;
+    padding-bottom: 15px;
+}
+.search-title h1 {
+    font-size: 1.5rem;
+    font-family: 'morocco' !important;
+    
+}
+.search-title h1 span{
+    padding: 15px;
+    font-family: 'morocco' !important;
+}
+
+
 /* END SEARCH FOLDER */
 
 .line {
-    height: 25px;
+    font-family: 'morocco' !important;
+    font-size: 1.5rem;
+    color: #20c997;
+    /* height: 25px; */
+    padding: 15px;
+    margin-top: 20px;
     margin-bottom: 25px;
     border-bottom: #d5d4d4 1px solid;
 }
@@ -372,3 +393,31 @@ th {
     background-color: #01ff9e3a;
 
 }
+
+.ass-name {
+    font-family: 'morocco' !important;
+    font-size: 1.5rem;
+    color: #00b56f;
+    cursor: pointer;
+    border: #00b56f 1px solid;
+    border-radius: 15px;
+    padding: 10px;  
+    margin: 10px;
+    transition: all .3s;
+}
+.ass-name:hover {
+    background-color: #00ff9d35;
+}
+
+/* Print secreen */
+
+@media print {
+    .mybtn {display:none}
+	.morocco-logo {display:none;}
+    .print {display:none;}
+}
+@page {
+    size: auto;
+    margin: 0;
+}
+/* end Print secreen */

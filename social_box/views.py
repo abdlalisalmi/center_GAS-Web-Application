@@ -21,6 +21,10 @@ def box(request):
 def education(request):
     template_name = "education.html"
     context = {}
+    associations = Association.objects.all()
+    context.update({
+        'associations': associations,
+    })
     return render(request, template_name, context)
 
 

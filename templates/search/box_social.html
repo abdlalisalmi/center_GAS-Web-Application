@@ -42,7 +42,7 @@
             {% endif %}
         {% else %}
             <div class="info">
-                <p>هذا الشخص لا يستفيد من برنامج دعم المشاريع و الأنشطة المدرة للدخل <a href="{% url 'box:add_project' %}">أضف طلبه</a></p>
+                <p>هذا الشخص لا يستفيد من برنامج دعم المشاريع و الأنشطة المدرة للدخل <a class="print" href="{% url 'box:add_project' %}">أضف طلبه</a></p>
             </div>
         {% endif %}
     </div>
@@ -89,7 +89,7 @@
             {% endif %}
         {% else %}
             <div class="info">
-                <p>هذا الشخص لا يستفيد من معينات تقنية أو أجهزة تعويضية <a href="{% url 'box:add_device' %}">أضف طلبه</a></p>
+                <p>هذا الشخص لا يستفيد من معينات تقنية أو أجهزة تعويضية <a class="print" href="{% url 'box:add_device' %}">أضف طلبه</a></p>
             </div>
         {% endif %}
     </div>

@@ -7,9 +7,14 @@
             <div class='row justify-content-center'>
                 <div class='col-lg-8'>
 
-                    <div class="handicapped-form">
-                        <div class='row justify-content-center'>
-                            <h1 class="">جميع المعلومات حول: <span class="fw-bold text-danger">{{handicapped.full_name}}</span></h1>
+                    <div class="">
+                        <div class='row justify-content-center search-title'>
+                            <div class="col-2 text-center">
+                                <a onclick="window.print()" class="mybtn gbtn"><i class="bi bi-printer-fill"></i></a>
+                            </div>
+                            <div class="col-10">
+                                <h1 class="">جميع المعلومات حول: <span class="fw-bold text-danger">{{handicapped.full_name}}</span></h1>
+                            </div>
                             {% comment %} <div class="info">
                                 <p>ملاحضة: قبل إضافة المستفيد يجب أن يكون الشخص مسجل في لائحة الأشخاص في وضعية إعاقة <a href="{% url 'handicapped:add_handicapped' %}">شخص جديد</a></p>
                             </div> {% endcomment %}
