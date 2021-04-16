@@ -34,6 +34,7 @@ class Association(models.Model):
     address         = models.CharField(max_length=100, null=True, blank=True)
     creation_date   = models.DateField(auto_now=False, auto_now_add=False, null=True, blank=True)
     about           = models.TextField(null=True, blank=True)
+    is_deleted      = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

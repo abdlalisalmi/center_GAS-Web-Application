@@ -7,6 +7,10 @@ from .views import (
         add_association,
         delete_association,
         update_association,
+        delete_hr,
+
+        add_hr,
+        update_hr,
 
         projects, 
         add_project, 
@@ -28,6 +32,10 @@ urlpatterns = [
     path('education/association/<int:id>/', association, name='association'),
     path('education/association/delete/<int:id>/', delete_association, name='delete_association'),
     path('education/association/update/<int:id>/', update_association, name='update_association'),
+
+    path('education/association/add_hr/', add_hr, name='add_hr'),
+    path('education/association/update_hr/<int:id>/', update_hr, name='update_hr'),
+    path('education/association/delete_hr/<int:id>/', delete_hr, name='delete_hr'),
 
     path('projects/', projects, name='projects'),
     path('projects/add/', add_project, name='add_project'),

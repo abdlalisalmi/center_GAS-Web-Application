@@ -7,6 +7,11 @@
             <div class='col-lg-8 title text-center'>
                 <p>برنامج تحسين ضروف تمدرس الأطفال في وضعية إعاقة</p>
                 <a data-bs-toggle="modal" data-bs-target="#add-association"   class="mybtn bbtn">إضافة جمعية جديدة <i class="bi bi-plus-circle-fill"></i></a>
+                {% if deleted %}
+                    <a href="{% url 'box:education' %}"   class="mybtn rbtn">القائمة الرئسية <i class="bi bi-trash-fill"></i></a>
+                {% else %}
+                    <a href="{% url 'box:education' %}?deleted=true"   class="mybtn rbtn">الجمعيات المحذوفة <i class="bi bi-trash-fill"></i></a>
+                {% endif %}
                 <!-- Add new association -->
                 <div class="modal fade" id="add-association" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">

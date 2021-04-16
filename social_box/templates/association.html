@@ -6,8 +6,12 @@
         <div class='row handicapped-list  justify-content-center mb-4'>
             <div class='col-lg-8 title text-center'>
                 <p>{{ass.name}}</p>
-                <a data-bs-toggle="modal" data-bs-target="#add-association"   class="mybtn rbtn">حدف الجمعية <i class="bi bi-trash-fill"></i></a>
-                <!-- Add new association -->
+                {% if ass.is_deleted %}
+                    <a data-bs-toggle="modal" data-bs-target="#recover-association"   class="mybtn gbtn">إسترجاع الجمعية <i class="bi bi-bootstrap-reboot"></i></a>
+                {% else %}
+                    <a data-bs-toggle="modal" data-bs-target="#add-association"   class="mybtn rbtn">حدف الجمعية <i class="bi bi-trash-fill"></i></a>
+                {% endif %}
+                <!-- Delete association -->
                 <div class="modal fade" id="add-association" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
@@ -17,16 +21,38 @@
                             <form method='POST' action="{% url 'box:delete_association' ass.id %}">
                                 {% csrf_token %}
                                 <div class="modal-body">
-                                    سيتم حدف الجمعية وكل ما يتعلق بها نهائيا
+                                 سيتم حدف الجمعيةا
                                 </div>
                                 <div class="modal-footer">
-                                    <button  class="mybtn gbtn" data-bs-dismiss="modal">إلغاء</button>
-                                    <button type="submit" class="mybtn rbtn" >حدف</button>
+                                    <button  class="mybtn gbtn" data-bs-dismiss="modal">لا</button>
+                                    <button type="submit" class="mybtn rbtn" >نعم</button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
+
+                <!-- Delete association -->
+                <div class="modal fade" id="recover-association" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header justify-content-center">
+                                <h5 class="fw-normal">حدف الجمعية</h5>
+                            </div>
+                            <form method='POST' action="{% url 'box:delete_association' ass.id %}">
+                                {% csrf_token %}
+                                <div class="modal-body">
+                                    هل تريد إسترجاع الجمعية
+                                </div>
+                                <div class="modal-footer">
+                                    <button  class="mybtn gbtn" data-bs-dismiss="modal">لا</button>
+                                    <button type="submit" class="mybtn rbtn" >نعم</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <div class="col-6">
                 {% if messages %}
@@ -64,9 +90,71 @@
                             {% include 'association/hr.html'%}
                             <div class="row justify-content-center mt-4 ">
                                 <div class="col-5 text-center">
-                                    <a onclick="window.print()" class="btn btn-info text-white fw-bold"><i class="bi bi-person-plus-fill"></i> إضافة شخص جديد</a>
+                                    <a data-bs-toggle="modal" data-bs-target="#add-association-hr" class="btn btn-info text-white fw-bold"><i class="bi bi-person-plus-fill"></i> إضافة شخص جديد</a>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add new one in HR-->
+                <div class="modal fade" id="add-association-hr" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header justify-content-center">
+                                <h5 class="fw-normal">إضافة شخص جديد</h5>
+                            </div>
+                            <form method='POST' id="submitAddHRForm" action="{% url 'box:add_hr' %}">
+                                {% csrf_token %}
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">الاسم الكامل</label>
+                                                <input name="name" type="text" class="form-control" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">رقم الهاتف</label>
+                                                <input name="phone" type="number" class="form-control" >
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">المدينة</label>
+                                                <input name="city" type="text" class="form-control" >
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">المستوى الدراسي</label>
+                                                <select name="education" class="form-select" aria-label="Default select example">
+                                                    <option selected>Open this select menu</option>
+                                                    <option value="1">One</option>
+                                                    <option value="2">Two</option>
+                                                    <option value="3">Three</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">المهمة</label>
+                                                <select name="role" class="form-select" aria-label="Default select example">
+                                                    <option selected>Open this select menu</option>
+                                                    <option value="1">One</option>
+                                                    <option value="2">Two</option>
+                                                    <option value="3">Three</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label"> الأجر الشهري بالدرهم</label>
+                                                <input name="month_salary" type="number" class="form-control" >
+                                            </div>
+                                            <input name="association" type="hidden" class="form-control" value="{{ass.id}}">
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn mybtn gbtn" >حفظ</button>
+                                    <a  class="mybtn rbtn" data-bs-dismiss="modal">إلغاء</a>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -80,5 +168,11 @@
             removeFadeOut(document.querySelector(".alert"), 2000);
         }
     }, 4000);
+
+
+    function submitAddHRForm() {
+        document.getElementById("submitAddHRForm").submit();
+    }
+
 </script>
 {% endblock content %}

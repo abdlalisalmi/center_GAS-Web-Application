@@ -1,40 +1,121 @@
 <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">الإسم الكامل</th>
-      <th scope="col">الهاتف</th>
-      <th scope="col">المدينة</th>
-      <th scope="col">المستوى الدراسي</th>
-      <th scope="col">المهمة</th>
-      <th scope="col">الأجر الشهري</th>
-      <th scope="col">الأجر السنوي</th>
-      <th scope="col">تعدبل / حذف</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td>@mdo</td>
-      <td>@mdo</td>
-      <td>@mdo</td>
-      <td>@mdo</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td>@mdo</td>
-      <td>@mdo</td>
-      <td>@mdo</td>
-      <td>@mdo</td>
-      <td>@mdo</td>
-    </tr>
+    <thead>
+        <tr>
+          <th scope="col" class="text-center">#</th>
+          <th scope="col" class="text-center">الإسم الكامل</th>
+          <th scope="col" class="text-center">الهاتف</th>
+          <th scope="col" class="text-center">المدينة</th>
+          <th scope="col" class="text-center">المستوى الدراسي</th>
+          <th scope="col" class="text-center">المهمة</th>
+          <th scope="col" class="text-center">الأجر الشهري</th>
+          <th scope="col" class="text-center">الأجر السنوي</th>
+          <th scope="col" class="text-center">تعدبل / حذف</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for hr in hrs %}
+			<tr>
+				<th class="text-center" scope="row">{{forloop.counter}}</th>
+				<td class="text-center">{{hr.name}}</td>
+				<td class="text-center">{% if hr.phone %}{{hr.phone}}{% endif %}</td>
+				<td class="text-center">{% if hr.city %}{{hr.city}}{% endif %}</td>
+				<td class="text-center">{% if hr.education %}{{education}}{% endif %}</td>
+				<td class="text-center">{% if hr.role %}{{hr.role}}{% endif %}</td>
+				<td class="text-center">{% if hr.month_salary %}{{hr.month_salary}}{% endif %}</td>
+				<td class="text-center">{% if hr.year_salary %}{{hr.year_salary}}{% endif %}</td>
+				<td class="text-center">
+					<a data-bs-toggle="modal" data-bs-target="#update-association-hr{{hr.id}}" class="btn btn-info text-white fw-bold"><i class="bi bi-pencil-square"></i></a>
+					<a data-bs-toggle="modal" data-bs-target="#delete-association-hr{{hr.id}}" class="btn btn-danger text-white fw-bold"><i class="bi bi-trash-fill"></i></a>
+				</td>
+			</tr>
+			<!-- update the HR-->
+                <div class="modal fade" id="update-association-hr{{hr.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header justify-content-center">
+                                <h5 class="fw-normal">تعدبل معلومات <span class="text-info">{{hr.name}}</span></h5>
+                            </div>
+                            <form method='POST' id="submitAddHRForm" action="{% url 'box:update_hr' hr.id %}">
+                                {% csrf_token %}
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">الاسم الكامل</label>
+                                                <input name="name" type="text" class="form-control" required value="{{hr.name}}">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">رقم الهاتف</label>
+                                                <input name="phone" type="number" class="form-control" value="{% if hr.phone %}{{hr.phone}}{% endif %}">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">المدينة</label>
+                                                <input name="city" type="text" class="form-control" value="{% if hr.city %}{{hr.city}}{% endif %}">
+                                            </div>
+                                        </div>
 
-  </tbody>
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">المستوى الدراسي</label>
+                                                <select name="education" class="form-select" aria-label="Default select example">
+                                                    <option selected value="{% if hr.education %}{{education}}{% endif %}">{% if hr.education %}{{education}}{% endif %}</option>
+                                                    <option value="1">One</option>
+                                                    <option value="2">Two</option>
+                                                    <option value="3">Three</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">المهمة</label>
+                                                <select name="role" class="form-select" aria-label="Default select example">
+                                                    <option selected value="{% if hr.role %}{{hr.role}}{% endif %}">{% if hr.role %}{{hr.role}}{% endif %}</option>
+                                                    <option value="1">One</option>
+                                                    <option value="2">Two</option>
+                                                    <option value="3">Three</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label"> الأجر الشهري بالدرهم</label>
+                                                <input name="month_salary" type="number" class="form-control" value="{% if hr.month_salary %}{{hr.month_salary}}{% endif %}">
+                                            </div>
+                                            <input name="association" type="hidden" class="form-control" value="{{ass.id}}">
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="modal-footer">
+                                    <a onclick="submitAddHRForm()" class="mybtn gbtn" >حفظ</a>
+                                    <a  class="mybtn rbtn" data-bs-dismiss="modal">إلغاء</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+				<!-- delete the HR-->
+                <div class="modal fade" id="delete-association-hr{{hr.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header justify-content-center">
+                                <h5 class="fw-normal">حذف <span class="text-danger">{{hr.name}}</span></h5>
+                            </div>
+                            <form method='POST' id="deleteHRForm{{hr.id}}" action="{% url 'box:delete_hr' hr.id %}">
+                                {% csrf_token %}
+                                <div class="modal-body">
+                                    سيتم حدفه نهائياً
+									<input name="association" type="hidden" class="form-control" value="{{ass.id}}">
+                                </div>
+                                <div class="modal-footer">
+                                    <a onclick="submitDeleteHRForm({{hr.id}})" class="mybtn rbtn" >حذف</a>
+                                    <a  class="mybtn gbtn" data-bs-dismiss="modal">إلغاء</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+		{% endfor %}
+    </tbody>
 </table>
+<script>
+	function submitDeleteHRForm(id) {
+		document.getElementById('deleteHRForm'+id).submit();
+	}
+</script>

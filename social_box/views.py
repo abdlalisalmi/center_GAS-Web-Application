@@ -4,9 +4,9 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponseRedirect
 import datetime
-from social_box.models import Project, Device, Association
+from social_box.models import AssociationHr, Project, Device, Association
 from handicapped.models import Handicapped
-from .forms import AssociationCreateForm
+from .forms import AssociationCreateForm, AddHRForm
 
 @login_required(login_url='/')
 def box(request):
@@ -22,20 +22,28 @@ def box(request):
 def education(request):
     template_name = "education.html"
     context = {}
-    associations = Association.objects.all().order_by('-id')
+    if request.GET.get('deleted', None):
+        associations = Association.objects.filter(is_deleted=True).order_by('-id')
+        context.update({'deleted':True})
+    else:
+        associations = Association.objects.filter(is_deleted=False).order_by('-id')
     context.update({
         'associations': associations
     })
     return render(request, template_name, context)
 
-
+################# Association #####################
 @login_required(login_url='/')
 def association(request, id):
     template_name = "association.html"
     context = {}
 
     ass = get_object_or_404(Association, id=id)
-    context.update({'ass': ass})
+    hrs = AssociationHr.objects.filter(association=ass).order_by('-id')
+    context.update({
+        'ass': ass,
+        'hrs': hrs,
+        })
     return render(request, template_name, context)
 
 @login_required(login_url='/')
@@ -69,9 +77,61 @@ def update_association(request, id):
 def delete_association(request, id):
     if request.method == 'POST':
         ass = get_object_or_404(Association, id=id)
-        ass.delete()
-        messages.success(request, 'لقد تم حذف الجمعية')
+        ass.is_deleted = not ass.is_deleted
+        ass.save()
+        messages.success(request, 'لقد تمت العملية بنجاح')
     return redirect('box:education')
+
+################# Association HR #####################
+login_required(login_url='/')
+def add_hr(request):
+    if request.method == 'POST':
+        form = AddHRForm(request.POST)
+        if form.is_valid():
+            hr = form.save(commit=False)
+            if hr.month_salary:
+                hr.year_salary = hr.month_salary * 11
+            hr.save()
+            messages.success(request, 'لقد تمت العملية بنجاح')
+        else:
+            messages.success(request, 'هنالك خطأ ما حاول مرة أخرى')
+        return HttpResponseRedirect(reverse('box:association', kwargs={'id':request.POST.get('association')}))
+    return redirect('box:education')
+
+
+login_required(login_url='/')
+def update_hr(request, id):
+    if request.method == 'POST':
+        hr = get_object_or_404(AssociationHr, id=id)
+        form = AddHRForm(instance=hr, data=request.POST)
+        if form.is_valid():
+            hr = form.save(commit=False)
+            if hr.month_salary:
+                hr.year_salary = hr.month_salary * 11
+            hr.save()
+            messages.success(request, 'لقد تمت العملية بنجاح')
+        else:
+            messages.success(request, 'هنالك خطأ ما حاول مرة أخرى')
+        return HttpResponseRedirect(reverse('box:association', kwargs={'id':request.POST.get('association')}))
+    return redirect('box:education')
+
+
+login_required(login_url='/')
+def delete_hr(request, id):
+    if request.method == 'POST':
+        try:
+            hr = get_object_or_404(AssociationHr, id=id)
+            hr.delete()
+            messages.success(request, 'لقد تمت العملية بنجاح')
+        except:
+            messages.success(request, 'هنالك خطأ ما حاول مرة أخرى')
+        return HttpResponseRedirect(reverse('box:association', kwargs={'id':request.POST.get('association')}))
+    return redirect('box:education')
+
+
+
+
+
 
 #################################################################################
 ############################### help the projects ###############################
