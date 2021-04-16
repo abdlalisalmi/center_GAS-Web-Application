@@ -4,9 +4,9 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponseRedirect
 import datetime
-from social_box.models import AssociationHr, Project, Device, Association
+from social_box.models import AssociationHr, Project, Device, Association, AssociationStudent
 from handicapped.models import Handicapped
-from .forms import AssociationCreateForm, AddHRForm
+from .forms import AssociationCreateForm, AddHRForm, AddStudentForm
 
 @login_required(login_url='/')
 def box(request):
@@ -28,7 +28,7 @@ def education(request):
     else:
         associations = Association.objects.filter(is_deleted=False).order_by('-id')
     context.update({
-        'associations': associations
+        'associations': associations,
     })
     return render(request, template_name, context)
 
@@ -40,9 +40,11 @@ def association(request, id):
 
     ass = get_object_or_404(Association, id=id)
     hrs = AssociationHr.objects.filter(association=ass).order_by('-id')
+    students = AssociationStudent.objects.all().order_by('-id')
     context.update({
         'ass': ass,
         'hrs': hrs,
+        'students': students,
         })
     return render(request, template_name, context)
 
@@ -129,6 +131,19 @@ def delete_hr(request, id):
     return redirect('box:education')
 
 
+################# Association Students #####################
+
+def add_student(request):
+    if request.method == 'POST':
+        form = AddStudentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'لقد تمت العملية بنجاح')
+        else:
+            messages.success(request, 'هنالك خطأ ما حاول مرة أخرى')
+            print(form.errors)
+        return HttpResponseRedirect(reverse('box:association', kwargs={'id':request.POST.get('association')}))
+    return redirect('box:education')
 
 
 

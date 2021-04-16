@@ -19,7 +19,7 @@
 				<td class="text-center">{{hr.name}}</td>
 				<td class="text-center">{% if hr.phone %}{{hr.phone}}{% endif %}</td>
 				<td class="text-center">{% if hr.city %}{{hr.city}}{% endif %}</td>
-				<td class="text-center">{% if hr.education %}{{education}}{% endif %}</td>
+				<td class="text-center">{% if hr.education %}{{hr.education}}{% endif %}</td>
 				<td class="text-center">{% if hr.role %}{{hr.role}}{% endif %}</td>
 				<td class="text-center">{% if hr.month_salary %}{{hr.month_salary}}{% endif %}</td>
 				<td class="text-center">{% if hr.year_salary %}{{hr.year_salary}}{% endif %}</td>
@@ -33,7 +33,7 @@
                     <div class="modal-dialog modal-dialog-centered modal-lg">
                         <div class="modal-content">
                             <div class="modal-header justify-content-center">
-                                <h5 class="fw-normal">تعدبل معلومات <span class="text-info">{{hr.name}}</span></h5>
+                                <h5 class="fw-normal">تعديل معلومات <span class="text-info">{{hr.name}}</span></h5>
                             </div>
                             <form method='POST' id="submitAddHRForm" action="{% url 'box:update_hr' hr.id %}">
                                 {% csrf_token %}
@@ -58,19 +58,27 @@
                                             <div class="mb-3">
                                                 <label class="form-label">المستوى الدراسي</label>
                                                 <select name="education" class="form-select" aria-label="Default select example">
-                                                    <option selected value="{% if hr.education %}{{education}}{% endif %}">{% if hr.education %}{{education}}{% endif %}</option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
+                                                    <option selected value="{% if hr.education %}{{hr.education}}{% endif %}">{% if hr.education %}{{hr.education}}{% endif %}</option>
+                                                    <option value="أقل من الباكالوريا">أقل من الباكالوريا</option>
+                                                    <option value="باكالوربا">باكالوربا</option>
+                                                    <option value="تقني متخصص">تقني متخصص</option>
+                                                    <option value="دبلوم التعاون الوطني">دبلوم التعاون الوطني</option>
+                                                    <option value="إجازة">إجازة</option>
                                                 </select>
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label">المهمة</label>
                                                 <select name="role" class="form-select" aria-label="Default select example">
                                                     <option selected value="{% if hr.role %}{{hr.role}}{% endif %}">{% if hr.role %}{{hr.role}}{% endif %}</option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
+                                                    <option value="الترويض الطبي">الترويض الطبي</option>
+                                                    <option value="العلاج النفسي - الحركي">العلاج النفسي - الحركي</option>
+                                                    <option value="تقويم النطق">تقويم النطق</option>
+                                                    <option value="العلاج الوظيفي">العلاج الوظيفي</option>
+                                                    <option value="الدعم النفسي">الدعم النفسي</option>
+                                                    <option value="التربية الخاصة">التربية الخاصة</option>
+                                                    <option value="التأهيل المهني">التأهيل المهني</option>
+                                                    <option value="سائق">سائق</option>
+                                                    <option value="">أخرى</option>
                                                 </select>
                                             </div>
                                             <div class="mb-3">

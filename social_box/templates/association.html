@@ -66,7 +66,7 @@
         </div>
 
         <div class='row justify-content-center'>
-            <div class='col-lg-10'>
+            <div class='col-lg-11'>
                 <div class="ass-title" data-bs-toggle="collapse" href="#Collapse1" aria-expanded="false" aria-controls="Collapse1">
                     بطاقة المعلومات حول الجمعية
                 </div>
@@ -79,13 +79,13 @@
                 </div>
             </div>
             <!--##############################################################################-->
-            <div class='col-lg-10'>
+            <div class='col-lg-11'>
                 <div class="ass-title" data-bs-toggle="collapse" href="#CollapseHR" aria-expanded="false" aria-controls="Collapse1">    
                     لائحة الموارد البشرية
                 </div>
                 
                 <div class="col">
-                    <div class="collapse multi-collapse show" id="CollapseHR">
+                    <div class="collapse multi-collapse" id="CollapseHR">
                         <div class="card card-body">
                             {% include 'association/hr.html'%}
                             <div class="row justify-content-center mt-4 ">
@@ -126,19 +126,25 @@
                                             <div class="mb-3">
                                                 <label class="form-label">المستوى الدراسي</label>
                                                 <select name="education" class="form-select" aria-label="Default select example">
-                                                    <option selected>Open this select menu</option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
+                                                    <option selected value="أقل من الباكالوريا">أقل من الباكالوريا</option>
+                                                    <option value="باكالوربا">باكالوربا</option>
+                                                    <option value="تقني متخصص">تقني متخصص</option>
+                                                    <option value="دبلوم التعاون الوطني">دبلوم التعاون الوطني</option>
+                                                    <option value="إجازة">إجازة</option>
                                                 </select>
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label">المهمة</label>
                                                 <select name="role" class="form-select" aria-label="Default select example">
-                                                    <option selected>Open this select menu</option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
+                                                    <option selected value="الترويض الطبي">الترويض الطبي</option>
+                                                    <option value="العلاج النفسي - الحركي">العلاج النفسي - الحركي</option>
+                                                    <option value="تقويم النطق">تقويم النطق</option>
+                                                    <option value="العلاج الوظيفي">العلاج الوظيفي</option>
+                                                    <option value="الدعم النفسي">الدعم النفسي</option>
+                                                    <option value="التربية الخاصة">التربية الخاصة</option>
+                                                    <option value="التأهيل المهني">التأهيل المهني</option>
+                                                    <option value="سائق">سائق</option>
+                                                    <option value="">أخرى</option>
                                                 </select>
                                             </div>
                                             <div class="mb-3">
@@ -159,6 +165,131 @@
                     </div>
                 </div>
             </div>
+
+            <!--##############################################################################-->
+
+            <div class='col-lg-11'>
+                <div class="ass-title" data-bs-toggle="collapse" href="#CollapseStudents" aria-expanded="false" aria-controls="Collapse1">
+                    لائحة المستفيدين
+                </div>
+                <div class="col">
+                    <div class="collapse multi-collapse show" id="CollapseStudents">
+                        <div class="card card-body">
+                            {% include 'association/students.html'%}
+                            <div class="row justify-content-center mt-4 ">
+                                <div class="col-5 text-center">
+                                    <a data-bs-toggle="modal" data-bs-target="#add-association-student" class="btn btn-info text-white fw-bold"><i class="bi bi-person-plus-fill"></i> إضافة مستفيد جديد</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add new one in HR-->
+                <div class="modal fade" id="add-association-student" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header justify-content-center">
+                                <h5 class="fw-normal">إضافة مستفيد جديد</h5>
+                            </div>
+                            <form method='POST' id="addStudenForm" action="{% url 'box:add_student' %}">
+                                {% csrf_token %}
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="mb-3">
+                                                <label class="form-label">الاسم الكامل</label>
+                                                <input name="full_name" type="text" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">تاريخ الإزدياد</label>
+                                                <input name="birthday" type="date" class="form-control" >
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label for="taype">نوع الإعاقة</label>
+                                                <select name="handicap_Type" class="form-select mt-2">
+                                                    <option selected value="حركية">حركية</option>
+                                                    <option value="بصرية">بصرية</option>
+                                                    <option value="سمعية">سمعية</option>
+                                                    <option value="التوحد">التوحد</option>
+                                                    <option value="التأخر الزمني">التأخر الزمني</option>
+                                                    <option value="الثلاتي الصبغي 21">الثلاتي الصبغي 21</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <label class="mb-2">الخدمات</label>
+                                        <div class="col-6">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="ES" name="ES">
+                                                <label class="form-check-label" for="ES">E.S</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="FP" name="FP">
+                                                <label class="form-check-label" for="FP">F.P</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="Ortho" name="Ortho">
+                                                <label class="form-check-label" for="Ortho">Ortho</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="Psy" name="Psy">
+                                                <label class="form-check-label" for="Psy">Psy</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="Keni" name="keni">
+                                                <label class="form-check-label" for="Keni">Kéni</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="Psycom" name="Psycom">
+                                                <label class="form-check-label" for="Psycom">Psycom</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="Ergo" name="Ergo">
+                                                <label class="form-check-label" for="Ergo">Ergo</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="Tronsport" name="Tronsport">
+                                                <label class="form-check-label" for="Tronsport">Tronsport</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="mb-2 mt-2">نوع برنامج الإستفادة</label>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="programA" name="A">
+                                                <label class="form-check-label" for="programA">A</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="programB" name="B">
+                                                <label class="form-check-label" for="programB">B</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="programC" name="C">
+                                                <label class="form-check-label" for="programC">C</label>
+                                            </div>
+                                        </div>
+
+
+                                        <input name="association" type="hidden" class="form-control" value="{{ass.id}}">
+                                    </div>
+                                    
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn mybtn gbtn" >حفظ</button>
+                                    <a  class="mybtn rbtn" data-bs-dismiss="modal">إلغاء</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 
@@ -168,7 +299,6 @@
             removeFadeOut(document.querySelector(".alert"), 2000);
         }
     }, 4000);
-
 
     function submitAddHRForm() {
         document.getElementById("submitAddHRForm").submit();
