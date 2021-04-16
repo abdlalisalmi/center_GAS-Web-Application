@@ -6,6 +6,7 @@ from .views import (
         association,
         add_association,
         delete_association,
+        update_association,
 
         projects, 
         add_project, 
@@ -26,6 +27,7 @@ urlpatterns = [
     path('education/association/add', add_association, name='add_association'),
     path('education/association/<int:id>/', association, name='association'),
     path('education/association/delete/<int:id>/', delete_association, name='delete_association'),
+    path('education/association/update/<int:id>/', update_association, name='update_association'),
 
     path('projects/', projects, name='projects'),
     path('projects/add/', add_project, name='add_project'),

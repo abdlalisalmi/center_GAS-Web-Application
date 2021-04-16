@@ -9,11 +9,11 @@
 
                     <div class="">
                         <div class='row justify-content-center search-title'>
-                            <div class="col-2 text-center">
-                                <a onclick="window.print()" class="mybtn gbtn"><i class="bi bi-printer-fill"></i></a>
-                            </div>
                             <div class="col-10">
                                 <h1 class="">جميع المعلومات حول: <span class="fw-bold text-danger">{{handicapped.full_name}}</span></h1>
+                            </div>
+                            <div class="col-2 text-center">
+                                <a onclick="window.print()" class="mybtn gbtn"><i class="bi bi-printer-fill"></i></a>
                             </div>
                             {% comment %} <div class="info">
                                 <p>ملاحضة: قبل إضافة المستفيد يجب أن يكون الشخص مسجل في لائحة الأشخاص في وضعية إعاقة <a href="{% url 'handicapped:add_handicapped' %}">شخص جديد</a></p>
@@ -21,16 +21,16 @@
                         </div>
 
                         <div class='col-12 search-folder text-right'>
-                            <h2>: المعلومات الشخصية</h2>
+                            <h2>المعلومات الشخصية:</h2>
                                 {% include "search/info.html" %}
 
-                            <h2>: الطرد الغدائي</h2>
+                            <h2>الطرد الغدائي:</h2>
                                 {% include "search/food.html" %}
 
-                            <h2>: بطاقة شخص في وضعية إعاقة</h2>
+                            <h2>بطاقة شخص في وضعية إعاقة:</h2>
                                 {% include "search/cards.html" %}
 
-                            <h2>: صندوق دعم التماسك الاجتماعي</h2>
+                            <h2>صندوق دعم التماسك الاجتماعي:</h2>
                                 {% include "search/box_social.html" %}
                         </div>
                     </div>

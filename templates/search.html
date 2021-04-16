@@ -25,12 +25,12 @@
                             <table class="table">
                                 <thead class=''>
                                     <tr>
-                                    <th scope="col" class="text-center">عرض المعلومات</th>
-                                    <th scope="col" class="text-right">نوع الإعاقة</th>
-                                    <th scope="col" class="text-right">تاريخ الإزدياد</th>
-                                    <th scope="col" class="text-right">رقم الهاتف</th>
-                                    <th scope="col" class="text-right">C.I.N</th>
                                     <th scope="col" class="text-right">صاحب الطلب</th>
+                                    <th scope="col" class="text-right">C.I.N</th>
+                                    <th scope="col" class="text-right">رقم الهاتف</th>
+                                    <th scope="col" class="text-right">تاريخ الإزدياد</th>
+                                    <th scope="col" class="text-right">نوع الإعاقة</th>
+                                    <th scope="col" class="text-center">عرض المعلومات</th>
                                     </tr>
                                 </thead>
                                 <tbody id="search-result">
@@ -71,14 +71,13 @@ searchInput.addEventListener('input', (e) => {
             data.forEach(item => {
                 searchResult.innerHTML += `
                     <tr class="search-item" onclick="openLink(${item.pk})">
-                        <td class="text-center"><a href="/search/${item.pk}" class="icon"><i class="bi bi-folder2-open G-icon"></i></a></td>
-                        <td class="text-right">${stringCheck(item.fields.handicap_Type)}</td>
-                        <td class="text-right">${stringCheck(item.fields.birthday)}</td>
-                        <td class="text-right">${stringCheck(item.fields.phone_number)}</td>
-                        <td class="text-right">${stringCheck(item.fields.cin)}</td>
+                        
                         <td class="text-right">${stringCheck(item.fields.full_name)}</td>
-                        <th scope="row"></td>
-                        </th>
+                        <td class="text-right">${stringCheck(item.fields.cin)}</td>
+                        <td class="text-right">${stringCheck(item.fields.phone_number)}</td>
+                        <td class="text-right">${stringCheck(item.fields.birthday)}</td>
+                        <td class="text-right">${stringCheck(item.fields.handicap_Type)}</td>
+                        <td class="text-center"><a href="/search/${item.pk}" class="icon"><i class="bi bi-folder2-open G-icon"></i></a></td>
                     </tr>
                 `
             });

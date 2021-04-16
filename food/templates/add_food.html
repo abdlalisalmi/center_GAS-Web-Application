@@ -25,8 +25,8 @@
                         </div>
 
                         <div class="pb-2">
-                            <a href="{% url 'food:food_list' %}" class="mybtn rbtn">إلغاء <i class="bi bi-x-circle"></i></a>
                             <button class="mybtn gbtn" id="save-btn" style="border:none;height: 42px">حفظ <i class="bi bi-bookmark-check"></i></button>
+                            <a href="{% url 'food:food_list' %}" class="mybtn rbtn">إلغاء <i class="bi bi-x-circle"></i></a>
                         </div>
                     </div>
                 </div>
@@ -89,17 +89,17 @@ searchInput.addEventListener('input', (e) => {
                         <table class="table">
                             <tbody>
                                 <tr>
-                                    <td>${stringCheck(item.fields.handicap_Type)}</td>
+                                    <th scope="row">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="${item.pk}">
+                                            <label class="form-check-label" for="flexRadioDefault"></label>
+                                        </div>
+                                    </th>
+                                    <td>${stringCheck(item.fields.full_name)}</td>
+                                    <td>${stringCheck(item.fields.cin)}</td>
                                     <td>${stringCheck(item.fields.birthday)}</td>
                                     <td>${stringCheck(item.fields.phone_number)}</td>
-                                    <td>${stringCheck(item.fields.cin)}</td>
-                                    <td>${stringCheck(item.fields.full_name)}</td>
-                                    <th scope="row">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="${item.pk}">
-                                        <label class="form-check-label" for="flexRadioDefault"></label>
-                                    </div>
-                                    </th>
+                                    <td>${stringCheck(item.fields.handicap_Type)}</td>
                                 </tr>
                             </tbody>
                         </table>

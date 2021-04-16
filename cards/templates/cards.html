@@ -32,7 +32,7 @@
                     <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
 
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link {% if approved %}active{% endif %}" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="{{approved}}">طلبات منجزة</a>
+                            <a class="nav-link {% if not approved %}active{% endif %}" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="{{approved}}">طلبات طور الانجاز</a>
                         </li>
                         
                         <li class="nav-item">
@@ -40,7 +40,7 @@
                         </li>
 
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link {% if not approved %}active{% endif %}" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="{{approved}}">طلبات طور الانجاز</a>
+                            <a class="nav-link {% if approved %}active{% endif %}" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="{{approved}}">طلبات منجزة</a>
                         </li>
 
                     </ul>
@@ -52,30 +52,23 @@
                             <table class="table">
                                 <thead class=''>
                                     <tr>
-                                    <th scope="col" class="text-center">حذف</th>
-                                    <th scope="col" class="text-right">تاريخ قبول الطلب</th>
-                                    <th scope="col" class="text-right">صاحب الطلب</th>
                                     <th scope="col">#</th>
+                                    <th scope="col" class="text-right">صاحب الطلب</th>
+                                    <th scope="col" class="text-right">تاريخ قبول الطلب</th>
+                                    <th scope="col" class="text-center">حذف</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% for card in finished_cards %}
                                             <tr>
+                                                <th scope="row">{{forloop.counter}}</th>
+                                                <td class="text-right">‏‏{{card.handicapped}}</td>
+                                                <td class="text-right">{{card.finishing_date|date:'M d, Y'}}</td>
                                                 <td class="text-center">
-
                                                     <a class="icon" data-bs-toggle="modal" data-bs-target="#delete-{{card.id}}" data-bs-toggle="tooltip" data-bs-placement="top" title="حذف الطلب">
                                                         <i class="bi bi-trash-fill R-icon"></i>
                                                     </a>
-                                                    {% comment %} <form class="text-center" method='POST' action="{% url 'cards:approve_card' card.id %}" id="approveForm">
-                                                        {% csrf_token %}
-                                                        <a class="icon" href="javascript:{}" onclick="document.getElementById('approveForm').submit();" data-bs-toggle="tooltip" data-bs-placement="top" title="الموافقة على الطلب">
-                                                            <i class="bi bi-folder-check G-icon"></i>
-                                                        </a>
-                                                    </form> {% endcomment %}
                                                 </td>
-                                                <td class="text-right">{{card.finishing_date|date:'M d, Y'}}</td>
-                                                <td class="text-right">‏‏{{card.handicapped}}</td>
-                                                <th scope="row">{{forloop.counter}}</th>
                                         
                                             </tr>
                                             <!-- Modal For delete -->
@@ -119,31 +112,31 @@
                             <table class="table">
                                 <thead class=''>
                                     <tr>
-                                    <th scope="col" class="text-center">قبول / حذف</th>
-                                    <th scope="col" class="text-right">تاريخ وضع الطلب</th>
-                                    <th scope="col" class="text-right">صاحب الطلب</th>
                                     <th scope="col">#</th>
+                                    <th scope="col" class="text-right">صاحب الطلب</th>
+                                    <th scope="col" class="text-right">تاريخ وضع الطلب</th>
+                                    <th scope="col" class="text-center">قبول / حذف</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 
                                     {% for card in waiting_cards %}
                                             <tr>
-                                                <td class="">
+                                                <th scope="row">{{forloop.counter}}</th>
+                                                <td class="text-right">‏‏{{card.handicapped}}</td>
+                                                <td class="text-right">{{card.submiting_date|date:'M d, Y'}}</td>
 
+                                                <td class="">
                                                     <form class="text-center" method='POST' action="{% url 'cards:approve_card' card.id %}" id="approveForm-{{card.id}}">
                                                         {% csrf_token %}
-                                                        <a class="icon" data-bs-toggle="modal" data-bs-target="#delete-{{card.id}}" data-bs-toggle="tooltip" data-bs-placement="top" title="حذف الطلب">
-                                                            <i class="bi bi-trash-fill R-icon"></i>
-                                                        </a>
                                                         <a class="icon" href="javascript:{}" onclick="document.getElementById('approveForm-{{card.id}}').submit();" data-bs-toggle="tooltip" data-bs-placement="top" title="الموافقة على الطلب">
                                                             <i class="bi bi-folder-check G-icon"></i>
                                                         </a>
+                                                        <a class="icon" data-bs-toggle="modal" data-bs-target="#delete-{{card.id}}" data-bs-toggle="tooltip" data-bs-placement="top" title="حذف الطلب">
+                                                            <i class="bi bi-trash-fill R-icon"></i>
+                                                        </a>
                                                     </form>
                                                 </td>
-                                                <td class="text-right">{{card.submiting_date|date:'M d, Y'}}</td>
-                                                <td class="text-right">‏‏{{card.handicapped}}</td>
-                                                <th scope="row">{{forloop.counter}}</th>
                                         
                                             </tr>
                                             <!-- Modal For delete -->

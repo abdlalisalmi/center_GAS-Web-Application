@@ -8,12 +8,12 @@
 
                 <div class='col-lg-8 title text-center'>
                     <p>إدارة المستفيدين من الطرد الغدائي</p>
+                    <a href="{% url 'food:add_food' %}" class="mybtn bbtn">إضافة مستفيد جديد <i class="bi bi-plus-circle-fill"></i></a>
                     {% if deleted %}
                         <a href="{% url 'food:food_list' %}" class="btn mybtn rbtn">القائمة الرئيسية <i class="bi bi-view-list h5"></i></a>
                     {% else %}
                         <a href="{% url 'food:food_list' %}?deleted=True" class="btn mybtn rbtn">قائمة المحذوفين <i class="bi bi-trash"></i></a>
                     {% endif %}
-                    <a href="{% url 'food:add_food' %}" class="mybtn bbtn">إضافة مستفيد جديد <i class="bi bi-plus-circle-fill"></i></a>
                 </div>
                 <div class="col-6">
                     {% if messages %}
@@ -32,33 +32,33 @@
                             <table class="table">
                                 <thead class=''>
                                     <tr>
-                                    <th scope="col" class="text-center">إسنعادة / حذف</th>
-                                    <th scope="col" class="text-right">سبب الحذف</th>
-                                    <th scope="col" class="text-right">صاحب الطلب</th>
                                     <th scope="col">#</th>
+                                    <th scope="col" class="text-right">صاحب الطلب</th>
+                                    <th scope="col" class="text-right">سبب الحذف</th>
+                                    <th scope="col" class="text-center">إسنعادة / حذف</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% for food in deleted_food %}
                                             <tr>
-                                                <td class="">
 
+                                                <th scope="row">{{forloop.counter}}</th>
+                                                <td class="text-right">‏‏{{food.handicapped}}</td>
+                                                <td class="text-right">{{food.delete_description}}</td>
+                                                <td class="">
                                                     <form class="text-center" method='POST' action="{% url 'food:restore_delete_food' food.id %}" id="restoreForm-{{food.id}}">
                                                         {% csrf_token %}
-                                                        <a class="icon" href="javascript:{}" onclick="document.getElementById('lastDeleteForm-{{food.id}}').submit();" data-bs-toggle="tooltip" data-bs-placement="top" title="حذف الطلب">
-                                                            <i class="bi bi-trash-fill R-icon"></i>
-                                                        </a>
                                                         <a class="icon" href="javascript:{}" onclick="document.getElementById('restoreForm-{{food.id}}').submit();" data-bs-toggle="tooltip" data-bs-placement="top" title="إسنعادة المستفيد">
                                                             <i class="bi bi-bootstrap-reboot B-icon"></i>
+                                                        </a>
+                                                        <a class="icon" href="javascript:{}" onclick="document.getElementById('lastDeleteForm-{{food.id}}').submit();" data-bs-toggle="tooltip" data-bs-placement="top" title="حذف الطلب">
+                                                            <i class="bi bi-trash-fill R-icon"></i>
                                                         </a>
                                                     </form>
                                                     <form method="POST"  action="{% url 'food:delete_food' food.id %}" id="lastDeleteForm-{{food.id}}">
                                                         {% csrf_token %}
                                                     </form>
                                                 </td>
-                                                <td class="text-right">{{food.delete_description}}</td>
-                                                <td class="text-right">‏‏{{food.handicapped}}</td>
-                                                <th scope="row">{{forloop.counter}}</th>
                                         
                                             </tr>
                                             <!-- Modal For delete -->
@@ -105,7 +105,7 @@
                     <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
 
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link {% if approved %}active{% endif %}" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="{{approved}}">قائمة المستفيدين</a>
+                            <a class="nav-link {% if not approved %}active{% endif %}" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="{{approved}}">قائمة الإنتضار</a>
                         </li>
                         
                         <li class="nav-item">
@@ -113,7 +113,7 @@
                         </li>
 
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link {% if not approved %}active{% endif %}" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="{{approved}}">قائمة الإنتضار</a>
+                            <a class="nav-link {% if approved %}active{% endif %}" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="{{approved}}">قائمة المستفيدين</a>
                         </li>
 
                     </ul>
@@ -125,15 +125,18 @@
                             <table class="table">
                                 <thead class=''>
                                     <tr>
-                                    <th scope="col" class="text-center">حذف</th>
-                                    <th scope="col" class="text-right">تاريخ قبول الطلب</th>
-                                    <th scope="col" class="text-right">صاحب الطلب</th>
                                     <th scope="col">#</th>
+                                    <th scope="col" class="text-right">صاحب الطلب</th>
+                                    <th scope="col" class="text-right">تاريخ قبول الطلب</th>
+                                    <th scope="col" class="text-center">حذف</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% for food in finished_food %}
                                             <tr>
+                                                <th scope="row">{{forloop.counter}}</th>
+                                                <td class="text-right">‏‏{{food.handicapped}}</td>
+                                                <td class="text-right">{{food.finishing_date|date:'M d, Y'}}</td>
                                                 <td class="text-center">
 
                                                     <a class="icon" data-bs-toggle="modal" data-bs-target="#delete-{{food.id}}" data-bs-toggle="tooltip" data-bs-placement="top" title="حذف الطلب">
@@ -146,9 +149,6 @@
                                                         </a>
                                                     </form> {% endcomment %}
                                                 </td>
-                                                <td class="text-right">{{food.finishing_date|date:'M d, Y'}}</td>
-                                                <td class="text-right">‏‏{{food.handicapped}}</td>
-                                                <th scope="row">{{forloop.counter}}</th>
                                         
                                             </tr>
                                             <!-- Modal For delete -->
@@ -195,31 +195,31 @@
                             <table class="table">
                                 <thead class=''>
                                     <tr>
-                                    <th scope="col" class="text-center">قبول / حذف</th>
-                                    <th scope="col" class="text-right">تاريخ وضع الطلب</th>
-                                    <th scope="col" class="text-right">صاحب الطلب</th>
                                     <th scope="col">#</th>
+                                    <th scope="col" class="text-right">صاحب الطلب</th>
+                                    <th scope="col" class="text-right">تاريخ وضع الطلب</th>
+                                    <th scope="col" class="text-center">قبول / حذف</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 
                                     {% for food in waiting_food %}
                                             <tr>
-                                                <td class="">
+                                                <th scope="row">{{forloop.counter}}</th>
+                                                <td class="text-right">‏‏{{food.handicapped}}</td>
+                                                <td class="text-right">{{food.submiting_date|date:'M d, Y'}}</td>
 
+                                                <td class="">
                                                     <form class="text-center" method='POST' action="{% url 'food:approve_food' food.id %}" id="approveForm-{{food.id}}">
                                                         {% csrf_token %}
-                                                        <a class="icon" data-bs-toggle="modal" data-bs-target="#delete-{{food.id}}" data-bs-toggle="tooltip" data-bs-placement="top" title="حذف الطلب">
-                                                            <i class="bi bi-trash-fill R-icon"></i>
-                                                        </a>
                                                         <a class="icon" href="javascript:{}" onclick="document.getElementById('approveForm-{{food.id}}').submit();" data-bs-toggle="tooltip" data-bs-placement="top" title="الموافقة على الطلب">
                                                             <i class="bi bi-folder-check G-icon"></i>
                                                         </a>
+                                                        <a class="icon" data-bs-toggle="modal" data-bs-target="#delete-{{food.id}}" data-bs-toggle="tooltip" data-bs-placement="top" title="حذف الطلب">
+                                                            <i class="bi bi-trash-fill R-icon"></i>
+                                                        </a>
                                                     </form>
                                                 </td>
-                                                <td class="text-right">{{food.submiting_date|date:'M d, Y'}}</td>
-                                                <td class="text-right">‏‏{{food.handicapped}}</td>
-                                                <th scope="row">{{forloop.counter}}</th>
                                         
                                             </tr>
                                             <!-- Modal For delete -->

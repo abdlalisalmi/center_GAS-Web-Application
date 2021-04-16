@@ -258,7 +258,7 @@ th {
     padding: 20px !important;
     padding-top: 6px !important;
     padding-bottom: 6px !important;
-    margin: 5px;
+    margin: 5px ;
     color: #f6f6f6;
     text-decoration: none !important;
     border-radius: 15px !important;
@@ -407,6 +407,20 @@ th {
 }
 .ass-name:hover {
     background-color: #00ff9d35;
+}
+
+.ass-title {
+    font-size: 1.3rem;
+    font-family: 'morocco' !important;
+    background-color: #f0f0f0;
+    color: #23292e;
+    padding: 8px;
+    margin-top: 5px;
+    cursor: pointer;
+    transition: all .3s;
+}
+.ass-title:hover {
+    background-color: #e4e4e4;
 }
 
 /* Print secreen */

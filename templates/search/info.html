@@ -2,6 +2,29 @@
     
     <div class="col-6">
         <div class="mb-3">
+            <label class="form-label text-muted">الإسم الكامل</label>
+            <input type="text" class="form-control" value="{% if handicapped.full_name %}{{handicapped.full_name}}{% endif %}" disabled>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label text-muted">العنوان</label>
+            <input type="text" class="form-control" value="{% if handicapped.address %}{{handicapped.address}}{% endif %}" disabled>
+        </div>
+        <div class="mb-3">
+            <label class="form-label text-muted">رقم الهاتف	</label>
+            <input type="text" class="form-control" value="{% if handicapped.phone_number %}{{handicapped.phone_number}}{% endif %}" disabled>
+        </div>
+        <div class="mb-3">
+            <label class="form-label text-muted">رقم البطاقة الوطنية</label>
+            <input type="text" class="form-control" value="{% if handicapped.cin %}{{handicapped.cin|upper}}{% endif %}" disabled>
+        </div>
+        <div class="mb-3">
+            <label class="form-label text-muted">الجنس</label>
+            <input type="text" class="form-control" value="{% if handicapped.genre %}{{handicapped.genre}}{% endif %}" disabled>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="mb-3">
             <label class="form-label text-muted">المجال</label>
             <input type="text" class="form-control" value="{% if handicapped.zone %}{{handicapped.zone}}{% endif %}" disabled>
         </div>
@@ -24,29 +47,6 @@
         
     </div>
 
-    <div class="col-6">
-        <div class="mb-3">
-            <label class="form-label text-muted">الإسم الكامل</label>
-            <input type="text" class="form-control" value="{% if handicapped.full_name %}{{handicapped.full_name}}{% endif %}" disabled>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label text-muted">العنوان</label>
-            <input type="text" class="form-control" value="{% if handicapped.address %}{{handicapped.address}}{% endif %}" disabled>
-        </div>
-        <div class="mb-3">
-            <label class="form-label text-muted">رقم الهاتف	</label>
-            <input type="text" class="form-control" value="{% if handicapped.phone_number %}{{handicapped.phone_number}}{% endif %}" disabled>
-        </div>
-        <div class="mb-3">
-            <label class="form-label text-muted">رقم البطاقة الوطنية</label>
-            <input type="text" class="form-control" value="{% if handicapped.cin %}{{handicapped.cin|upper}}{% endif %}" disabled>
-        </div>
-        <div class="mb-3">
-            <label class="form-label text-muted">الجنس</label>
-            <input type="text" class="form-control" value="{% if handicapped.genre %}{{handicapped.genre}}{% endif %}" disabled>
-        </div>
-    </div>
     <div class="text-center mt-3">
         <a class="mybtn bbtn" href="{% url 'handicapped:update_handicapped' handicapped.id %}">تعديل المعلومات الشخصية</a>
     </div>

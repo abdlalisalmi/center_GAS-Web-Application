@@ -2,46 +2,46 @@
     <table class="table">
         <thead class=''>
             <tr>
-            {% if finish %}
-                <th scope="col" class="text-center">حذف</th>
-            {% else %}
-                <th scope="col" class="text-center">قبول / حذف</th>
-            {% endif %}
-            <th scope="col" class="text-center">معلومات أكتر</th>
-            {% if finish %}
-                <th scope="col" class="text-right">تاريخ قبول المشروع</th>
-            {% else %}
-                <th scope="col" class="text-right">تاريخ تقديم المشروع</th>
-            {% endif %}
-            <th scope="col" class="text-right">صاحب المشروع</th>
-            <th scope="col">#</th>
+                <th scope="col">#</th>
+                <th scope="col" class="text-center">صاحب المشروع</th>
+                {% if finish %}
+                    <th scope="col" class="text-center">تاريخ قبول المشروع</th>
+                {% else %}
+                    <th scope="col" class="text-center">تاريخ تقديم المشروع</th>
+                {% endif %}
+                <th scope="col" class="text-center">معلومات أكتر</th>
+                {% if finish %}
+                    <th scope="col" class="text-center">حذف</th>
+                {% else %}
+                    <th scope="col" class="text-center">قبول / حذف</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
             {% for project in projects %}
                 <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td class="text-center">‏‏{{project.handicapped}}</td>
+                    {% if finish %}
+                        <td class="text-center">{{project.approving_date|date:'M d, Y'}}</td>
+                    {% else %}
+                        <td class="text-center">{{project.submiting_date|date:'M d, Y'}}</td>
+                    {% endif %}
+                    <td class="text-center icon" data-bs-toggle="modal" data-bs-target="#info-{{project.id}}"><i class="bi bi-eye-fill B-icon"></i></td>
                     <td class="text-center">
 
                         <form class="text-center" method='POST' action="{% url 'box:approve_project' project.id %}" id="approveForm{{project.id}}">
                             {% csrf_token %}
-                            <a class="icon" data-bs-toggle="modal" data-bs-target="#delete-{{project.id}}" data-bs-toggle="tooltip" data-bs-placement="top" title="حذف الطلب">
-                                <i class="bi bi-trash-fill R-icon"></i>
-                            </a>
                             {% if not finish %}
                                 <a class="icon" href="javascript:{}" onclick="document.getElementById('approveForm{{project.id}}').submit();" data-bs-toggle="tooltip" data-bs-placement="top" title="الموافقة على الطلب">
                                     <i class="bi bi-check-square-fill G-icon"></i>
                                 </a>
                             {% endif %}
+                            <a class="icon" data-bs-toggle="modal" data-bs-target="#delete-{{project.id}}" data-bs-toggle="tooltip" data-bs-placement="top" title="حذف الطلب">
+                                <i class="bi bi-trash-fill R-icon"></i>
+                            </a>
                         </form>
                     </td>
-                    <td class="text-center icon" data-bs-toggle="modal" data-bs-target="#info-{{project.id}}"><i class="bi bi-eye-fill B-icon"></i></td>
-                    {% if finish %}
-                        <td class="text-right">{{project.approving_date|date:'M d, Y'}}</td>
-                    {% else %}
-                        <td class="text-right">{{project.submiting_date|date:'M d, Y'}}</td>
-                    {% endif %}
-                    <td class="text-right">‏‏{{project.handicapped}}</td>
-                    <th scope="row">{{forloop.counter}}</th>
 
                     <!-- More info about the project -->
                     <div class="modal fade" id="info-{{project.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

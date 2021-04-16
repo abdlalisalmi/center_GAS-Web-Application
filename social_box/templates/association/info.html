@@ -1,0 +1,64 @@
+
+
+<form id="infoForm" method='POST' action="{% url 'box:update_association' ass.id%}">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-6">
+            <div class="mb-3">
+                <label class="form-label">إسم الجمعية</label>
+                <input name="name" type="text" dir="rtl" class="form-control" value="{{ass.name}}" required disabled>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">عنوان الجمعية</label>
+                <input name="address" type="text" dir="rtl" class="form-control" value="{{ass.address}}" disabled>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="mb-3">
+                <label class="form-label">تاريخ تأسيس الجمعية</label>
+                <input name="creation_date" type="date" class="form-control" value="{{ass.creation_date|date:"Y-m-d"}}" disabled>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">معلومات حول الجمعية</label>
+                <textarea name="about" class="form-control" dir="rtl" rows="2" disabled>{{ass.about}}</textarea>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div id="update-div" style="display:none;">
+            <button type="submit" class="btn mybtn gbtn">حفض</button>
+            <a id="cancel"  class="btn mybtn rbtn" data-bs-dismiss="modal">إلغاء</a>
+        </div>
+        <a id="update-btn" class="btn mybtn bbtn text-white">تعديل</a>
+    </div>
+</form>
+
+<script>
+function inputsState(bool) {
+    const inputs = document.getElementsByClassName('form-control');
+    Array.prototype.forEach.call(inputs, input => {
+        input.disabled = bool;
+    });
+}
+{% comment %} const submit = document.getElementById('submit-form');
+submit.addEventListener('click', () => {
+    console.log(document.getElementById('infoForm'));
+}) {% endcomment %}
+const updateDiv = document.getElementById('update-div');
+const updateBtn = document.getElementById('update-btn');
+updateBtn.addEventListener('click', () => {
+    updateDiv.style.display = 'block';
+    updateBtn.style.display = 'none';
+    inputsState(false);
+})
+
+const cancelBtn = document.getElementById('cancel');
+cancelBtn.addEventListener('click', () => {
+    updateDiv.style.display = 'none';
+    updateBtn.style.display = 'block';
+    inputsState(true);
+})
+</script>

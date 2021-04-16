@@ -18,6 +18,36 @@
                             {% endif %}
                             
                             <div class='col-lg-6'>
+                                <div class="form-group pb-3">
+                                    <label>الإسم الكامل <span class="text-danger">*</span></label>
+                                    <input name='full_name' type="text" class="form-control mt-2" required>   
+                                </div>
+
+                                <div class="form-group pb-3">
+                                    <label>العنوان</label>
+                                    <input name='address' type="text" class="form-control mt-2">
+                                </div>
+
+                                <div class="form-group pb-3">
+                                    <label>رقم الهاتف</label>
+                                    <input name='phone_number' type="number" class="form-control mt-2">
+                                </div>
+
+                                <div class="form-group pb-3">
+                                    <label>رقم البطاقة الوطنية</label>
+                                    <input name='cin' type="text" class="form-control mt-2">
+                                </div>
+
+                                <div class="form-group pb-3">
+                                    <label for="taype">الجنس <span class="text-danger">*</span></label>
+                                    <select name="genre" class="form-select mt-2" required>
+                                        <option selected value="ذكر">ذكر</option>
+                                        <option value="أنثى">أنثى</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class='col-lg-6'>
 
                                 <div class="form-group pb-3">
                                     <label for="zone">المجال</label>
@@ -57,41 +87,11 @@
 
                             </div>
 
-                            <div class='col-lg-6'>
-                                <div class="form-group pb-3">
-                                    <label>الإسم الكامل <span class="text-danger">*</span></label>
-                                    <input name='full_name' type="text" class="form-control mt-2" required>   
-                                </div>
-
-                                <div class="form-group pb-3">
-                                    <label>العنوان</label>
-                                    <input name='address' type="text" class="form-control mt-2">
-                                </div>
-
-                                <div class="form-group pb-3">
-                                    <label>رقم الهاتف</label>
-                                    <input name='phone_number' type="number" class="form-control mt-2">
-                                </div>
-
-                                <div class="form-group pb-3">
-                                    <label>رقم البطاقة الوطنية</label>
-                                    <input name='cin' type="text" class="form-control mt-2">
-                                </div>
-
-                                <div class="form-group pb-3">
-                                    <label for="taype">الجنس <span class="text-danger">*</span></label>
-                                    <select name="genre" class="form-select mt-2" required>
-                                        <option selected value="ذكر">ذكر</option>
-                                        <option value="أنثى">أنثى</option>
-                                    </select>
-                                </div>
-                            </div>
-
                         </div>
 
                         <div class="pb-2">
-                            <a href="{% url 'handicapped:handicapped_list' %}" class="mybtn rbtn">إلغاء <i class="bi bi-x-circle"></i></a>
                             <button type="submit" class="mybtn gbtn" id="add-handicapped" style="border:none;height: 42px">حفظ <i class="bi bi-bookmark-check"></i></button>
+                            <a href="{% url 'handicapped:handicapped_list' %}" class="mybtn rbtn">إلغاء <i class="bi bi-x-circle"></i></a>
                         </div>
                     </form>
 

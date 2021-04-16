@@ -1,7 +1,8 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
+from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 import datetime
 from social_box.models import Project, Device, Association
 from handicapped.models import Handicapped
@@ -23,7 +24,7 @@ def education(request):
     context = {}
     associations = Association.objects.all().order_by('-id')
     context.update({
-        'associations': associations,
+        'associations': associations
     })
     return render(request, template_name, context)
 
@@ -45,15 +46,24 @@ def add_association(request):
             form.save()
             messages.success(request, 'لقد تم إضافة الجمعية')
         else:
-            messages.success(request, 'لقد تم إضافة الجمعية')
+            messages.success(request, 'هنالك خطأ ما حاول مرة أخرى')
         
     return redirect('box:education')
 
 @login_required(login_url='/')
 def update_association(request, id):
-    template_name = ""
-    context = {}
-    return render(request, template_name, context)
+    if request.method == 'POST':
+        ass = get_object_or_404(Association, id=id)
+        form = AssociationCreateForm(instance=ass, data=request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'لقد تم تعديل معلومات الجمعية')
+        else:
+            messages.success(request, 'هنالك خطأ ما حاول مرة أخرى')
+        
+        return HttpResponseRedirect(reverse('box:association', kwargs={'id':ass.id}))
+    return redirect('box:education')
+    
 
 @login_required(login_url='/')
 def delete_association(request, id):

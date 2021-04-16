@@ -8,12 +8,12 @@
 
                 <div class='col-lg-8 title text-center'>
                     <p>لائحة الأشخاص في وضعية إعاقة</p>
+                    <a href="{% url 'handicapped:add_handicapped' %}" class="mybtn bbtn">إضافة شخص جديد <i class="bi bi-plus-circle-fill"></i></a>
                     {% if deleted %}
                         <a href="{% url 'handicapped:handicapped_list' %}" class="btn mybtn rbtn">القائمة الرئيسية <i class="bi bi-view-list"></i></a>
                     {% else %}
                         <a href="{% url 'handicapped:handicapped_list' %}?deleted=True" class="btn mybtn rbtn">سلة المحذوفين <i class="bi bi-trash"></i></a>
                     {% endif %}
-                    <a href="{% url 'handicapped:add_handicapped' %}" class="mybtn bbtn">إضافة شخص جديد <i class="bi bi-plus-circle-fill"></i></a>
                 </div>
 
                 <div class='col-lg-8'>
@@ -21,32 +21,32 @@
                    <table class="table">
                         <thead class=''>
                             <tr>
-                            <th scope="col" class="text-center"></th>
-                            <th scope="col" class="text-center">عرض كل المعلومات</th>
-                            <th scope="col" class="text-center">C.I.N</th>
-                            <th scope="col" class="text-center">رقم الهاتف</th>
-                            <th scope="col" class="text-center">العنوان</th>
-                            <th scope="col" class="text-center">الإسم الكامل</th>
                             <th scope="col" class="text-center">#</th>
+                            <th scope="col" class="text-center">الإسم الكامل</th>
+                            <th scope="col" class="text-center">العنوان</th>
+                            <th scope="col" class="text-center">رقم الهاتف</th>
+                            <th scope="col" class="text-center">C.I.N</th>
+                            <th scope="col" class="text-center">عرض كل المعلومات</th>
+                            <th scope="col" class="text-center"></th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for handicapped in handicapped_list %}
                                     <tr>
+                                        <th scope="row">{{forloop.counter}}</th>
+                                        <td>{% if handicapped.full_name %}{{handicapped.full_name}}{% endif %}</td>
+                                        <td>{% if handicapped.address %}{{handicapped.address}}{% endif %}</td>
+                                        <td class="text-center">{% if handicapped.phone_number %}{{handicapped.phone_number}}{% endif %}</td>
+                                        <td class="text-center">{% if handicapped.cin %}{{handicapped.cin}}{% endif %}</td>
+                                        <td class="text-center"><a href="{{handicapped.get_absolute_url}}" class="icon"><i class="bi bi-folder2-open G-icon"></i></a></td>
                                         <td>
+                                            <a class="icon" href="{% url 'handicapped:update_handicapped' handicapped.id %}"><i class="bi bi-pencil-square G-icon"></i></a>
                                             {% if handicapped.is_deleted %}
                                                 <a class="icon" href="{% url 'handicapped:delete_handicapped' handicapped.id %}"><i class="bi bi-bootstrap-reboot B-icon"></i></a>
                                             {% else %}
                                                 <a class="icon" data-bs-toggle="modal" data-bs-target="#delete-{{handicapped.id}}"><i class="bi bi-trash-fill R-icon"></i></a>
                                             {% endif %}
-                                            <a class="icon" href="{% url 'handicapped:update_handicapped' handicapped.id %}"><i class="bi bi-pencil-square G-icon"></i></a>
                                         </td>
-                                        <td class="text-center"><a href="{{handicapped.get_absolute_url}}" class="icon"><i class="bi bi-folder2-open G-icon"></i></a></td>
-                                        <td class="text-center">{% if handicapped.cin %}{{handicapped.cin}}{% endif %}</td>
-                                        <td class="text-center">{% if handicapped.phone_number %}{{handicapped.phone_number}}{% endif %}</td>
-                                        <td>{% if handicapped.address %}{{handicapped.address}}{% endif %}</td>
-                                        <td>{% if handicapped.full_name %}{{handicapped.full_name}}{% endif %}</td>
-                                        <th scope="row">{{forloop.counter}}</th>
                                 
                                     </tr>
                                     <!-- Modal For delete -->

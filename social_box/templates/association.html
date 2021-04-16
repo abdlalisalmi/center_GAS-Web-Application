@@ -23,7 +23,7 @@
                                     <button  class="mybtn gbtn" data-bs-dismiss="modal">إلغاء</button>
                                     <button type="submit" class="mybtn rbtn" >حدف</button>
                                 </div>
-                            <form>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -40,7 +40,45 @@
         </div>
 
         <div class='row justify-content-center'>
-
+            <div class='col-lg-10'>
+                <div class="ass-title" data-bs-toggle="collapse" href="#Collapse1" aria-expanded="false" aria-controls="Collapse1">
+                    بطاقة المعلومات حول الجمعية
+                </div>
+                <div class="col">
+                    <div class="collapse multi-collapse" id="Collapse1">
+                        <div class="card card-body">
+                            {% include 'association/info.html'%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--##############################################################################-->
+            <div class='col-lg-10'>
+                <div class="ass-title" data-bs-toggle="collapse" href="#CollapseHR" aria-expanded="false" aria-controls="Collapse1">    
+                    لائحة الموارد البشرية
+                </div>
+                
+                <div class="col">
+                    <div class="collapse multi-collapse show" id="CollapseHR">
+                        <div class="card card-body">
+                            {% include 'association/hr.html'%}
+                            <div class="row justify-content-center mt-4 ">
+                                <div class="col-5 text-center">
+                                    <a onclick="window.print()" class="btn btn-info text-white fw-bold"><i class="bi bi-person-plus-fill"></i> إضافة شخص جديد</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
+<script>
+    window.setTimeout(function() {
+        if (document.querySelector(".alert")){
+            removeFadeOut(document.querySelector(".alert"), 2000);
+        }
+    }, 4000);
+</script>
 {% endblock content %}
