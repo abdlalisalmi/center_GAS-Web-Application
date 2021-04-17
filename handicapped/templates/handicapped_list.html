@@ -27,7 +27,11 @@
                             <th scope="col" class="text-center">رقم الهاتف</th>
                             <th scope="col" class="text-center">C.I.N</th>
                             <th scope="col" class="text-center">عرض كل المعلومات</th>
-                            <th scope="col" class="text-center"></th>
+                            {% if deleted %}
+                                <th scope="col" class="text-center">تعدبل / إسترجاع</th>
+                            {% else %}
+                                <th scope="col" class="text-center">تعدبل / حذف</th>
+                            {% endif %}
                             </tr>
                         </thead>
                         <tbody>
@@ -39,7 +43,7 @@
                                         <td class="text-center">{% if handicapped.phone_number %}{{handicapped.phone_number}}{% endif %}</td>
                                         <td class="text-center">{% if handicapped.cin %}{{handicapped.cin}}{% endif %}</td>
                                         <td class="text-center"><a href="{{handicapped.get_absolute_url}}" class="icon"><i class="bi bi-folder2-open G-icon"></i></a></td>
-                                        <td>
+                                        <td class="text-center">
                                             <a class="icon" href="{% url 'handicapped:update_handicapped' handicapped.id %}"><i class="bi bi-pencil-square G-icon"></i></a>
                                             {% if handicapped.is_deleted %}
                                                 <a class="icon" href="{% url 'handicapped:delete_handicapped' handicapped.id %}"><i class="bi bi-bootstrap-reboot B-icon"></i></a>

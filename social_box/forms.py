@@ -20,4 +20,4 @@ class AddStudentForm(forms.ModelForm):
     
     class Meta:
         model = AssociationStudent
-        fields = '__all__'
+        exclude = ('deleted_date', 'is_deleted',)

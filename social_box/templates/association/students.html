@@ -7,6 +7,9 @@
                 <th scope="col">نوع الإعاقة</th>
                 <th scope="col">نوع برنامج الإستفادة</th>
                 <th scope="col">الخدمات</th>
+                {% if delete %}
+                    <th scope="col">تاريخ الحذف</th>
+                {% endif %}
                 <th scope="col" class="text-center">تعديل / حذف</th>
             </tr>
     </thead>
@@ -18,25 +21,167 @@
                 <td>{% if student.birthday %}{{student.birthday}}{% endif %}</td>
                 <td>{% if student.handicap_Type %}{{student.handicap_Type}}{% endif %}</td>
                 <td>
-                    {% if student.A %}A, {% endif %}
-                    {% if student.B %}B, {% endif %}
-                    {% if student.C %}C{% endif %}
+                    <span class="badge bg-secondary" style="font-size:14px">{% if student.C %}C{% endif %}</span>
+                    <span class="badge bg-secondary" style="font-size:14px">{% if student.B %}B{% endif %}</span>
+                    <span class="badge bg-secondary" style="font-size:14px">{% if student.A %}A{% endif %}</span>
                 </td>
                 <td>
-                    {% if student.ES %}E.S, {% endif %}
-                    {% if student.FP %}F.P, {% endif %}
-                    {% if student.Ortho %}Ortho, {% endif %}
-                    {% if student.Psy %}Psy, {% endif %}
-                    {% if student.keni %}kéni, {% endif %}
-                    {% if student.Psycom %}Psycom, {% endif %}
-                    {% if student.Ergo %}Ergo, {% endif %}
-                    {% if student.Tronsport %}Tronsport{% endif %}
+                    <span class="badge bg-secondary" style="font-size:14px">{% if student.ES %}E.S{% endif %}</span>
+                    <span class="badge bg-secondary" style="font-size:14px">{% if student.FP %}F.P{% endif %}</span>
+                    <span class="badge bg-secondary" style="font-size:14px">{% if student.Ortho %}Ortho{% endif %}</span>
+                    <span class="badge bg-secondary" style="font-size:14px">{% if student.Psy %}Psy{% endif %}</span>
+                    <span class="badge bg-secondary" style="font-size:14px">{% if student.keni %}kéni{% endif %}</span>
+                    <span class="badge bg-secondary" style="font-size:14px">{% if student.Psycom %}Psycom{% endif %}</span>
+                    <span class="badge bg-secondary" style="font-size:14px">{% if student.Ergo %}Ergo{% endif %}</span>
+                    <span class="badge bg-secondary" style="font-size:14px">{% if student.Tronsport %}Tronsport{% endif %}</span>
                 </td>
+                {% if delete %}
+                    <td>{{student.deleted_date}}</td>
+                {% endif %}
                 <td class="text-center">
-                    <a data-bs-toggle="modal" data-bs-target="#update-association-hr{{hr.id}}" class="btn btn-info text-white fw-bold"><i class="bi bi-pencil-square"></i></a>
-                    <a data-bs-toggle="modal" data-bs-target="#delete-association-hr{{hr.id}}" class="btn btn-danger text-white fw-bold"><i class="bi bi-trash-fill"></i></a>
+                    <a data-bs-toggle="modal" data-bs-target="#update-association-student{{student.id}}" class="btn btn-info text-white fw-bold"><i class="bi bi-pencil-square"></i></a>
+                    {% if not student.is_deleted %}
+                        <a data-bs-toggle="modal" data-bs-target="#delete-association-student{{student.id}}" class="btn btn-danger text-white fw-bold"><i class="bi bi-trash-fill"></i></a>
+                    {% else %}
+                        <a data-bs-toggle="modal" data-bs-target="#delete-association-student{{student.id}}" class="btn btn-primary text-white fw-bold"><i class="bi bi-bootstrap-reboot"></i></a>
+                    {% endif %}
                 </td>
             </tr>
+            <!-- delete the Student-->
+                <div class="modal fade" id="delete-association-student{{student.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header justify-content-center">
+                                <h5 class="fw-normal">حذف <span class="text-danger">{{student.full_name}}</span></h5>
+                            </div>
+                            <form method='POST' action="{% url 'box:delete_student' student.id %}">
+                                {% csrf_token %}
+                                <div class="modal-body">
+                                    {% if not student.is_deleted %}
+                                        سيتم تحويل هذا الشخص إلى لائحة المستفيدين السابقين
+                                    {% else %}
+                                        سيتم تحويل هذا الشخص إلى لائحة المستفيدين الحاليين
+                                    {% endif %}
+									<input name="association" type="hidden" class="form-control" value="{{ass.id}}">
+                                </div>
+                                <div class="modal-footer">
+                                    {% if not student.is_deleted %}
+                                        <button type="submit" class="btn mybtn rbtn" >حذف</button>
+                                    {% else %}
+                                        <button type="submit" class="btn mybtn rbtn" >إسترجاع</button>
+                                    {% endif %}
+                                    <a  class="btn mybtn gbtn" data-bs-dismiss="modal">إلغاء</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Update student-->
+                <div class="modal fade" id="update-association-student{{student.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header justify-content-center">
+                                <h5 class="fw-normal">إضافة مستفيد جديد</h5>
+                            </div>
+                            <form method='POST' id="addStudenForm" action="{% url 'box:update_student' student.id %}">
+                                {% csrf_token %}
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="mb-3">
+                                                <label class="form-label">الاسم الكامل</label>
+                                                <input name="full_name" type="text" class="form-control" value="{{student.full_name}}" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">تاريخ الإزدياد</label>
+                                                <input name="birthday" type="date" class="form-control" value="{{student.birthday|date:'Y-m-d'}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label for="taype">نوع الإعاقة</label>
+                                                <select name="handicap_Type" class="form-select mt-2">
+                                                    <option selected value="{{student.handicap_Type}}">{{student.handicap_Type}}</option>
+                                                    <option value="حركية">حركية</option>
+                                                    <option value="بصرية">بصرية</option>
+                                                    <option value="سمعية">سمعية</option>
+                                                    <option value="التوحد">التوحد</option>
+                                                    <option value="التأخر الذهني">التأخر الذهني</option>
+                                                    <option value="الثلاتي الصبغي 21">الثلاتي الصبغي 21</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <label class="mb-2">الخدمات</label>
+                                        <div class="col-6">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="ES" name="ES" {% if student.ES %}checked{% endif %}>
+                                                <label class="form-check-label" for="ES">E.S</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="FP" name="FP" {% if student.FP %}checked{% endif %}>
+                                                <label class="form-check-label" for="FP">F.P</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="Ortho" name="Ortho" {% if student.Ortho %}checked{% endif %}>
+                                                <label class="form-check-label" for="Ortho">Ortho</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="Psy" name="Psy" {% if student.Psy %}checked{% endif %}>
+                                                <label class="form-check-label" for="Psy">Psy</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="Keni" name="keni" {% if student.keni %}checked{% endif %}>
+                                                <label class="form-check-label" for="Keni">Kéni</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="Psycom" name="Psycom" {% if student.Psycom %}checked{% endif %}>
+                                                <label class="form-check-label" for="Psycom">Psycom</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="Ergo" name="Ergo" {% if student.Ergo %}checked{% endif %}>
+                                                <label class="form-check-label" for="Ergo">Ergo</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="Tronsport" name="Tronsport" {% if student.Tronsport %}checked{% endif %}>
+                                                <label class="form-check-label" for="Tronsport">Tronsport</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="mb-2 mt-2">نوع برنامج الإستفادة</label>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="programA" name="A" {% if student.A %}checked{% endif %}>
+                                                <label class="form-check-label" for="programA">A</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="programB" name="B" {% if student.B %}checked{% endif %}>
+                                                <label class="form-check-label" for="programB">B</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="programC" name="C" {% if student.C %}checked{% endif %}>
+                                                <label class="form-check-label" for="programC">C</label>
+                                            </div>
+                                        </div>
+
+
+                                        <input name="association" type="hidden" class="form-control" value="{{ass.id}}">
+                                    </div>
+                                    
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn mybtn gbtn" >حفظ</button>
+                                    <a  class="mybtn rbtn" data-bs-dismiss="modal">إلغاء</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
         {% endfor %}
     </tbody>
 </table>

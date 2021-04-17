@@ -32,7 +32,6 @@
             <button type="submit" class="btn mybtn gbtn">حفض</button>
             <a id="cancel"  class="btn mybtn rbtn" data-bs-dismiss="modal">إلغاء</a>
         </div>
-        <a id="update-btn" class="btn mybtn bbtn text-white">تعديل</a>
     </div>
 </form>
 
@@ -51,14 +50,15 @@ const updateDiv = document.getElementById('update-div');
 const updateBtn = document.getElementById('update-btn');
 updateBtn.addEventListener('click', () => {
     updateDiv.style.display = 'block';
-    updateBtn.style.display = 'none';
+    //updateBtn.style.display = 'none';
+    document.getElementById('Collapse1').classList.add("show");
     inputsState(false);
 })
 
 const cancelBtn = document.getElementById('cancel');
 cancelBtn.addEventListener('click', () => {
     updateDiv.style.display = 'none';
-    updateBtn.style.display = 'block';
+    //updateBtn.style.display = 'block';
     inputsState(true);
 })
 </script>

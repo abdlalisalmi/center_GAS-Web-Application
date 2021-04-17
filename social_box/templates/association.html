@@ -66,9 +66,17 @@
         </div>
 
         <div class='row justify-content-center'>
-            <div class='col-lg-11'>
-                <div class="ass-title" data-bs-toggle="collapse" href="#Collapse1" aria-expanded="false" aria-controls="Collapse1">
-                    بطاقة المعلومات حول الجمعية
+            <div class='col-lg-11 mb-3'>
+                <div class="row justify-content-center px-2">
+                    <div class="ass-title col-10" data-bs-toggle="collapse" href="#Collapse1" aria-expanded="false" aria-controls="Collapse1">
+                        بطاقة المعلومات حول الجمعية
+                    </div>
+                    <div id="update-btn" class="col-2 ass-title-btn text-center">
+                        <div class="row justify-content-center">
+                            <i class="col-2 bi bi-pencil-square"></i>
+                            <span class="col-10">تعديل المعلومات</span>
+                        </div>
+                     </div>
                 </div>
                 <div class="col">
                     <div class="collapse multi-collapse" id="Collapse1">
@@ -78,21 +86,97 @@
                     </div>
                 </div>
             </div>
+
+             <!--##############################################################################-->
+            <div class='col-lg-11 mb-3'>
+                <div class="row px-2">
+                    <div class="col-10 ass-title" data-bs-toggle="collapse" href="#CollapseAssHistory" aria-expanded="false" aria-controls="Collapse1">
+                        الاستفادة السابقة
+                    </div>
+                    <div data-bs-toggle="modal" data-bs-target="#addAssHistory" class="col-2 ass-title-btn text-center">
+                        <div class="row justify-content-center">
+                            <i class="col-2 bi bi-plus-square"></i>
+                            <span class="col-10">إضافة سنة جديدة</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="collapse multi-collapse show" id="CollapseAssHistory">
+                        <div class="card card-body">
+                            {% include 'association/history.html'%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Add association history -->
+                <div class="modal fade" id="addAssHistory" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header justify-content-center">
+                                <h5 class="fw-normal">إضافة سنة جديدة</h5>
+                            </div>
+                            <form method='POST' action="">
+                                {% csrf_token %}
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label class="form-label">السنة</label>
+                                        <input name="year" type="date" class="form-control" >
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">عدد المستفيدين</label>
+                                        <input name="students_number" type="number" class="form-control" value="{{present_students_count}}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">مبلغ الدعم</label>
+                                        <input name="budget" type="number" class="form-control" >
+                                    </div>
+
+                                    <label class="mb-2 mt-2">نوع البرنامج</label>
+                                    <div class="row justify-content-center">
+                                        <div class="form-check col-3"></div>
+                                        <div class="form-check col-3">
+                                            <input class="form-check-input" type="checkbox" id="programA" name="A" {% if student.A %}checked{% endif %}>
+                                            <label class="form-check-label" for="programA">A</label>
+                                        </div>
+                                        <div class="form-check col-3">
+                                            <input class="form-check-input" type="checkbox" id="programB" name="B" {% if student.B %}checked{% endif %}>
+                                            <label class="form-check-label" for="programB">B</label>
+                                        </div>
+                                        <div class="form-check col-3">
+                                            <input class="form-check-input" type="checkbox" id="programC" name="C" {% if student.C %}checked{% endif %}>
+                                            <label class="form-check-label" for="programC">C</label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn mybtn gbtn" >إضافة</button>
+                                    <button  class="btn mybtn rbtn" data-bs-dismiss="modal">إلغاء</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            
             <!--##############################################################################-->
-            <div class='col-lg-11'>
-                <div class="ass-title" data-bs-toggle="collapse" href="#CollapseHR" aria-expanded="false" aria-controls="Collapse1">    
-                    لائحة الموارد البشرية
+            <div class='col-lg-11 mb-3'>
+                <div class="row justify-content-center px-2">
+                    <div class="ass-title col-10" data-bs-toggle="collapse" href="#CollapseHR" aria-expanded="false" aria-controls="Collapse1">    
+                        لائحة الموارد البشرية <span class="badge bg-secondary m-1">{{hr_count}}</span>
+                    </div>
+                    <div data-bs-toggle="modal" data-bs-target="#add-association-hr" class="col-2 ass-title-btn text-center">
+                        <div class="row justify-content-center">
+                            <i class="col-2 bi bi-person-plus-fill"></i>
+                            <span class="col-10">إضافة موظف</span>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="col">
                     <div class="collapse multi-collapse" id="CollapseHR">
                         <div class="card card-body">
                             {% include 'association/hr.html'%}
-                            <div class="row justify-content-center mt-4 ">
-                                <div class="col-5 text-center">
-                                    <a data-bs-toggle="modal" data-bs-target="#add-association-hr" class="btn btn-info text-white fw-bold"><i class="bi bi-person-plus-fill"></i> إضافة شخص جديد</a>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -101,7 +185,7 @@
                     <div class="modal-dialog modal-dialog-centered modal-lg">
                         <div class="modal-content">
                             <div class="modal-header justify-content-center">
-                                <h5 class="fw-normal">إضافة شخص جديد</h5>
+                                <h5 class="fw-normal">إضافة موظف جديد</h5>
                             </div>
                             <form method='POST' id="submitAddHRForm" action="{% url 'box:add_hr' %}">
                                 {% csrf_token %}
@@ -168,24 +252,23 @@
 
             <!--##############################################################################-->
 
-            <div class='col-lg-11'>
-                <div class="ass-title" data-bs-toggle="collapse" href="#CollapseStudents" aria-expanded="false" aria-controls="Collapse1">
-                    لائحة المستفيدين
+            <div class='col-lg-11 mb-3'>
+                <div class="row justify-content-center px-2">
+                    <div class="ass-title col-10" data-bs-toggle="collapse" href="#CollapseStudents" aria-expanded="false" aria-controls="Collapse1">
+                        لائحة المستفيدين الحاليين <span class="badge bg-secondary m-1">{{present_students_count}}</span>
+                    </div>
+                    <div data-bs-toggle="modal" data-bs-target="#add-association-student" class="col-2 ass-title-btn text-center">
+                    <i class="bi bi-person-plus-fill"></i> إضافة مستفيد </div>
                 </div>
                 <div class="col">
-                    <div class="collapse multi-collapse show" id="CollapseStudents">
+                    <div class="collapse multi-collapse" id="CollapseStudents">
                         <div class="card card-body">
-                            {% include 'association/students.html'%}
-                            <div class="row justify-content-center mt-4 ">
-                                <div class="col-5 text-center">
-                                    <a data-bs-toggle="modal" data-bs-target="#add-association-student" class="btn btn-info text-white fw-bold"><i class="bi bi-person-plus-fill"></i> إضافة مستفيد جديد</a>
-                                </div>
-                            </div>
+                            {% include 'association/students.html' with students=present_students%}
                         </div>
                     </div>
                 </div>
 
-                <!-- Add new one in HR-->
+                <!-- Add new student-->
                 <div class="modal fade" id="add-association-student" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
@@ -216,7 +299,7 @@
                                                     <option value="بصرية">بصرية</option>
                                                     <option value="سمعية">سمعية</option>
                                                     <option value="التوحد">التوحد</option>
-                                                    <option value="التأخر الزمني">التأخر الزمني</option>
+                                                    <option value="التأخر الذهني">التأخر الذهني</option>
                                                     <option value="الثلاتي الصبغي 21">الثلاتي الصبغي 21</option>
                                                 </select>
                                             </div>
@@ -290,6 +373,21 @@
                 </div>
 
             </div>
+
+            <!--##############################################################################-->
+            <div class='col-lg-11'>
+                <div class="ass-title" data-bs-toggle="collapse" href="#CollapseOldStudents" aria-expanded="false" aria-controls="Collapse1">
+                    لائحة المستفيدين السابقين <span class="badge bg-secondary m-1">{{deleted_students_count}}</span>
+                </div>
+                <div class="col">
+                    <div class="collapse multi-collapse" id="CollapseOldStudents">
+                        <div class="card card-body">
+                            {% include 'association/students.html' with students=deleted_students delete=True%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 

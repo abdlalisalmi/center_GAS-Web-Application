@@ -412,15 +412,31 @@ th {
 .ass-title {
     font-size: 1.3rem;
     font-family: 'morocco' !important;
-    background-color: #f0f0f0;
+    background-color: #00000019;
     color: #23292e;
-    padding: 8px;
-    margin-top: 5px;
+    padding: 10px;
+    margin-top: 10px;
     cursor: pointer;
     transition: all .3s;
 }
 .ass-title:hover {
     background-color: #e4e4e4;
+}
+
+.ass-title-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    color: #fff;
+    font-size: 1.1rem;
+    padding: 10px;
+    background-color: #918f8f;
+    cursor: pointer;
+    transition: all .3s;
+}
+.ass-title-btn:hover {
+    background-color: #b0afaf;
 }
 
 /* Print secreen */

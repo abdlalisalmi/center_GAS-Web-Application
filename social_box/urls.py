@@ -13,6 +13,8 @@ from .views import (
         update_hr,
 
         add_student,
+        update_student,
+        delete_student,
 
         projects, 
         add_project, 
@@ -40,6 +42,8 @@ urlpatterns = [
     path('education/association/delete_hr/<int:id>/', delete_hr, name='delete_hr'),
 
     path('education/association/add_student/', add_student, name='add_student'),
+    path('education/association/update_student/<int:id>/', update_student, name='update_student'),
+    path('education/association/delete_student/<int:id>/', delete_student, name='delete_student'),
 
     path('projects/', projects, name='projects'),
     path('projects/add/', add_project, name='add_project'),

@@ -70,7 +70,7 @@ function displayAges(child, young, old) {
 			},
 			title: {
 			  display: true,
-			  text: 'تصنيف المسجلين في المركز حسب الأعمار'
+			  text: 'تصنيف المسجلين في المركز حسب السن'
 			}
 		  }
 		},
