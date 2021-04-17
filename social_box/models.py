@@ -41,13 +41,17 @@ class Association(models.Model):
 
 
 class AssociationHistory(models.Model):
+    association     = models.ForeignKey(Association, on_delete=models.CASCADE)
     year            = models.DateField(auto_now=False, auto_now_add=False)
     students_number = models.IntegerField()
     budget          = models.DecimalField(max_digits=9, decimal_places=2)
-    programm        = models.CharField(max_length=100)
+    # programm Type
+    A                   = models.BooleanField(default=False)
+    B                   = models.BooleanField(default=False)
+    C                   = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.year
+        return f"{self.association}-{self.year}"
     
 
 

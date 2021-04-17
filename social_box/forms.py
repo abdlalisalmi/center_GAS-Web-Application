@@ -1,5 +1,5 @@
 from django import forms
-from .models import Association, AssociationHr, AssociationStudent
+from .models import Association, AssociationHr, AssociationStudent, AssociationHistory
 
 
 class AssociationCreateForm(forms.ModelForm):
@@ -21,3 +21,9 @@ class AddStudentForm(forms.ModelForm):
     class Meta:
         model = AssociationStudent
         exclude = ('deleted_date', 'is_deleted',)
+
+class AddHistoryForm(forms.ModelForm):
+
+    class Meta:
+            model = AssociationHistory
+            fields = '__all__'

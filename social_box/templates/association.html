@@ -115,7 +115,7 @@
                             <div class="modal-header justify-content-center">
                                 <h5 class="fw-normal">إضافة سنة جديدة</h5>
                             </div>
-                            <form method='POST' action="">
+                            <form method='POST' action="{% url 'box:add_history' %}">
                                 {% csrf_token %}
                                 <div class="modal-body">
                                     <div class="mb-3">
@@ -135,18 +135,19 @@
                                     <div class="row justify-content-center">
                                         <div class="form-check col-3"></div>
                                         <div class="form-check col-3">
-                                            <input class="form-check-input" type="checkbox" id="programA" name="A" {% if student.A %}checked{% endif %}>
+                                            <input class="form-check-input" type="checkbox" id="programA" name="A">
                                             <label class="form-check-label" for="programA">A</label>
                                         </div>
                                         <div class="form-check col-3">
-                                            <input class="form-check-input" type="checkbox" id="programB" name="B" {% if student.B %}checked{% endif %}>
+                                            <input class="form-check-input" type="checkbox" id="programB" name="B">
                                             <label class="form-check-label" for="programB">B</label>
                                         </div>
                                         <div class="form-check col-3">
-                                            <input class="form-check-input" type="checkbox" id="programC" name="C" {% if student.C %}checked{% endif %}>
+                                            <input class="form-check-input" type="checkbox" id="programC" name="C">
                                             <label class="form-check-label" for="programC">C</label>
                                         </div>
                                     </div>
+                                    <input name="association" type="hidden" class="form-control" value="{{ass.id}}">
 
                                 </div>
                                 <div class="modal-footer">

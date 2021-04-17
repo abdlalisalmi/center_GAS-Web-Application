@@ -6,7 +6,7 @@ from django.http import JsonResponse, HttpResponseRedirect
 import datetime
 from social_box.models import AssociationHr, Project, Device, Association, AssociationStudent
 from handicapped.models import Handicapped
-from .forms import AssociationCreateForm, AddHRForm, AddStudentForm
+from .forms import AssociationCreateForm, AddHRForm, AddStudentForm, AddHistoryForm
 
 @login_required(login_url='/')
 def box(request):
@@ -181,6 +181,19 @@ def delete_student(request, id):
         return HttpResponseRedirect(reverse('box:association', kwargs={'id':request.POST.get('association')}))
     return redirect('box:education')
 
+################# Association History #####################
+
+def add_history(request):
+    if request.method == 'POST':
+        form = AddHistoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'لقد تمت العملية بنجاح')
+        else:
+            messages.success(request, 'هنالك خطأ ما حاول مرة أخرى')
+            print(form.errors)
+        return HttpResponseRedirect(reverse('box:association', kwargs={'id':request.POST.get('association')}))
+    return redirect('box:education')
 
 #################################################################################
 ############################### help the projects ###############################
