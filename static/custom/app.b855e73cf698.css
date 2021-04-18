@@ -1,0 +1,477 @@
+@font-face {
+    font-family: 'Cairo';
+    src: url("../fonts/Cairo-Regular.81b37df3b28d.ttf");
+}
+@font-face {
+    font-family: 'Cairo-sbold';
+    src: url("../fonts/Cairo-SemiBold.df4b7a4fa0bb.ttf");
+}
+@font-face {
+    font-family: 'Cairo-light';
+    src: url("../fonts/Cairo-Light.521aad886875.ttf");
+}
+@font-face {
+    font-family: 'morocco';
+    src: url("../fonts/morocco.818fc80f5ed7.ttf");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Cairo', sans-serif !important;
+    /* direction: rtl; */
+    text-align: right;
+}
+body {
+    background-color: #f6f6f6 !important;
+    height: 100vh;
+}
+
+select {
+    border-radius: 15px !important;
+    padding: 10px 22px !important;
+    text-align-last:right !important;
+    direction: rtl;
+    font-family: 'Cairo' !important;
+}
+input[type=text], input[type=password], input[type=date], input[type=number]{
+    /* width: 80%; */
+    padding: 10px 22px;
+    /* margin: 5px 5px; */
+    box-sizing: border-box;  
+    border-radius: 15px;
+}
+input[type=radio] {
+    width: 20px;
+    height: 20px;
+    margin: 10px 5px;
+    border: 1px solid #1ad08a;
+}
+input[type=radio]:checked{
+    background-color: #1ad08a;
+    border: 1px solid #1ad08a;
+}
+input[type=radio]:focus{
+    outline: none;
+    box-shadow: none;
+    border: 1px solid #1ad08a;
+}
+
+
+.header {
+    height: 20%;
+    background-position: bottom left;
+    background-repeat: repeat-x;
+    display: flex;
+    text-align: center;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+.header .title {
+    font-size: 2rem;
+    font-family: 'morocco' !important;
+    text-decoration: none;
+    text-align: center;
+    color: #20c972;
+    line-height: 30px;
+    transition: all .3s;
+}
+.header a:hover {
+    color: #0e9e54;
+}
+.morocco-logo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.morocco-logo p {
+    font-family: 'morocco' !important;
+    font-size: 1.4rem;
+}
+
+.logout {
+    cursor: pointer;
+    text-decoration: none;
+    background-color: #faa3aa;
+    border: #faa3aa 1px solid;
+    height: 40px;
+    border-radius: 10px;
+    padding: 4px;
+    padding-left: 15px;
+    padding-right: 15px;
+    color: #ffffff;
+    font-size: large;
+    transition: all .3s;
+}
+.logout:hover {
+    color: #fff !important;
+    background-color: #f85866;
+}
+.logout-modal {
+    background-color: #f6f6f6;
+    border-radius: 15px;
+    /* border: #dc3545 2px solid; */
+}
+
+
+select {text-align-last:right; }
+select option {text-align-last:right; }
+
+.home-center {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.home .item a {
+    text-decoration: none;
+}
+.home .item p {
+    background-color: #1abc7e;
+    color: rgb(255, 255, 255);
+    /* border: 1px solid #20c997; */
+    border-radius: 20px;
+    padding: 15px;
+    font-family: 'morocco', sans-serif !important;
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.home .item p:hover {
+    color: #23292e;
+    background-color: #f6f6f6;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 1px 6px rgba(0,0,0,0.23);
+}
+
+.handicapped-list .title {
+    border-bottom: 1px solid #291965;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.handicapped-list .title p{
+    color: #291965;
+    font-family: 'morocco', sans-serif !important;
+    font-size: 1.5rem;
+    font-weight: 900;
+    text-align: center;
+}
+
+th {
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Cairo-light', sans-serif !important;
+}
+
+/* ICON-------------------------------------------------------- */
+
+.icon i {
+    font-size: 1.3rem;
+    padding: 10px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all .3s;
+}
+.icon .G-icon {
+    color: #20c997;
+}
+.icon .G-icon:hover {
+    background-color: #20c997;
+    color: #f1f2f6;
+}
+.icon .R-icon {
+    color: #dc3545;
+}
+.icon .R-icon:hover {
+    background-color: #dc3545;
+    color: #f1f2f6;
+}
+.icon .B-icon {
+    color: #0d6efd;
+}
+.icon .B-icon:hover {
+    background-color: #0d6efd;
+    color: #f1f2f6;
+}
+/* END ICON-------------------------------------------------------- */
+
+.handicapped-form h1 {
+    font-size: 1.5rem;
+    padding: 15px;
+    font-family: 'morocco' !important;
+    border-bottom: #23292e 0.5px solid;
+    margin-bottom: 35px;
+}
+.handicapped-form h1 span{
+    padding: 15px;
+    font-family: 'morocco' !important;
+}
+
+
+.cards-list ul li a {
+    background-color: #f6f6f6 !important;
+    border: 1px solid #23292e !important;
+    border-radius: 10px !important;
+    color: #23292e;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 10px;
+    width: 200px;
+    margin: 20px;
+    /* border-radius: 200px !important; */
+}
+.cards-list ul li .active {
+    /* background-color: #20c997 !important; */
+    border: 1px solid #20c997 !important;
+    color: #0e9e54 !important;
+}
+
+.cards-list ul li .hr {
+    width: 200px;
+    height: 100%;
+    position: relative;
+
+}
+.cards-list ul li .hr div{
+    /* border: #003525 1px solid; */
+    background-color: #23292e !important;
+    border-radius: 10px;
+    height: 1px;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+}
+
+.info {
+    background-color: #daeffc;
+    color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    padding-top: 20px;
+    font-size: 16px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+.success {
+    background-color: rgb(211, 255, 211);
+    color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    padding-top: 20px;
+    font-size: 16px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+.warrning {
+    background-color: rgb(255, 255, 211);
+    color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    padding-top: 20px;
+    font-size: 16px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.mybtn {
+    padding: 20px !important;
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+    margin: 5px ;
+    color: #f6f6f6;
+    text-decoration: none !important;
+    border-radius: 15px !important;
+    transition: all .3s !important;
+    font-weight: bold !important;
+    font-size: 16px !important;
+    cursor: pointer !important;
+}
+.bbtn{
+    background-color: #0671c29e !important;
+}
+.bbtn:hover{
+    background-color: #0671c2ec !important;
+    color: #f6f6f6;
+}
+
+.gbtn{
+    background-color: #0fc680 !important;
+    color: #f6f6f6 !important;
+}
+.gbtn:hover{
+    background-color: #11b677 !important;
+    color: #f6f6f6;
+}
+
+
+.rbtn{
+    color: #f6f6f6 !important;
+    background-color: #dc3545 !important;
+    border-radius: 15px !important;
+}
+.rbtn:hover{
+    background-color: #bf2332 !important;
+    color: #f6f6f6;
+}
+
+/* SEARCH FOLDER */
+.search-folder h2{
+    font-family: 'morocco', sans-serif !important;
+    font-size: 1.7rem;
+    color: #0fc680;
+    padding: 15px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    /* width: 30%; */
+    border-bottom: #d5d4d4 1px solid;
+}
+.search-title {
+    border-bottom: #23292e 0.5px solid;
+    margin-bottom: 35px;
+    padding-bottom: 15px;
+}
+.search-title h1 {
+    font-size: 1.5rem;
+    font-family: 'morocco' !important;
+    
+}
+.search-title h1 span{
+    padding: 15px;
+    font-family: 'morocco' !important;
+}
+
+
+/* END SEARCH FOLDER */
+
+.line {
+    font-family: 'morocco' !important;
+    font-size: 1.5rem;
+    color: #20c997;
+    /* height: 25px; */
+    padding: 15px;
+    margin-top: 20px;
+    margin-bottom: 25px;
+    border-bottom: #d5d4d4 1px solid;
+}
+
+/* Projects style */
+.projects a {
+    font-family: 'morocco' !important;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: #00b56f;
+    transition: all .3s;
+}
+.projects a:hover{
+    color: #048856;
+}
+.projects .col{
+    margin-bottom: 30px !important;
+    margin-top: 5px !important;
+}
+/* end Projects style */
+
+.device-request-title {
+    background-color: #f1f2f6;
+    padding: 10px;
+    border: 1px solid #00b56f;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.device {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all .5s;
+}
+.device h5 {
+    font-size: 1rem;
+}
+.wiat {
+    background-color: #fff1a2;
+}
+.wiat:hover {
+    background-color: #e3d16e;
+}
+.finish {
+    background-color: #c4f798;
+}
+.finish:hover {
+    background-color: #9ed86a;
+}
+
+.search-item {
+    cursor: pointer;
+    border-radius: 10px !important;
+    transition: all .3s;
+}
+.search-item:hover {
+    background-color: #01ff9e3a;
+
+}
+
+.ass-name {
+    font-family: 'morocco' !important;
+    font-size: 1.5rem;
+    color: #00b56f;
+    cursor: pointer;
+    border: #00b56f 1px solid;
+    border-radius: 15px;
+    padding: 10px;  
+    margin: 10px;
+    transition: all .3s;
+}
+.ass-name:hover {
+    background-color: #00ff9d35;
+}
+
+.ass-title {
+    font-size: 1.3rem;
+    font-family: 'morocco' !important;
+    background-color: #e8e8e87e;
+    color: #23292e;
+    padding: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: all .3s;
+}
+.ass-title:hover {
+    background-color: #e4e4e4;
+}
+
+.ass-title-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 900;
+    background-color: #0fc680;
+    cursor: pointer;
+    transition: all .3s;
+}
+.ass-title-btn:hover {
+    background-color: #078c59;
+}
+
+/* Print secreen */
+
+@media print {
+    .mybtn {display:none}
+	.morocco-logo {display:none;}
+    .print {display:none;}
+}
+@page {
+    size: auto;
+    margin: 0;
+}
+/* end Print secreen */
