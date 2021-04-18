@@ -17,6 +17,19 @@ class Project(models.Model):
         return self.handicapped.full_name
 
 
+class ProjectVisit(models.Model):
+    project     = models.ForeignKey(Project, on_delete=models.CASCADE)
+    date        = models.DateField(auto_now=False, auto_now_add=False, null=True, blank=True)
+    visitors    = models.TextField(null=True, blank=True)
+    notes       = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.project.handicapped.full_name if self.project.handicapped.full_name else f'Visit {self.pk}'
+    
+
+
+
+
 class Device(models.Model):
     handicapped     = models.OneToOneField(Handicapped, on_delete=models.CASCADE)
     device_type     = models.CharField(max_length=100, null=True, blank=True)

@@ -1,0 +1,51 @@
+<!-- More info about the project -->
+<div class="modal fade" id="visit-{{project.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header justify-content-center">
+                <h5 class="fw-normal">تتبع المشروع</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row p-2 border-bottom border-1 border-secondary">
+                    <div class="col-1">#</div>
+                    <div class="col-3">التاريخ</div>
+                    <div class="col-3">الزوار</div>
+                    <div class="col-5">ملاحضات</div>
+                </div>
+                <div class="row p-2" id="allVisits-{{project.id}}">
+                    
+                </div>
+                
+                <div class="row p-2">
+                    <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#addVisit{{project.id}}" aria-expanded="false" aria-controls="collapseExample">
+                        إضافة زيارة
+                    </button>
+                </div>
+                <div class="collapse" id="addVisit{{project.id}}">
+                    <div class="card card-body">
+                        <form method="POST" action="{% url 'box:add_project_visit' %}">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label class="form-label">التاريخ</label>
+                                <input name="date" type="date" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">الزوار</label>
+                                <textarea name="visitors" class="form-control" rows="2"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">ملاحضات</label>
+                                <textarea name="notes" class="form-control" rows="2"></textarea>
+                            </div>
+                            <input name="project" type="hidden" value="{{project.id}}">
+                            <button type="submit" class="btn btn-primary">حفظ</button
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إخفاء</button>
+            </div>
+        </div>
+    </div>
+</div>

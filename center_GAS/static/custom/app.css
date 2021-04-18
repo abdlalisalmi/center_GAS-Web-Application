@@ -109,6 +109,12 @@ input[type=radio]:focus{
     color: #fff !important;
     background-color: #f85866;
 }
+.logout-modal {
+    background-color: #f6f6f6;
+    border-radius: 15px;
+    /* border: #dc3545 2px solid; */
+}
+
 
 select {text-align-last:right; }
 select option {text-align-last:right; }

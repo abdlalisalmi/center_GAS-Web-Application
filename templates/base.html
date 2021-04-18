@@ -38,15 +38,17 @@
                         <!-- Delete association -->
                         <div class="modal fade" id="logout" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        هل فعلا تريد تسجيل الخروج
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row justify-content-center">
-                                            <div class="col-12 text-center m-4">
-                                                <a href="{% url 'logout' %}" class="mybtn rbtn" >تسجيل الخروج   </a>
-                                                <a  class="mybtn gbtn" data-bs-dismiss="modal">إلغاء</a>
+                                <div class="modal-content bg-transparent border-0">
+                                    <div class="logout-modal">
+                                        <div class="modal-header">
+                                            هل فعلا تريد تسجيل الخروج
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row justify-content-center">
+                                                <div class="col-12 text-center m-4">
+                                                    <a href="{% url 'logout' %}" class="mybtn rbtn" >تسجيل الخروج   </a>
+                                                    <a  class="mybtn gbtn" data-bs-dismiss="modal">إلغاء</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

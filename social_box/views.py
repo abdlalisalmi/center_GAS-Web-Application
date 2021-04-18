@@ -3,10 +3,11 @@ from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponseRedirect
+from django.core import serializers
 import datetime
-from social_box.models import AssociationHr, Project, Device, Association, AssociationStudent, AssociationHistory
+from social_box.models import AssociationHr, Project, ProjectVisit, Device, Association, AssociationStudent, AssociationHistory
 from handicapped.models import Handicapped
-from .forms import AssociationCreateForm, AddHRForm, AddStudentForm, AddHistoryForm
+from .forms import AssociationCreateForm, AddHRForm, AddStudentForm, AddHistoryForm, AddProjectVisitForm
 
 @login_required(login_url='/')
 def box(request):
@@ -210,6 +211,7 @@ def delete_history(request, id):
             messages.success(request, 'هنالك خطأ ما حاول مرة أخرى')
         return HttpResponseRedirect(reverse('box:association', kwargs={'id':request.POST.get('association')}))
     return redirect('box:education')
+
 #################################################################################
 ############################### help the projects ###############################
 #################################################################################
@@ -289,6 +291,27 @@ def approve_project(request, id):
 
     return redirect('box:projects')
 
+
+############### Project Visits ###################
+
+@login_required(login_url='/')
+def get_project_visits(request):
+    if request.method == 'POST':
+        project_id = request.POST.get('project_id', None)
+        if project_id:
+            visits = ProjectVisit.objects.filter(project=project_id)
+            visits = serializers.serialize("json", visits)
+            return HttpResponse(visits, content_type="application/json")
+    
+    return HttpResponseRedirect(reverse('box:education'))
+
+@login_required(login_url='/')
+def add_project_visit(request):
+    if request.method == 'POST':
+        form = AddProjectVisitForm(request.POST)
+        if form.is_valid():
+            form.save()
+    return HttpResponseRedirect(reverse('box:projects'))       
 
 
 #################################################################################

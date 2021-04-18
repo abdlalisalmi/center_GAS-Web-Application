@@ -23,6 +23,8 @@ from .views import (
         add_project, 
         delete_project, 
         approve_project,
+        get_project_visits,
+        add_project_visit,
 
         devices, 
         add_device,
@@ -55,6 +57,9 @@ urlpatterns = [
     path('projects/add/', add_project, name='add_project'),
     path('projects/delete/<int:id>/', delete_project, name='delete_project'),
     path('projects/approve/<int:id>/', approve_project, name='approve_project'),
+    path('projects/get_project_visits/', get_project_visits, name='get_project_visits'),
+    path('projects/add_project_visit/', add_project_visit, name='add_project_visit'),
+    
 
     path('devices/', devices, name='devices'),
     path('devices/add/', add_device, name='add_device'),

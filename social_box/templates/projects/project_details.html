@@ -1,5 +1,5 @@
 {% if projects %}
-    <table class="table">
+    <table class="table table-hover">
         <thead class=''>
             <tr>
                 <th scope="col">#</th>
@@ -11,6 +11,7 @@
                 {% endif %}
                 <th scope="col" class="text-center">معلومات أكتر</th>
                 {% if finish %}
+                    <th scope="col" class="text-center">الزيارات</th>
                     <th scope="col" class="text-center">حذف</th>
                 {% else %}
                     <th scope="col" class="text-center">قبول / حذف</th>
@@ -27,7 +28,11 @@
                     {% else %}
                         <td class="text-center">{{project.submiting_date|date:'M d, Y'}}</td>
                     {% endif %}
-                    <td class="text-center icon" data-bs-toggle="modal" data-bs-target="#info-{{project.id}}"><i class="bi bi-eye-fill B-icon"></i></td>
+                    <td class="text-center icon" data-bs-toggle="modal" data-bs-target="#info-{{project.id}}"><i class="bi bi-folder-symlink-fill B-icon"></i></td>
+                    {% if finish %}
+                        <td scope="col" class="text-center icon show-visit" id="{{project.id}}" data-bs-toggle="modal" data-bs-target="#visit-{{project.id}}"><i class="bi bi-eye-fill G-icon"></i></td>
+                        {% include 'projects/project_visit.html' %}
+                    {% endif %}
                     <td class="text-center">
 
                         <form class="text-center" method='POST' action="{% url 'box:approve_project' project.id %}" id="approveForm{{project.id}}">
@@ -100,6 +105,40 @@
             {% endfor %}
         </tbody>
     </table>
+
+
+<script>
+    const showVisitBtns = document.getElementsByClassName("show-visit");
+    Array.prototype.forEach.call(showVisitBtns, function(btn) {
+        // Do stuff here
+        btn.addEventListener('click', () => {
+            const formData = new FormData();
+            formData.append('project_id', btn.id);
+
+            fetch('/box/projects/get_project_visits/', {
+            method: 'POST',
+            headers: {'X-CSRFToken': csrftoken},
+            body: formData
+
+            }).then(response => response.json())
+            .then(data => {
+                document.getElementById('allVisits-' + btn.id).innerHTML = ''
+                let index = 1;
+                Array.prototype.forEach.call(data, function(visit) {
+                    document.getElementById('allVisits-' + btn.id).innerHTML += `
+                        <div class="col-1 border-bottom border-1 border-secondary-500 p-2">${index}</div>
+                        <div class="col-3 border-bottom border-1 border-secondary-500 p-2">${visit.fields.date}</div>
+                        <div class="col-3 border-bottom border-1 border-secondary-500 p-2">${visit.fields.visitors}</div>
+                        <div class="col-5 border-bottom border-1 border-secondary-500 p-2">${visit.fields.notes}</div>
+                    `;
+                    index++;
+                });
+            })
+        })
+    });
+</script>
+
+
 {% else %}
 <div class="row justify-content-center">
     <div class="col-12 text-center mt-2">
