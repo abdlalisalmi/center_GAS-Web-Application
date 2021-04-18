@@ -1,0 +1,98 @@
+
+<div class='col-lg-7 border mt-3 rounded rounded-3 px-4 pt-4'>
+    <div class="handicapped-form">
+        <div class='row justify-content-center'>
+            <div class="form-group pb-3">
+                <small class="text-muted"></small>
+                <input id="search-input" name='search-input' type="text" class="form-control mt-2" style="font-size:13px" placeholder="للبحث أدخل إسم الطفل...">
+            </div>
+
+        </div>
+
+        <div class='col-12'>
+            <table class="table">
+                <thead class='' id='table-head'>
+                </thead>
+                <tbody id="search-result">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+function openLink(id) {
+    window.location.href = `/search/${id}/`;
+}
+
+function stringCheck(string) {
+    if (string == null) {
+        return '-----';
+    } else {
+        return string;
+    }
+}
+
+function Check(bool, str) {
+    if (bool == true) {
+        return str;
+    }
+    return '';
+}
+
+
+const searchResult = document.getElementById('search-result');
+const searchInput = document.getElementById('search-input');
+searchInput.addEventListener('input', (e) => {
+    e.preventDefault()
+    document.getElementById('table-head').innerHTML = `
+        <tr>
+            <th scope="col" class="text-right">الإسم الكامل</th>
+            <th scope="col" class="text-right">تاريخ الإزدياد</th>
+            <th scope="col" class="text-right">نوع الإعاقة</th>
+            <th scope="col" class="text-right">نوع برنامج الإستفادة</th>
+            <th scope="col" class="text-right">الخدمات</th>
+            <th scope="col" class="text-right">الجمعية</th>
+        </tr>
+    `;
+    search = searchInput.value;
+    if (search != "") {
+        fetch('/search/?student='+search)
+        .then(response => response.json())
+        .then(data => {
+            searchResult.innerHTML = ``;
+            console.log(data)
+            Array.prototype.forEach.call(data, function(student){
+                searchResult.innerHTML += `
+                    <tr class="search-item">
+                        <td class="text-right">${stringCheck(student.fields.full_name)}</td>
+                        <td class="text-right">${stringCheck(student.fields.birthday)}</td>
+                        <td class="text-right">${stringCheck(student.fields.handicap_Type)}</td>
+                        <td class="text-right">
+                            <span class="badge bg-secondary" style="font-size:14px">${Check(student.fields.C,'C')}</span>
+                            <span class="badge bg-secondary" style="font-size:14px">${Check(student.fields.B,'B')}</span>
+                            <span class="badge bg-secondary" style="font-size:14px">${Check(student.fields.A,'A')}</span>
+                        </td>
+                        <td class="text-right">
+                            <span class="badge bg-secondary" style="font-size:14px">${Check(student.fields.ES,'E.S')}</span>
+                            <span class="badge bg-secondary" style="font-size:14px">${Check(student.fields.FP,'F.P')}</span>
+                            <span class="badge bg-secondary" style="font-size:14px">${Check(student.fields.Ortho,'Ortho')}</span>
+                            <span class="badge bg-secondary" style="font-size:14px">${Check(student.fields.Psy,'Psy')}</span>
+                            <span class="badge bg-secondary" style="font-size:14px">${Check(student.fields.keni,'Kéni')}</span>
+                            <span class="badge bg-secondary" style="font-size:14px">${Check(student.fields.Psycom,'Psycom')}</span>
+                            <span class="badge bg-secondary" style="font-size:14px">${Check(student.fields.Ergo,'Ergo')}</span>
+                            <span class="badge bg-secondary" style="font-size:14px">${Check(student.fields.Tronsport,'Tronsport')}</span>
+                        </td>
+                        <td class="text-right"><a href="/box/education/association/${stringCheck(student.fields.association)}">الجمعية</a></td>
+                    </tr>
+                `;
+            })
+            
+        });
+    } else {
+        searchResult.innerHTML = '';
+    }
+})
+</script>

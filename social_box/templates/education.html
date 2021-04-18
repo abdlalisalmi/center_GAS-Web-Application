@@ -62,6 +62,7 @@
                 {% endif %}
             </div>
         </div>
+
         <div class='row justify-content-center'>
             {% if associations %}
                 {% for ass in associations %}
@@ -76,8 +77,12 @@
                     لا توجد أي جمعية
                 </div>
             {% endif %}
-
         </div>
+
+        <div class='row justify-content-center mt-4'>
+                {% include 'search/search.html' %}
+        </div>
+
     </div>
 <script>
     window.setTimeout(function() {

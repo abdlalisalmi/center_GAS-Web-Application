@@ -9,6 +9,7 @@ import datetime
 
 
 from handicapped.models import Handicapped
+from social_box.models import AssociationStudent
 from food.models import Food
 from cards.models import Card
 from social_box.models import Device, Project
@@ -39,12 +40,17 @@ def search(request):
     context = {}
 
     search = request.GET.get('search', None)
+    student = request.GET.get('student', None)
     if search:
         lookups = Q(full_name__contains=search) | Q(
                 phone_number__contains=search) | Q(cin__contains=search)
         handicapped_list = Handicapped.objects.filter(lookups)
         handicapped_list = serializers.serialize("json", handicapped_list)
         return HttpResponse(handicapped_list, content_type="application/json")
+    elif student:
+        students = AssociationStudent.objects.filter(full_name__contains=student)
+        students_list = serializers.serialize("json", students)
+        return HttpResponse(students_list, content_type="application/json")
     else:
         return render(request, template_name, context)
     

@@ -8,6 +8,7 @@
 
                 <div class='col-lg-8 title text-center'>
                     <p>لائحة الأشخاص في وضعية إعاقة</p>
+                    <a href="{% url 'export:export_handicapped_csv' None%}" class="mybtn bbtn">تحميل <i class="bi bi-save-fill"></i></a>
                     <a href="{% url 'handicapped:add_handicapped' %}" class="mybtn bbtn">إضافة شخص جديد <i class="bi bi-plus-circle-fill"></i></a>
                     {% if deleted %}
                         <a href="{% url 'handicapped:handicapped_list' %}" class="btn mybtn rbtn">القائمة الرئيسية <i class="bi bi-view-list"></i></a>

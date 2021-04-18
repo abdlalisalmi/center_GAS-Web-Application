@@ -22,5 +22,7 @@ urlpatterns = [
 
     path('box/', include('social_box.urls')),
 
+    path('export/', include('export.urls')),
+
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

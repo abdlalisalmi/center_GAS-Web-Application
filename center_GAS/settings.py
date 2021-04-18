@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'cards.apps.CardsConfig',
     'social_box.apps.SocialBoxConfig',
     'food.apps.FoodConfig',
+    'export.apps.ExportConfig',
 
     'django.contrib.admin',
     'django.contrib.auth',
