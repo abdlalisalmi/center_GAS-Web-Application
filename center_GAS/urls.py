@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.views import LogoutView
+from django.conf import settings
+from django.conf.urls.static import static
 
 from .views import home_page, search, search_folder, analytics
 
@@ -21,4 +23,4 @@ urlpatterns = [
     path('box/', include('social_box.urls')),
 
     path('admin/', admin.site.urls),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

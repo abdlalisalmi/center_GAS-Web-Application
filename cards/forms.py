@@ -5,3 +5,9 @@ class AddCardForm(ModelForm):
     class Meta:
         model = Card
         fields = ['handicapped',]
+
+
+class UploadCardForm(ModelForm):
+    class Meta:
+        model = Card
+        fields = ['card',]

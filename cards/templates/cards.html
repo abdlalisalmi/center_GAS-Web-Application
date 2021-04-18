@@ -55,6 +55,7 @@
                                     <th scope="col">#</th>
                                     <th scope="col" class="text-right">صاحب الطلب</th>
                                     <th scope="col" class="text-right">تاريخ قبول الطلب</th>
+                                    <th scope="col" class="text-center">نسخة من البطاقة</th>
                                     <th scope="col" class="text-center">حذف</th>
                                     </tr>
                                 </thead>
@@ -64,6 +65,19 @@
                                                 <th scope="row">{{forloop.counter}}</th>
                                                 <td class="text-right">‏‏{{card.handicapped}}</td>
                                                 <td class="text-right">{{card.finishing_date|date:'M d, Y'}}</td>
+                                                <td class="text-right">‏‏
+                                                {% if card.card %}
+                                                    <a href="/media/{{card.card}}" target="_blank">عرض البطاقة</a>
+                                                {% endif %}
+                                                <form method="POST" action="{% url 'cards:upload_card' card.id%}" id="uploadCardForm" enctype="multipart/form-data">
+                                                    {% csrf_token %}
+                                                    <div class="row">
+                                                        <div class="m-0 p-0">
+                                                            <input name="card" class="form-control " type="file" id="cardFile">
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                                </td>
                                                 <td class="text-center">
                                                     <a class="icon" data-bs-toggle="modal" data-bs-target="#delete-{{card.id}}" data-bs-toggle="tooltip" data-bs-placement="top" title="حذف الطلب">
                                                         <i class="bi bi-trash-fill R-icon"></i>
@@ -182,6 +196,13 @@
     </div>
 
 <script>
+    const uploadCard = document.getElementById('cardFile')
+    if (uploadCard) {
+        uploadCard.addEventListener('change', () => {
+            document.getElementById('uploadCardForm').submit()
+        })
+    }
+
     window.setTimeout(function() {
         if (document.querySelector(".alert")){
             removeFadeOut(document.querySelector(".alert"), 2000);

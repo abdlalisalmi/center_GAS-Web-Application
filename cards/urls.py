@@ -1,5 +1,5 @@
 from django.urls import path
-from.views import cards, add_card, delete_card, approve_card
+from.views import cards, add_card, delete_card, approve_card, upload_card
 
 app_name = 'cards'
 urlpatterns = [
@@ -7,4 +7,5 @@ urlpatterns = [
     path('add/', add_card, name='add_card'),
     path('delete/<int:id>/', delete_card, name='delete_card'),
     path('approve/<int:id>/', approve_card, name='approve_card'),
+    path('upload/<int:id>/', upload_card, name='upload_card'),
 ]

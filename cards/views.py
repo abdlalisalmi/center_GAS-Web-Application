@@ -5,7 +5,7 @@ from django.contrib import messages
 
 from handicapped.models import Handicapped
 from .models import Card
-from .forms import  AddCardForm
+from .forms import  AddCardForm, UploadCardForm
 
 @login_required(login_url='/')
 def cards(request):
@@ -72,10 +72,8 @@ def delete_card(request, id):
 @login_required(login_url='/')
 def approve_card(request, id):
     if request.method == 'POST':
-        print("1")
         try:
             card = get_object_or_404(Card, id=id)
-            print("2")
             card.is_finish = True
             card.save()
             messages.success(request, 'لقد تمت الموافقة على الطلب بنجاح')
@@ -83,4 +81,17 @@ def approve_card(request, id):
         except:
             messages.success(request, 'حدت خطأ ما أتناء الموافقة عل الطلب')
             return redirect('cards:cards')
+    return redirect('cards:cards')
+
+
+@login_required(login_url='/')
+def upload_card(request, id):
+    if request.method == 'POST' and request.FILES['card']:
+        try:
+            card = get_object_or_404(Card, id=id)
+            form = UploadCardForm(instance=card, data=request.POST, files=request.FILES)
+            if form.is_valid():
+                form.save()
+        except:
+            messages.success(request, 'حدت خطأ ما')
     return redirect('cards:cards')
