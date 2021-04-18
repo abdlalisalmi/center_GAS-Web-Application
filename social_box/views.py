@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponseRedirect
 import datetime
-from social_box.models import AssociationHr, Project, Device, Association, AssociationStudent
+from social_box.models import AssociationHr, Project, Device, Association, AssociationStudent, AssociationHistory
 from handicapped.models import Handicapped
 from .forms import AssociationCreateForm, AddHRForm, AddStudentForm, AddHistoryForm
 
@@ -47,6 +47,9 @@ def association(request, id):
 
     deleted_students = AssociationStudent.objects.filter(is_deleted=True).order_by('-id')
     deleted_students_count = AssociationStudent.objects.filter(is_deleted=True).count()
+
+    histories = AssociationHistory.objects.all().order_by('-year')
+
     context.update({
         'ass': ass,
         'hrs': hrs,
@@ -54,7 +57,8 @@ def association(request, id):
         'present_students': students,
         'present_students_count': present_students_count,
         'deleted_students': deleted_students,
-        'deleted_students_count': deleted_students_count
+        'deleted_students_count': deleted_students_count,
+        'histories': histories
         })
     return render(request, template_name, context)
 
@@ -195,6 +199,17 @@ def add_history(request):
         return HttpResponseRedirect(reverse('box:association', kwargs={'id':request.POST.get('association')}))
     return redirect('box:education')
 
+login_required(login_url='/')
+def delete_history(request, id):
+    if request.method == 'POST':
+        try:
+            history = get_object_or_404(AssociationHistory, id=id)
+            history.delete()
+            messages.success(request, 'لقد تمت العملية بنجاح')
+        except:
+            messages.success(request, 'هنالك خطأ ما حاول مرة أخرى')
+        return HttpResponseRedirect(reverse('box:association', kwargs={'id':request.POST.get('association')}))
+    return redirect('box:education')
 #################################################################################
 ############################### help the projects ###############################
 #################################################################################

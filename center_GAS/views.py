@@ -26,7 +26,6 @@ def home_page(request):
             )
             if user:
                 login_user(request, user)
-                messages.success(request, 'لقد تم تسجيل الدخول بنجاح')
             else:
                 messages.error(request, 'إسم المستخدم أو كلمة المرور  غير صحيحة')
         else:

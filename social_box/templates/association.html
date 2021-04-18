@@ -68,14 +68,12 @@
         <div class='row justify-content-center'>
             <div class='col-lg-11 mb-3'>
                 <div class="row justify-content-center px-2">
-                    <div class="ass-title col-10" data-bs-toggle="collapse" href="#Collapse1" aria-expanded="false" aria-controls="Collapse1">
+                    <div class="ass-title col-9" data-bs-toggle="collapse" href="#Collapse1" aria-expanded="false" aria-controls="Collapse1">
                         بطاقة المعلومات حول الجمعية
                     </div>
-                    <div id="update-btn" class="col-2 ass-title-btn text-center">
-                        <div class="row justify-content-center">
-                            <i class="col-2 bi bi-pencil-square"></i>
-                            <span class="col-10">تعديل المعلومات</span>
-                        </div>
+                    <div id="update-btn" class="col-3 ass-title-btn">
+                        <i class="col-2 bi bi-pencil-square"></i>
+                        تعديل المعلومات
                      </div>
                 </div>
                 <div class="col">
@@ -90,18 +88,16 @@
              <!--##############################################################################-->
             <div class='col-lg-11 mb-3'>
                 <div class="row px-2">
-                    <div class="col-10 ass-title" data-bs-toggle="collapse" href="#CollapseAssHistory" aria-expanded="false" aria-controls="Collapse1">
+                    <div class="col-9 ass-title" data-bs-toggle="collapse" href="#CollapseAssHistory" aria-expanded="false" aria-controls="Collapse1">
                         الاستفادة السابقة
                     </div>
-                    <div data-bs-toggle="modal" data-bs-target="#addAssHistory" class="col-2 ass-title-btn text-center">
-                        <div class="row justify-content-center">
-                            <i class="col-2 bi bi-plus-square"></i>
-                            <span class="col-10">إضافة سنة جديدة</span>
-                        </div>
+                    <div data-bs-toggle="modal" data-bs-target="#addAssHistory" class="col-3 ass-title-btn text-center">
+                        <i class="col-2 bi bi-plus-square"></i>
+                        إضافة سنة جديدة
                     </div>
                 </div>
                 <div class="col">
-                    <div class="collapse multi-collapse show" id="CollapseAssHistory">
+                    <div class="collapse multi-collapse" id="CollapseAssHistory">
                         <div class="card card-body">
                             {% include 'association/history.html'%}
                         </div>
@@ -163,14 +159,12 @@
             <!--##############################################################################-->
             <div class='col-lg-11 mb-3'>
                 <div class="row justify-content-center px-2">
-                    <div class="ass-title col-10" data-bs-toggle="collapse" href="#CollapseHR" aria-expanded="false" aria-controls="Collapse1">    
+                    <div class="ass-title col-9" data-bs-toggle="collapse" href="#CollapseHR" aria-expanded="false" aria-controls="Collapse1">    
                         لائحة الموارد البشرية <span class="badge bg-secondary m-1">{{hr_count}}</span>
                     </div>
-                    <div data-bs-toggle="modal" data-bs-target="#add-association-hr" class="col-2 ass-title-btn text-center">
-                        <div class="row justify-content-center">
-                            <i class="col-2 bi bi-person-plus-fill"></i>
-                            <span class="col-10">إضافة موظف</span>
-                        </div>
+                    <div data-bs-toggle="modal" data-bs-target="#add-association-hr" class="col-3 ass-title-btn text-center">
+                        <i class="col-2 bi bi-person-plus-fill"></i>
+                        إضافة موظف
                     </div>
                 </div>
                 
@@ -255,11 +249,13 @@
 
             <div class='col-lg-11 mb-3'>
                 <div class="row justify-content-center px-2">
-                    <div class="ass-title col-10" data-bs-toggle="collapse" href="#CollapseStudents" aria-expanded="false" aria-controls="Collapse1">
+                    <div class="ass-title col-9" data-bs-toggle="collapse" href="#CollapseStudents" aria-expanded="false" aria-controls="Collapse1">
                         لائحة المستفيدين الحاليين <span class="badge bg-secondary m-1">{{present_students_count}}</span>
                     </div>
-                    <div data-bs-toggle="modal" data-bs-target="#add-association-student" class="col-2 ass-title-btn text-center">
-                    <i class="bi bi-person-plus-fill"></i> إضافة مستفيد </div>
+                    <div data-bs-toggle="modal" data-bs-target="#add-association-student" class="col-3 ass-title-btn">
+                        <i class="col-2 bi bi-person-plus-fill"></i>
+                        إضافة مستفيد 
+                     </div>
                 </div>
                 <div class="col">
                     <div class="collapse multi-collapse" id="CollapseStudents">
@@ -376,7 +372,7 @@
             </div>
 
             <!--##############################################################################-->
-            <div class='col-lg-11'>
+            <div class='col-lg-11 mb-4'>
                 <div class="ass-title" data-bs-toggle="collapse" href="#CollapseOldStudents" aria-expanded="false" aria-controls="Collapse1">
                     لائحة المستفيدين السابقين <span class="badge bg-secondary m-1">{{deleted_students_count}}</span>
                 </div>

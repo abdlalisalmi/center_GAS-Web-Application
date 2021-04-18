@@ -1,22 +1,52 @@
 <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">السنة</th>
-      <th scope="col">عدد المستفيدين</th>
-      <th scope="col">مبلغ الدعم</th>
-      <th scope="col">نوع البرنامج</th>
-      <th scope="col">حذف</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>mdo</td>
-      <td>mdo</td>
-      <td>mdo</td>
-    </tr>
-  </tbody>
+    <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">السنة</th>
+          <th scope="col">عدد المستفيدين</th>
+          <th scope="col">مبلغ الدعم</th>
+          <th scope="col">نوع البرنامج</th>
+          <th scope="col" class="text-center">حذف</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for history in histories %}
+            <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{% if history.year %}{{history.year|date:"Y"}}{% endif %}</td>
+                <td>{% if history.students_number %}{{history.students_number}}{% endif %}</td>
+                <td>{% if history.budget %}{{history.budget}}{% endif %}</td>
+                <td>
+					<span class="badge bg-secondary" style="font-size:14px">{% if history.C %}C{% endif %}</span>
+					<span class="badge bg-secondary" style="font-size:14px">{% if history.B %}B{% endif %}</span>
+					<span class="badge bg-secondary" style="font-size:14px">{% if history.A %}A{% endif %}</span>
+                </td>
+                <td class="text-center">
+                  	<a data-bs-toggle="modal" data-bs-target="#delete-association-history{{history.id}}" class="btn btn-danger text-white fw-bold"><i class="bi bi-trash-fill"></i></a>
+                </td>
+            </tr>
+
+			<div class="modal fade" id="delete-association-history{{history.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-header justify-content-center">
+							<h5 class="fw-normal">حذف <span class="text-danger">{{student.full_name}}</span></h5>
+						</div>
+						<form method='POST' action="{% url 'box:delete_history' history.id %}">
+							{% csrf_token %}
+							<div class="modal-body">
+								سيتم حذف هذه السنة من لائحة الإستفادات السابقة نهائيا
+								<input name="association" type="hidden" class="form-control" value="{{ass.id}}">
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn mybtn rbtn" >حذف</button>
+								<a  class="btn mybtn gbtn" data-bs-dismiss="modal">إلغاء</a>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+        {% endfor %}
+    </tbody>
 </table>

@@ -62,13 +62,13 @@ input[type=radio]:focus{
     height: 20%;
     background-position: bottom left;
     background-repeat: repeat-x;
-    text-align: center;
     display: flex;
+    text-align: center;
     justify-content: space-around;
     align-items: center;
     
 }
-.header a {
+.header .title {
     font-size: 2rem;
     font-family: 'morocco' !important;
     text-decoration: none;
@@ -89,6 +89,25 @@ input[type=radio]:focus{
 .morocco-logo p {
     font-family: 'morocco' !important;
     font-size: 1.4rem;
+}
+
+.logout {
+    cursor: pointer;
+    text-decoration: none;
+    background-color: #faa3aa;
+    border: #faa3aa 1px solid;
+    height: 40px;
+    border-radius: 10px;
+    padding: 4px;
+    padding-left: 15px;
+    padding-right: 15px;
+    color: #ffffff;
+    font-size: large;
+    transition: all .3s;
+}
+.logout:hover {
+    color: #fff !important;
+    background-color: #f85866;
 }
 
 select {text-align-last:right; }
@@ -412,7 +431,7 @@ th {
 .ass-title {
     font-size: 1.3rem;
     font-family: 'morocco' !important;
-    background-color: #00000019;
+    background-color: #e8e8e87e;
     color: #23292e;
     padding: 10px;
     margin-top: 10px;
@@ -426,17 +445,16 @@ th {
 .ass-title-btn {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
     align-items: center;
     color: #fff;
     font-size: 1.1rem;
-    padding: 10px;
-    background-color: #918f8f;
+    font-weight: 900;
+    background-color: #0fc680;
     cursor: pointer;
     transition: all .3s;
 }
 .ass-title-btn:hover {
-    background-color: #b0afaf;
+    background-color: #078c59;
 }
 
 /* Print secreen */

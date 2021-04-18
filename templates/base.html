@@ -23,16 +23,43 @@
                     <img src="{% static 'images/morocco_logo.png' %}" width="65px"/>
                     <p>المملكة المغربية</p>
                 </div>
-                <a class="" href="/">
+                <a class="title" href="/">
                     مركز توجيه ومساعدة الأشخاص في وضعية إعاقة
                     <br>
                     إبن جرير
                 </a>
                 <div class="morocco-logo">
+                    {% if request.user.is_authenticated %}
+                        <a class="logout" data-bs-toggle="modal" data-bs-target="#logout">
+                            تسجيل الخروج
+                            <i class="bi bi-box-arrow-left"></i>
+                        </a>
+                        {{request.user}}
+                        <!-- Delete association -->
+                        <div class="modal fade" id="logout" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        هل فعلا تريد تسجيل الخروج
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row justify-content-center">
+                                            <div class="col-12 text-center m-4">
+                                                <a href="{% url 'logout' %}" class="mybtn rbtn" >تسجيل الخروج   </a>
+                                                <a  class="mybtn gbtn" data-bs-dismiss="modal">إلغاء</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
                     <img src="{% static 'images/morocco_logo.png' %}" width="65px"/>
                     <p>المملكة المغربية</p>
+                    {% endif %}
                 </div>
             </div>
+            
 
             {% block content %}{% endblock content %}
 
