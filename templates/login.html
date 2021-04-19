@@ -13,11 +13,15 @@
                 {% endif %}
                 <form method=POST action="{% url 'home_page' %}">
                     {% csrf_token %}
-                    <div class="form-group pb-3">
-                        <input name='username' type="text" placeholder="إسم المستخدم" class="form-control">   
+                    <div class="alert alert-primary" role="alert">
+                        Username = admin<br>
+                        Password = admin
                     </div>
                     <div class="form-group pb-3">
-                        <input name='password' type="password" placeholder="كلمة المرور" class="form-control">
+                        <input name='username' type="text" placeholder="إسم المستخدم" value="admin" class="form-control">   
+                    </div>
+                    <div class="form-group pb-3">
+                        <input name='password' type="password" placeholder="كلمة المرور" value="admin"  class="form-control">
                     </div>
 
                     <div class="">
