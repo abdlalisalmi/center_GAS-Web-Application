@@ -276,10 +276,19 @@
                                 {% csrf_token %}
                                 <div class="modal-body">
                                     <div class="row">
-                                        <div class="col-12">
+                                        <div class="col-6">
                                             <div class="mb-3">
                                                 <label class="form-label">الاسم الكامل</label>
                                                 <input name="full_name" type="text" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group pb-3">
+                                                <label for="taype">الجنس <span class="text-danger">*</span></label>
+                                                <select name="genre" class="form-select mt-2" required>
+                                                    <option selected value="ذكر">ذكر</option>
+                                                    <option value="أنثى">أنثى</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-6">

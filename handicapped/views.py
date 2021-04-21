@@ -4,6 +4,9 @@ from django.contrib.auth.decorators import login_required
 from .forms import HandicappedForm
 from .models import Handicapped
 
+from food.models import Food
+from cards.models import Card
+
 
 @login_required(login_url='/')
 def handicapped_list(request):
@@ -31,7 +34,22 @@ def add_handicapped(request):
     if request.method == 'POST':
         form = HandicappedForm(request.POST)
         if form.is_valid():
-            form.save()
+            handicap = form.save()
+
+            if request.POST.get('f_card'):
+                card = Card.objects.create(handicapped=handicap)
+                card.is_finish = True
+                card.save()
+            elif request.POST.get('w_card'):
+                card = Card.objects.create(handicapped=handicap)
+            
+            if request.POST.get('f_food'):
+                food = Food.objects.create(handicapped=handicap)
+                food.is_finish = True
+                food.save()
+            elif request.POST.get('w_food'):
+                food = Food.objects.create(handicapped=handicap)
+
             return redirect('handicapped:handicapped_list')
         else:
             return render(request, template_name, {'form': form})

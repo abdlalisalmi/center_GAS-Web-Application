@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponseRedirect
 from django.core import serializers
 import datetime
-from social_box.models import AssociationHr, Project, ProjectVisit, Device, Association, AssociationStudent, AssociationHistory
+from social_box.models import AssociationHr, Project, ProjectVisit, Device, Association, AssociationHistory
 from handicapped.models import Handicapped
 from .forms import AssociationCreateForm, AddHRForm, AddStudentForm, AddHistoryForm, AddProjectVisitForm
 
@@ -43,11 +43,11 @@ def association(request, id):
     hrs = AssociationHr.objects.filter(association=ass).order_by('-id')
     hr_count = AssociationHr.objects.filter(association=ass).count()
 
-    students = AssociationStudent.objects.filter(is_deleted=False).order_by('-id')
-    present_students_count = AssociationStudent.objects.filter(is_deleted=False).count()
+    students = Handicapped.objects.filter(association=id, is_deleted=False).order_by('-id')
+    present_students_count = Handicapped.objects.filter(association=id, is_deleted=False).count()
 
-    deleted_students = AssociationStudent.objects.filter(is_deleted=True).order_by('-id')
-    deleted_students_count = AssociationStudent.objects.filter(is_deleted=True).count()
+    deleted_students = Handicapped.objects.filter(association=id, is_deleted=True).order_by('-id')
+    deleted_students_count = Handicapped.objects.filter(association=id, is_deleted=True).count()
 
     histories = AssociationHistory.objects.all().order_by('-year')
 
@@ -155,8 +155,8 @@ def add_student(request):
             form.save()
             messages.success(request, 'لقد تمت العملية بنجاح')
         else:
-            messages.success(request, 'هنالك خطأ ما حاول مرة أخرى')
             print(form.errors)
+            messages.success(request, 'هنالك خطأ ما حاول مرة أخرى')
         return HttpResponseRedirect(reverse('box:association', kwargs={'id':request.POST.get('association')}))
     return redirect('box:education')
 
@@ -176,7 +176,7 @@ login_required(login_url='/')
 def delete_student(request, id):
     if request.method == 'POST':
         try:
-            student = get_object_or_404(AssociationStudent, id=id)
+            student = get_object_or_404(Handicapped, id=id)
             student.is_deleted = not student.is_deleted
             student.deleted_date = datetime.date.today()
             student.save()

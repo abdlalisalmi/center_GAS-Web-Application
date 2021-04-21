@@ -11,12 +11,15 @@
                         {% endfor %}
                     </ul>
                 {% endif %}
+                
                 <form method=POST action="{% url 'home_page' %}">
                     {% csrf_token %}
-                    <div class="alert alert-primary" role="alert">
-                        Username = admin<br>
-                        Password = admin
-                    </div>
+                    {% if not DEBUG %}
+                        <div class="alert alert-primary" role="alert">
+                            Username = admin<br>
+                            Password = admin
+                        </div>
+                    {% endif %}
                     <div class="form-group pb-3">
                         <input name='username' type="text" placeholder="إسم المستخدم" value="admin" class="form-control">   
                     </div>
