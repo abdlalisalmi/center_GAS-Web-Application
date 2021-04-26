@@ -10,7 +10,7 @@
                     <form class="handicapped-form" method=POST action="{% url 'handicapped:add_handicapped' %}">
                         {% csrf_token %}
                         <div class='row justify-content-center'>
-                            <h1 class="">إضافة شخص من دوي الإحتياجات الخاصة</h1>
+                            <h1 class="">إضافة شخص في وضعية إعاقة</h1>
                             {% if form.errors %}
                                 <ul class="messages">
                                     <li class="text-danger" style='list-style-type: none;'>المرجو ملئ جميع المعلومات بشكل صحيح.<i class="bi bi-exclamation-triangle"></i></li>
@@ -48,13 +48,13 @@
                                 <div class="row m-1 border border-2 rounded-3 p-2">
                                     <label>الطرد الغدائي</label>
                                     <div class="form-check col-6">
-                                        <input name="f_food" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                        <input name="f_food" class="form-check-input" type="radio" id="flexRadioDefault1">
                                         <label class="form-check-label pt-2" for="flexRadioDefault1">
                                             مستفيد
                                         </label>
                                     </div>
                                     <div class="form-check col-6">
-                                        <input name="w_food" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                        <input name="w_food" class="form-check-input" type="radio" id="flexRadioDefault2">
                                         <label class="form-check-label pt-2" for="flexRadioDefault2">
                                             في لائحة الإنتظار
                                         </label>
@@ -104,14 +104,14 @@
                                 <div class="row m-1 border border-2 rounded-3 p-2">
                                     <label>بطاقة شخص في وضعية إعاقة</label>
                                     <div class="form-check col-6">
-                                        <input name="f_card" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                        <label class="form-check-label pt-2" for="flexRadioDefault1">
+                                        <input name="f_card" class="form-check-input" type="radio" id="f_card">
+                                        <label class="form-check-label pt-2" for="f_card">
                                             طلب منجز
                                         </label>
                                     </div>
                                     <div class="form-check col-6">
-                                        <input name="w_card" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                                        <label class="form-check-label pt-2" for="flexRadioDefault2">
+                                        <input name="w_card" class="form-check-input" type="radio" id="w_card">
+                                        <label class="form-check-label pt-2" for="w_card">
                                             طلب طور الإنجاز
                                         </label>
                                     </div>

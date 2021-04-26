@@ -43,7 +43,7 @@
                                             <tr>
 
                                                 <th scope="row">{{forloop.counter}}</th>
-                                                <td class="text-right">‏‏{{food.handicapped}}</td>
+                                                <td class="text-right">‏‏<a href="{% url 'search_folder' food.handicapped.id %}">{{food.handicapped}}</a></td>
                                                 <td class="text-right">{{food.delete_description}}</td>
                                                 <td class="">
                                                     <form class="text-center" method='POST' action="{% url 'food:restore_delete_food' food.id %}" id="restoreForm-{{food.id}}">
@@ -121,12 +121,14 @@
                     <div class="tab-content row justify-content-center" id="pills-tabContent">
 
                         <div class="tab-pane fade {% if approved %}show active{% endif %} col-7" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                        
+
+                            <a href="{% url 'export:export_food_card_list_excel' %}?f_food=True" class="btn mybtn gbtn">تحميل</a>
                             <table class="table">
                                 <thead class=''>
                                     <tr>
                                     <th scope="col">#</th>
                                     <th scope="col" class="text-right">صاحب الطلب</th>
+                                    <th scope="col" class="text-right">نوع الإعاقة</th>
                                     <th scope="col" class="text-right">تاريخ قبول الطلب</th>
                                     <th scope="col" class="text-center">حذف</th>
                                     </tr>
@@ -135,7 +137,8 @@
                                     {% for food in finished_food %}
                                             <tr>
                                                 <th scope="row">{{forloop.counter}}</th>
-                                                <td class="text-right">‏‏{{food.handicapped}}</td>
+                                                <td class="text-right">‏‏<a href="{% url 'search_folder' food.handicapped.id %}">{{food.handicapped}}</a></td>
+                                                <td class="text-right">{{food.handicapped.handicap_Type}}</td>
                                                 <td class="text-right">{{food.finishing_date|date:'M d, Y'}}</td>
                                                 <td class="text-center">
 
@@ -192,11 +195,13 @@
 
                         <div class="tab-pane fade {% if not approved %}show active{% endif %} col-7" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
 
+                            <a href="{% url 'export:export_food_card_list_excel' %}?w_food=True" class="btn mybtn gbtn">تحميل</a>
                             <table class="table">
                                 <thead class=''>
                                     <tr>
                                     <th scope="col">#</th>
                                     <th scope="col" class="text-right">صاحب الطلب</th>
+                                    <th scope="col" class="text-right">نوع الإعاقة</th>
                                     <th scope="col" class="text-right">تاريخ وضع الطلب</th>
                                     <th scope="col" class="text-center">قبول / حذف</th>
                                     </tr>
@@ -206,7 +211,8 @@
                                     {% for food in waiting_food %}
                                             <tr>
                                                 <th scope="row">{{forloop.counter}}</th>
-                                                <td class="text-right">‏‏{{food.handicapped}}</td>
+                                                <td class="text-right">‏‏<a href="{% url 'search_folder' food.handicapped.id %}">{{food.handicapped}}</a></td>
+                                                <td class="text-right">{{food.handicapped.handicap_Type}}</td>
                                                 <td class="text-right">{{food.submiting_date|date:'M d, Y'}}</td>
 
                                                 <td class="">

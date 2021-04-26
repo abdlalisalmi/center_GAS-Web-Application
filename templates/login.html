@@ -34,7 +34,11 @@
             </div>
         </div>
         <div class='col-lg-6'>
+            {% if not DEBUG %}
             <img src="{% static 'images/carte.svg' %}" class="img-fluid" width="80%" style="min-height:100%;" />
+            {% else %}
+            <img src="{% static 'images/test.jpeg' %}" class="img-fluid" width="80%" style="min-height:100%;" />
+            {% endif %}
         </div>
     </div>
 </div>

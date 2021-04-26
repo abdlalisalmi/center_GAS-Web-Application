@@ -14,10 +14,10 @@ def food_list(request):
     template_name='food_list.html'
     context = {}
     if request.GET.get('deleted', None):
-        deleted_food = Food.objects.filter(is_finish=True, is_deleted=True).order_by('-id')
+        deleted_food = Food.objects.filter(is_finish=True, is_deleted=True).order_by('-finishing_date')
         return render(request, template_name, {'deleted_food':deleted_food, 'deleted':True})
-    finished_food = Food.objects.filter(is_finish=True, is_deleted=False).order_by('-id')
-    waiting_food = Food.objects.filter(is_finish=False).order_by('-id')
+    finished_food = Food.objects.filter(is_finish=True, is_deleted=False).order_by('-finishing_date')
+    waiting_food = Food.objects.filter(is_finish=False).order_by('-finishing_date')
 
     context.update({
         'finished_food': finished_food,

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.contrib.auth.decorators import login_required
+import datetime
 
 from .forms import HandicappedForm
 from .models import Handicapped
@@ -39,6 +40,7 @@ def add_handicapped(request):
             if request.POST.get('f_card'):
                 card = Card.objects.create(handicapped=handicap)
                 card.is_finish = True
+                card.finishing_date = datetime.datetime.today()
                 card.save()
             elif request.POST.get('w_card'):
                 card = Card.objects.create(handicapped=handicap)
@@ -46,6 +48,7 @@ def add_handicapped(request):
             if request.POST.get('f_food'):
                 food = Food.objects.create(handicapped=handicap)
                 food.is_finish = True
+                food.finishing_date = datetime.datetime.today()
                 food.save()
             elif request.POST.get('w_food'):
                 food = Food.objects.create(handicapped=handicap)

@@ -7,7 +7,7 @@
             <div class='row handicapped-list  justify-content-center'>
 
                 <div class='col-lg-8 title text-center'>
-                    <p>إدارة بطاقات الأشخاص في وضعية إعاقة</p>
+                    <p>شهادة شخص في وضعية إعاقة</p>
                     {% comment %} {% if deleted %}
                         <a href="" class="btn btn-danger">القائمة الرئيسية <i class="bi bi-view-list h5"></i></a>
                     {% else %}
@@ -49,11 +49,13 @@
 
                         <div class="tab-pane fade {% if approved %}show active{% endif %} col-7" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                         
+                            <a href="{% url 'export:export_food_card_list_excel' %}?f_card=True" class="btn mybtn gbtn">تحميل</a>
                             <table class="table">
                                 <thead class=''>
                                     <tr>
                                     <th scope="col">#</th>
                                     <th scope="col" class="text-right">صاحب الطلب</th>
+                                    <th scope="col" class="text-right">نوع الإعاقة</th>
                                     <th scope="col" class="text-right">تاريخ قبول الطلب</th>
                                     <th scope="col" class="text-center">نسخة من البطاقة</th>
                                     <th scope="col" class="text-center">حذف</th>
@@ -63,7 +65,8 @@
                                     {% for card in finished_cards %}
                                             <tr>
                                                 <th scope="row">{{forloop.counter}}</th>
-                                                <td class="text-right">‏‏{{card.handicapped}}</td>
+                                                <td class="text-right">‏‏<a href="{% url 'search_folder' card.handicapped.id %}">{{card.handicapped}}</a></td>
+                                                <td class="text-right">{{card.handicapped.handicap_Type}}</td>
                                                 <td class="text-right">{{card.finishing_date|date:'M d, Y'}}</td>
                                                 <td class="text-right">‏‏
                                                 {% if card.card %}
@@ -123,11 +126,13 @@
 
                         <div class="tab-pane fade {% if not approved %}show active{% endif %} col-7" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
 
+                            <a href="{% url 'export:export_food_card_list_excel' %}?w_card=True" class="btn mybtn gbtn">تحميل</a>
                             <table class="table">
                                 <thead class=''>
                                     <tr>
                                     <th scope="col">#</th>
                                     <th scope="col" class="text-right">صاحب الطلب</th>
+                                    <th scope="col" class="text-right">نوع الإعاقة</th>
                                     <th scope="col" class="text-right">تاريخ وضع الطلب</th>
                                     <th scope="col" class="text-center">قبول / حذف</th>
                                     </tr>
@@ -137,7 +142,8 @@
                                     {% for card in waiting_cards %}
                                             <tr>
                                                 <th scope="row">{{forloop.counter}}</th>
-                                                <td class="text-right">‏‏{{card.handicapped}}</td>
+                                                <td class="text-right">‏‏<a href="{% url 'search_folder' card.handicapped.id %}">{{card.handicapped}}</a></td>
+                                                <td class="text-right">{{card.handicapped.handicap_Type}}</td>
                                                 <td class="text-right">{{card.submiting_date|date:'M d, Y'}}</td>
 
                                                 <td class="">

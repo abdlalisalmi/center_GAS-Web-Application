@@ -12,8 +12,8 @@ def cards(request):
     template_name = 'cards.html'
     context = {}
 
-    finished_card = Card.objects.filter(is_finish=True).order_by('-id')
-    waiting_card = Card.objects.filter(is_finish=False).order_by('-id')
+    finished_card = Card.objects.filter(is_finish=True).order_by('-finishing_date')
+    waiting_card = Card.objects.filter(is_finish=False).order_by('-finishing_date')
 
     context.update({
         'finished_cards': finished_card,

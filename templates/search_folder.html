@@ -16,7 +16,7 @@
                                 <a onclick="window.print()" class="mybtn gbtn"><i class="bi bi-printer-fill"></i></a>
                             </div>
                             <div class="col-1 text-center">
-                                <a href="{% url 'export:export_handicapped_csv' handicapped.id%}" class="mybtn gbtn"><i class="bi bi-save-fill"></i></a>
+                                <a href="{% url 'export:export_handicapped_excel' handicapped.id%}" class="mybtn gbtn"><i class="bi bi-save-fill"></i></a>
                             </div>
                             {% comment %} <div class="info">
                                 <p>ملاحضة: قبل إضافة المستفيد يجب أن يكون الشخص مسجل في لائحة الأشخاص في وضعية إعاقة <a href="{% url 'handicapped:add_handicapped' %}">شخص جديد</a></p>
